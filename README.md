@@ -33,7 +33,7 @@
 :computer: <strong>For releases click <a href="https://github.com/emimontesdeoca/Backcraft/releases">here</a>.</strong>
 </p>
 
-## Getting Started
+## About Backcraft
 
 Backcraft is a desktop app backup tool for Windows, designed 
 to help you make backups of your Minecraft folder, which includes in-game configuration files, launcher options, worlds, screenshots, resource packs and more.
