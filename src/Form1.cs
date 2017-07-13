@@ -107,6 +107,15 @@ namespace backcraft
 
             #endregion
 
+            #region Forms settings
+
+            notifyIcon1.BalloonTipTitle = "Backcraft minimized!";
+            notifyIcon1.BalloonTipText = "Backcraft will be running in the background.";
+            ShowInTaskbar = true;
+            ShowIcon = false;
+
+            #endregion
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -172,28 +181,29 @@ namespace backcraft
 
         private void back_save_Click(object sender, EventArgs e)
         {
-            /// Getting the interval, this is ugly I know, dont killerino me
-            int _interval = 0;
-
-            if (radioButton1.Checked)
-            {
-                _interval = 5;
-            }
-            else if (radioButton2.Checked)
-            {
-                _interval = 10;
-            }
-            else if (radioButton3.Checked)
-            {
-                _interval = 30;
-            }
-            else if (radioButton4.Checked)
-            {
-                _interval = 60;
-            }
-
             try
             {
+                /// Getting the interval, this is ugly I know, dont killerino me
+                int _interval = 5;
+
+                if (radioButton1.Checked)
+                {
+                    _interval = 5;
+                }
+                else if (radioButton2.Checked)
+                {
+                    _interval = 10;
+                }
+                else if (radioButton3.Checked)
+                {
+                    _interval = 30;
+                }
+                else if (radioButton4.Checked)
+                {
+                    _interval = 60;
+                }
+
+
                 /// Save backcraft data
                 new data.bsettings().WriteSettings(back_enable.Checked, back_enablelog.Checked, _interval);
 
@@ -215,7 +225,6 @@ namespace backcraft
 
         private async Task Backcraft()
         {
-
             #region Make folder
 
             /// Save log
@@ -244,96 +253,116 @@ namespace backcraft
 
             #region Copy files 
 
-            /// If resource folder is checked, copy for the backup
-            if (set_resource.Checked)
+            try
             {
-                /// Copy to the backup folder
-                bs.compression.Copy(folderlocation + "\\resourcepacks", folderpath + "\\resourcepacks");
-
-                /// Save log
-                if (back_enablelog.Checked)
+                /// If resource folder is checked, copy for the backup
+                if (set_resource.Checked)
                 {
-                    new data.bsettings().WriteLog(DateTime.Now.ToShortDateString() + " - " + DateTime.Now.ToLongTimeString(), "Folder copied from: " + folderlocation + "\\resourcepacks" + " to " + folderpath + "\\resourcepacks", 1);
+                    /// Copy to the backup folder
+                    bs.compression.Copy(folderlocation + "\\resourcepacks", folderpath + "\\resourcepacks");
+
+                    /// Save log
+                    if (back_enablelog.Checked)
+                    {
+                        new data.bsettings().WriteLog(DateTime.Now.ToShortDateString() + " - " + DateTime.Now.ToLongTimeString(), "Folder copied from: " + folderlocation + "\\resourcepacks" + " to " + folderpath + "\\resourcepacks", 1);
+                    }
+                }
+                /// If launcher file is checked, copy for the backup
+                if (set_launcher.Checked)
+                {
+                    /// Copy to the backup folder
+                    File.Copy(folderlocation + "\\launcher_profiles.json", folderpath + "\\launcher_profiles");
+
+                    /// Save log
+                    if (back_enablelog.Checked)
+                    {
+                        new data.bsettings().WriteLog(DateTime.Now.ToShortDateString() + " - " + DateTime.Now.ToLongTimeString(), "File copied from: " + folderlocation + "\\launcher_profiles.json" + " to " + folderpath + "\\launcher_profiles.json", 1);
+                    }
+                }
+                /// If screenshots folder is checked, copy for the backup
+                if (set_screenshots.Checked)
+                {
+                    /// Copy to the backup folder
+                    bs.compression.Copy(folderlocation + "\\screenshots", folderpath + "\\screenshots");
+
+                    /// Save log
+                    if (back_enablelog.Checked)
+                    {
+                        new data.bsettings().WriteLog(DateTime.Now.ToShortDateString() + " - " + DateTime.Now.ToLongTimeString(), "Folder copied from: " + folderlocation + "\\screenshots" + " to " + folderpath + "\\screenshots", 1);
+                    }
+                }
+                /// If options file is checked, copy for the backup
+                if (set_options.Checked)
+                {
+                    /// Copy to the backup folder
+                    File.Copy(folderlocation + "\\options.txt", folderpath + "\\options.txt");
+
+                    /// Save log
+                    if (back_enablelog.Checked)
+                    {
+                        new data.bsettings().WriteLog(DateTime.Now.ToShortDateString() + " - " + DateTime.Now.ToLongTimeString(), "File copied from: " + folderlocation + "\\options.txt" + " to " + folderpath + "\\options.txt", 1);
+                    }
+                }
+                /// If saves folder is checked, copy for the backup
+                if (set_saves.Checked)
+                {
+                    /// Copy to the backup folder
+                    bs.compression.Copy(folderlocation + "\\saves", folderpath + "\\saves");
+
+                    /// Save log
+                    if (back_enablelog.Checked)
+                    {
+                        new data.bsettings().WriteLog(DateTime.Now.ToShortDateString() + " - " + DateTime.Now.ToLongTimeString(), "Folder copied from: " + folderlocation + "\\saves" + " to " + folderpath + "\\saves", 1);
+                    }
                 }
             }
-            /// If launcher file is checked, copy for the backup
-            if (set_launcher.Checked)
+            catch (Exception)
             {
-                /// Copy to the backup folder
-                File.Copy(folderlocation + "\\launcher_profiles.json", folderpath + "\\launcher_profiles");
-
-                /// Save log
-                if (back_enablelog.Checked)
-                {
-                    new data.bsettings().WriteLog(DateTime.Now.ToShortDateString() + " - " + DateTime.Now.ToLongTimeString(), "File copied from: " + folderlocation + "\\launcher_profiles.json" + " to " + folderpath + "\\launcher_profiles.json", 1);
-                }
-            }
-            /// If screenshots folder is checked, copy for the backup
-            if (set_screenshots.Checked)
-            {
-                /// Copy to the backup folder
-                bs.compression.Copy(folderlocation + "\\screenshots", folderpath + "\\screenshots");
-
-                /// Save log
-                if (back_enablelog.Checked)
-                {
-                    new data.bsettings().WriteLog(DateTime.Now.ToShortDateString() + " - " + DateTime.Now.ToLongTimeString(), "Folder copied from: " + folderlocation + "\\screenshots" + " to " + folderpath + "\\screenshots", 1);
-                }
-            }
-            /// If options file is checked, copy for the backup
-            if (set_options.Checked)
-            {
-                /// Copy to the backup folder
-                File.Copy(folderlocation + "\\options.txt", folderpath + "\\options.txt");
-
-                /// Save log
-                if (back_enablelog.Checked)
-                {
-                    new data.bsettings().WriteLog(DateTime.Now.ToShortDateString() + " - " + DateTime.Now.ToLongTimeString(), "File copied from: " + folderlocation + "\\options.txt" + " to " + folderpath + "\\options.txt", 1);
-                }
-            }
-            /// If saves folder is checked, copy for the backup
-            if (set_saves.Checked)
-            {
-                /// Copy to the backup folder
-                bs.compression.Copy(folderlocation + "\\saves", folderpath + "\\saves");
-
-                /// Save log
-                if (back_enablelog.Checked)
-                {
-                    new data.bsettings().WriteLog(DateTime.Now.ToShortDateString() + " - " + DateTime.Now.ToLongTimeString(), "Folder copied from: " + folderlocation + "\\saves" + " to " + folderpath + "\\saves", 1);
-                }
+                MessageBox.Show("There was a problem copying some files!", "Backcraft");
             }
 
             #endregion
 
             #region Compression
 
-            /// Compress it with 7Zip
-            bs.compression.CreateZipFile(folderpath, folderpath);
-
-            /// Save log
-            if (back_enablelog.Checked)
+            try
             {
-                new data.bsettings().WriteLog(DateTime.Now.ToShortDateString() + " - " + DateTime.Now.ToLongTimeString(), "Folder compressed in : " + folderpath + ".7z", 1);
+                /// Compress it with 7Zip
+                bs.compression.CreateZipFile(folderpath, folderpath);
+
+                /// Save log
+                if (back_enablelog.Checked)
+                {
+                    new data.bsettings().WriteLog(DateTime.Now.ToShortDateString() + " - " + DateTime.Now.ToLongTimeString(), "Folder compressed in : " + folderpath + ".7z", 1);
+                }
             }
+            catch (Exception)
+            {
+                MessageBox.Show("There was a problem compressing the folder!", "Backcraft");
+            }
+
 
             #endregion
 
             #region Delete folder
 
-
-            /// Delete recursively the folder created
-            Directory.Delete(folderpath, true);
-
-            /// Save log
-            if (back_enablelog.Checked)
+            try
             {
-                new data.bsettings().WriteLog(DateTime.Now.ToShortDateString() + " - " + DateTime.Now.ToLongTimeString(), "Folder deleted: " + folderpath, 1);
+                /// Delete recursively the folder created
+                Directory.Delete(folderpath, true);
+
+                /// Save log
+                if (back_enablelog.Checked)
+                {
+                    new data.bsettings().WriteLog(DateTime.Now.ToShortDateString() + " - " + DateTime.Now.ToLongTimeString(), "Folder deleted: " + folderpath, 1);
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("There was a problem deleting the folder!", "Backcraft");
             }
 
             #endregion
-
         }
 
         private bool CheckIfMinecraftIsRunning()
@@ -353,6 +382,25 @@ namespace backcraft
         private void button1_Click_1(object sender, EventArgs e)
         {
             var a = Backcraft();
+        }
+
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            if (WindowState == FormWindowState.Minimized)
+            {
+                ShowInTaskbar = false;
+                ShowIcon = true;
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(250);
+
+            }
+        }
+
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            ShowInTaskbar = true;
+            notifyIcon1.Visible = false;
+            WindowState = FormWindowState.Normal;
         }
     }
 }
