@@ -29,6 +29,10 @@
 :open_file_folder: A backup tool for Minecraft players.
 </p>
 
+<p align="center">
+:computer: <strong>For releases click <a href="https://github.com/emimontesdeoca/Backcraft/releases">here</a>.</strong>
+</p>
+
 ## Getting Started
 
 Backcraft is a desktop app backup tool for Windows, designed 
@@ -56,7 +60,7 @@ After the first lunch, 2 folders with files will be created:
   - msettings.txt => text file containing Minecraft settings.
   - logs.txt => where logs are saved.
 - backups => where backups are saved.
-  - Backcraft_13-07-2017_20-32-44.7z (exmaple)
+  - Backcraft_13-07-2017_20-32-44.7z (example)
   - Backcraft_13-07-2017_20-52-47.7z (example)
 
 ## Contributing
