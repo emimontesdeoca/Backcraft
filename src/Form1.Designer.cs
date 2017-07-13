@@ -131,7 +131,6 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.button1);
             this.groupBox2.Controls.Add(this.sett_searchfolder);
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.set_folderlocation);
@@ -242,6 +241,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.button1);
             this.groupBox3.Controls.Add(this.back_save);
             this.groupBox3.Controls.Add(this.back_enablelog);
             this.groupBox3.Controls.Add(this.back_enable);
@@ -259,7 +259,7 @@
             // 
             // back_save
             // 
-            this.back_save.Location = new System.Drawing.Point(114, 72);
+            this.back_save.Location = new System.Drawing.Point(54, 72);
             this.back_save.Name = "back_save";
             this.back_save.Size = new System.Drawing.Size(110, 32);
             this.back_save.TabIndex = 14;
@@ -374,11 +374,11 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(230, 226);
+            this.button1.Location = new System.Drawing.Point(177, 72);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(110, 32);
             this.button1.TabIndex = 15;
-            this.button1.Text = "button1";
+            this.button1.Text = "Backup now";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 

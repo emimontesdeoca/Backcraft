@@ -125,7 +125,12 @@ namespace backcraft
             CancellationToken cancel = new CancellationToken();
             cancel = token.Token;
 
-            //var x = AsynBackcraft(interval);
+            if (!Convert.ToBoolean(new data.bsettings().GetBackcraftSettingsData()[0]))
+            {
+                token.Cancel();
+            }
+
+            var x = AsynBackcraft(interval);
         }
 
         public async Task AsynBackcraft(int interval)
@@ -137,7 +142,7 @@ namespace backcraft
                     await Backcraft();
                     try
                     {
-                        await Task.Delay(TimeSpan.FromSeconds(interval), token.Token);
+                        await Task.Delay(TimeSpan.FromMinutes(interval), token.Token);
                     }
                     catch (TaskCanceledException)
                     {
@@ -327,8 +332,12 @@ namespace backcraft
 
             try
             {
+                string fileName = folderpath;
+                FileInfo f = new FileInfo(fileName);
+                string fullname = f.FullName;
+
                 /// Compress it with 7Zip
-                bs.compression.CreateZipFile(folderpath, folderpath);
+                bs.compression.CreateZipFile(folderpath, fullname);
 
                 /// Save log
                 if (back_enablelog.Checked)
@@ -381,7 +390,14 @@ namespace backcraft
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            var a = Backcraft();
+            try
+            {
+                var a = Backcraft();
+            }
+            catch (Exception)
+            {
+
+            }
         }
 
         private void Form1_Resize(object sender, EventArgs e)
