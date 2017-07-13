@@ -29,17 +29,11 @@
         private void InitializeComponent()
         {
             this.label = new System.Windows.Forms.Label();
-            this.acc_username = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.set_resource = new System.Windows.Forms.CheckBox();
             this.set_screenshots = new System.Windows.Forms.CheckBox();
             this.set_saves = new System.Windows.Forms.CheckBox();
             this.set_launcher = new System.Windows.Forms.CheckBox();
             this.set_options = new System.Windows.Forms.CheckBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.acc_password = new System.Windows.Forms.TextBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.account_save = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.sett_searchfolder = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
@@ -63,9 +57,6 @@
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.label11 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.back_saveofflinebackup = new System.Windows.Forms.CheckBox();
-            this.back_uploadtodrive = new System.Windows.Forms.CheckBox();
-            this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.SuspendLayout();
@@ -79,23 +70,6 @@
             this.label.Size = new System.Drawing.Size(105, 31);
             this.label.TabIndex = 0;
             this.label.Text = "Backcraft";
-            // 
-            // acc_username
-            // 
-            this.acc_username.Location = new System.Drawing.Point(102, 18);
-            this.acc_username.Name = "acc_username";
-            this.acc_username.Size = new System.Drawing.Size(139, 20);
-            this.acc_username.TabIndex = 1;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(6, 16);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(90, 20);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Google email";
             // 
             // set_resource
             // 
@@ -152,50 +126,9 @@
             this.set_options.Text = "Options";
             this.set_options.UseVisualStyleBackColor = true;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(6, 45);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(116, 20);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "Google password";
-            // 
-            // acc_password
-            // 
-            this.acc_password.Location = new System.Drawing.Point(122, 47);
-            this.acc_password.Name = "acc_password";
-            this.acc_password.Size = new System.Drawing.Size(119, 20);
-            this.acc_password.TabIndex = 8;
-            this.acc_password.UseSystemPasswordChar = true;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.account_save);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.acc_username);
-            this.groupBox1.Controls.Add(this.acc_password);
-            this.groupBox1.Location = new System.Drawing.Point(12, 35);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(338, 80);
-            this.groupBox1.TabIndex = 10;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Account";
-            // 
-            // account_save
-            // 
-            this.account_save.Location = new System.Drawing.Point(247, 16);
-            this.account_save.Name = "account_save";
-            this.account_save.Size = new System.Drawing.Size(76, 51);
-            this.account_save.TabIndex = 10;
-            this.account_save.Text = "Save";
-            this.account_save.UseVisualStyleBackColor = true;
-            this.account_save.Click += new System.EventHandler(this.account_save_Click);
-            // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.button1);
             this.groupBox2.Controls.Add(this.sett_searchfolder);
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.set_folderlocation);
@@ -210,9 +143,9 @@
             this.groupBox2.Controls.Add(this.set_options);
             this.groupBox2.Controls.Add(this.set_screenshots);
             this.groupBox2.Controls.Add(this.set_launcher);
-            this.groupBox2.Location = new System.Drawing.Point(12, 121);
+            this.groupBox2.Location = new System.Drawing.Point(9, 39);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(338, 250);
+            this.groupBox2.Size = new System.Drawing.Size(338, 268);
             this.groupBox2.TabIndex = 11;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Backup settings";
@@ -296,7 +229,7 @@
             // 
             // settings_save
             // 
-            this.settings_save.Location = new System.Drawing.Point(114, 211);
+            this.settings_save.Location = new System.Drawing.Point(114, 221);
             this.settings_save.Name = "settings_save";
             this.settings_save.Size = new System.Drawing.Size(110, 32);
             this.settings_save.TabIndex = 8;
@@ -306,9 +239,6 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.back_saveofflinebackup);
-            this.groupBox3.Controls.Add(this.back_uploadtodrive);
-            this.groupBox3.Controls.Add(this.button1);
             this.groupBox3.Controls.Add(this.back_save);
             this.groupBox3.Controls.Add(this.back_enablelog);
             this.groupBox3.Controls.Add(this.back_enable);
@@ -317,16 +247,16 @@
             this.groupBox3.Controls.Add(this.radioButton3);
             this.groupBox3.Controls.Add(this.radioButton2);
             this.groupBox3.Controls.Add(this.radioButton1);
-            this.groupBox3.Location = new System.Drawing.Point(12, 377);
+            this.groupBox3.Location = new System.Drawing.Point(9, 313);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(338, 151);
+            this.groupBox3.Size = new System.Drawing.Size(338, 120);
             this.groupBox3.TabIndex = 12;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Backcraft settings";
             // 
             // back_save
             // 
-            this.back_save.Location = new System.Drawing.Point(102, 106);
+            this.back_save.Location = new System.Drawing.Point(114, 72);
             this.back_save.Name = "back_save";
             this.back_save.Size = new System.Drawing.Size(110, 32);
             this.back_save.TabIndex = 14;
@@ -360,7 +290,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(6, 76);
+            this.label8.Location = new System.Drawing.Point(6, 46);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(158, 20);
             this.label8.TabIndex = 11;
@@ -369,7 +299,7 @@
             // radioButton4
             // 
             this.radioButton4.AutoSize = true;
-            this.radioButton4.Location = new System.Drawing.Point(293, 79);
+            this.radioButton4.Location = new System.Drawing.Point(293, 49);
             this.radioButton4.Name = "radioButton4";
             this.radioButton4.Size = new System.Drawing.Size(37, 17);
             this.radioButton4.TabIndex = 3;
@@ -380,7 +310,7 @@
             // radioButton3
             // 
             this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(250, 79);
+            this.radioButton3.Location = new System.Drawing.Point(250, 49);
             this.radioButton3.Name = "radioButton3";
             this.radioButton3.Size = new System.Drawing.Size(37, 17);
             this.radioButton3.TabIndex = 2;
@@ -391,7 +321,7 @@
             // radioButton2
             // 
             this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(207, 79);
+            this.radioButton2.Location = new System.Drawing.Point(207, 49);
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(37, 17);
             this.radioButton2.TabIndex = 1;
@@ -402,7 +332,7 @@
             // radioButton1
             // 
             this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(170, 79);
+            this.radioButton1.Location = new System.Drawing.Point(170, 49);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(31, 17);
             this.radioButton1.TabIndex = 0;
@@ -413,7 +343,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(9, 531);
+            this.label10.Location = new System.Drawing.Point(6, 436);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(114, 13);
             this.label10.TabIndex = 13;
@@ -422,7 +352,7 @@
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(310, 531);
+            this.linkLabel1.Location = new System.Drawing.Point(309, 436);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(38, 13);
             this.linkLabel1.TabIndex = 14;
@@ -441,53 +371,28 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(247, 111);
+            this.button1.Location = new System.Drawing.Point(230, 226);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 15;
-            this.button1.Text = "Test";
+            this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // back_saveofflinebackup
-            // 
-            this.back_saveofflinebackup.AutoSize = true;
-            this.back_saveofflinebackup.Font = new System.Drawing.Font("Arial Narrow", 12F);
-            this.back_saveofflinebackup.Location = new System.Drawing.Point(152, 49);
-            this.back_saveofflinebackup.Name = "back_saveofflinebackup";
-            this.back_saveofflinebackup.Size = new System.Drawing.Size(146, 24);
-            this.back_saveofflinebackup.TabIndex = 17;
-            this.back_saveofflinebackup.Text = "Save offline backup";
-            this.back_saveofflinebackup.UseVisualStyleBackColor = true;
-            // 
-            // back_uploadtodrive
-            // 
-            this.back_uploadtodrive.AutoSize = true;
-            this.back_uploadtodrive.Font = new System.Drawing.Font("Arial Narrow", 12F);
-            this.back_uploadtodrive.Location = new System.Drawing.Point(10, 49);
-            this.back_uploadtodrive.Name = "back_uploadtodrive";
-            this.back_uploadtodrive.Size = new System.Drawing.Size(121, 24);
-            this.back_uploadtodrive.TabIndex = 16;
-            this.back_uploadtodrive.Text = "Upload to Drive";
-            this.back_uploadtodrive.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(359, 552);
+            this.ClientSize = new System.Drawing.Size(359, 457);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label);
             this.Name = "Form1";
             this.Text = "Backcraft";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -500,17 +405,11 @@
         #endregion
 
         private System.Windows.Forms.Label label;
-        private System.Windows.Forms.TextBox acc_username;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox set_resource;
         private System.Windows.Forms.CheckBox set_screenshots;
         private System.Windows.Forms.CheckBox set_saves;
         private System.Windows.Forms.CheckBox set_launcher;
         private System.Windows.Forms.CheckBox set_options;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox acc_password;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button account_save;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
@@ -534,8 +433,6 @@
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.CheckBox back_saveofflinebackup;
-        private System.Windows.Forms.CheckBox back_uploadtodrive;
     }
 }
 

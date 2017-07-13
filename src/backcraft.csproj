@@ -47,7 +47,6 @@
   <ItemGroup>
     <Compile Include="bs\compression.cs" />
     <Compile Include="data\bsettings.cs" />
-    <Compile Include="data\gdrive.cs" />
     <Compile Include="data\msettings.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

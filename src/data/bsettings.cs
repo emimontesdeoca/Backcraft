@@ -9,13 +9,11 @@ namespace backcraft.data
 {
     class bsettings
     {
-        public void WriteSettings(bool enable, bool savelog, bool upload, bool saveoffline, int interval)
+        public void WriteSettings(bool enable, bool savelog, int interval)
         {
             string path = "data/bsettings.txt";
             string _enable = "# enable=" + enable;
             string _savelog = "# savelog=" + savelog;
-            string _uploaddrive = "# upload=" + upload;
-            string _saveoffline = "# saveoffline=" + saveoffline;
             string _intervarl = "# interval=" + interval.ToString();
 
             try
@@ -25,8 +23,6 @@ namespace backcraft.data
                 {
                     tw.WriteLine(_enable);
                     tw.WriteLine(_savelog);
-                    tw.WriteLine(_uploaddrive);
-                    tw.WriteLine(_saveoffline);
                     tw.WriteLine(_intervarl);
                 }
             }
@@ -37,8 +33,6 @@ namespace backcraft.data
                 {
                     tw.WriteLine(_enable);
                     tw.WriteLine(_savelog);
-                    tw.WriteLine(_uploaddrive);
-                    tw.WriteLine(_saveoffline);
                     tw.WriteLine(_intervarl);
                 }
             }
@@ -91,17 +85,23 @@ namespace backcraft.data
 
         public string[] GetBackcraftSettingsData()
         {
-            string[] data = new string[5];
+            string[] data = new string[3];
             string path = "data/bsettings.txt";
 
-            using (StreamReader tw = new StreamReader(path, false))
+            try
             {
-                data[0] = tw.ReadLine().Split('=')[1];
-                data[1] = tw.ReadLine().Split('=')[1];
-                data[2] = tw.ReadLine().Split('=')[1];
-                data[3] = tw.ReadLine().Split('=')[1];
-                data[4] = tw.ReadLine().Split('=')[1];
+                using (StreamReader tw = new StreamReader(path, false))
+                {
+                    data[0] = tw.ReadLine().Split('=')[1];
+                    data[1] = tw.ReadLine().Split('=')[1];
+                    data[2] = tw.ReadLine().Split('=')[1];
+                }
+
             }
+            catch (Exception)
+            {
+            }
+
 
             return data;
         }

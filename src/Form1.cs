@@ -21,34 +21,27 @@ namespace backcraft
         {
             InitializeComponent();
 
-            #region Folder creation
+            #region Folder creation and files creation
 
             /// Create data folder if not created for user settings
             if (!Directory.Exists("data"))
             {
                 Directory.CreateDirectory("data");
+
+                if (!File.Exists("data/bsettings.txt"))
+                {
+                    File.Create("data/bsettings.txt");
+                }
+                if (!File.Exists("data/msettings.txt"))
+                {
+                    File.Create("data/msettings.txt");
+                }
             }
 
             /// Create backup folder if not created for backups
             if (!Directory.Exists("backups"))
             {
                 Directory.CreateDirectory("backups");
-            }
-
-            #endregion
-
-            #region Account data
-
-            /// Getting user data
-            try
-            {
-                string[] a = new data.gdrive().GetUserData();
-
-                acc_username.Text = a[0];
-                acc_password.Text = a[1];
-            }
-            catch (Exception)
-            {
             }
 
             #endregion
@@ -89,14 +82,9 @@ namespace backcraft
                 back_enable.Checked = Convert.ToBoolean(c[0]);
                 /// Save log enabled checkbox
                 back_enablelog.Checked = Convert.ToBoolean(c[1]);
-                /// Supload enabled checkbox
-                back_uploadtodrive.Checked = Convert.ToBoolean(c[2]);
-                /// save offline enabled checkbox
-                back_saveofflinebackup.Checked = Convert.ToBoolean(c[3]);
-
 
                 /// Interval value
-                switch (Convert.ToInt32(c[4]))
+                switch (Convert.ToInt32(c[2]))
                 {
                     case 5:
                         radioButton1.Checked = true;
@@ -123,12 +111,12 @@ namespace backcraft
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            int interval = Convert.ToInt32(new data.bsettings().GetBackcraftSettingsData()[4]);
+            int interval = Convert.ToInt32(new data.bsettings().GetBackcraftSettingsData()[2]);
 
             CancellationToken cancel = new CancellationToken();
             cancel = token.Token;
 
-            var x = AsynBackcraft(interval);
+            //var x = AsynBackcraft(interval);
         }
 
         public async Task AsynBackcraft(int interval)
@@ -153,23 +141,6 @@ namespace backcraft
                 }
 
             }
-        }
-        private void account_save_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                /// Save account data
-                new data.gdrive().WriteSettings(acc_username.Text.ToString(), acc_password.Text.ToString());
-
-                /// Change text value for btn
-                account_save.Text = "Saved!";
-            }
-            catch (Exception)
-            {
-                /// Change text value for btn
-                account_save.Text = "Error!";
-            }
-
         }
 
         private void sett_searchfolder_Click(object sender, EventArgs e)
@@ -224,7 +195,7 @@ namespace backcraft
             try
             {
                 /// Save backcraft data
-                new data.bsettings().WriteSettings(back_enable.Checked, back_enablelog.Checked, back_uploadtodrive.Checked, back_saveofflinebackup.Checked, _interval);
+                new data.bsettings().WriteSettings(back_enable.Checked, back_enablelog.Checked, _interval);
 
                 /// Change text value for btn
                 back_save.Text = "Saved!";
@@ -234,11 +205,6 @@ namespace backcraft
                 /// Change text value for btn
                 back_save.Text = "Error!";
             }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Backcraft();
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -368,43 +334,6 @@ namespace backcraft
 
             #endregion
 
-            #region Upload to drive
-
-
-            /// Upload to drive 
-            if (back_uploadtodrive.Checked)
-            {
-                /// Save log
-                if (back_enablelog.Checked)
-                {
-                    new data.bsettings().WriteLog(DateTime.Now.ToShortDateString() + " - " + DateTime.Now.ToLongTimeString(), "Starting backup uploaded to Drive: " + folderpath + ".7z", 1);
-                }
-
-                /// Save log
-                if (back_enablelog.Checked)
-                {
-                    new data.bsettings().WriteLog(DateTime.Now.ToShortDateString() + " - " + DateTime.Now.ToLongTimeString(), "Backup uploaded to Drive: " + folderpath + ".7z", 1);
-                }
-            }
-
-            #endregion
-
-            #region Save offline backup
-
-            /// Save offline backup
-            if (!back_saveofflinebackup.Checked)
-            {
-                File.Delete(folderpath + ".7z");
-
-                /// Save log
-                if (back_enablelog.Checked)
-                {
-                    new data.bsettings().WriteLog(DateTime.Now.ToShortDateString() + " - " + DateTime.Now.ToLongTimeString(), "7zip file deleted: " + folderpath + ".7z", 1);
-                }
-            }
-
-            #endregion
-
         }
 
         private bool CheckIfMinecraftIsRunning()
@@ -419,6 +348,11 @@ namespace backcraft
             {
                 return res;
             }
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            var a = Backcraft();
         }
     }
 }
