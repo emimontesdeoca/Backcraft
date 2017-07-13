@@ -9,14 +9,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Threading;
 
 namespace backcraft
 {
     public partial class Form1 : Form
     {
+        public CancellationTokenSource token = new CancellationTokenSource();
+
         public Form1()
         {
             InitializeComponent();
+
+            #region Folder creation
 
             /// Create data folder if not created for user settings
             if (!Directory.Exists("data"))
@@ -30,6 +35,10 @@ namespace backcraft
                 Directory.CreateDirectory("backups");
             }
 
+            #endregion
+
+            #region Account data
+
             /// Getting user data
             try
             {
@@ -41,6 +50,10 @@ namespace backcraft
             catch (Exception)
             {
             }
+
+            #endregion
+
+            #region Minecraft settings 
 
             /// Getting minecraft settings
             try
@@ -63,6 +76,10 @@ namespace backcraft
             catch (Exception)
             {
             }
+
+            #endregion
+
+            #region Backcraft settings
 
             /// Getting backcraft settings
             try
@@ -99,17 +116,44 @@ namespace backcraft
             catch (Exception)
             {
             }
+
+            #endregion
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //var runningProcessByName = Process.GetProcessesByName("javaw");
-            //if (runningProcessByName.Length > 0)
-            //{
-            //    Process.Start("iexplore.exe");
-            //}
+            int interval = Convert.ToInt32(new data.bsettings().GetBackcraftSettingsData()[4]);
+
+            CancellationToken cancel = new CancellationToken();
+            cancel = token.Token;
+
+            var x = AsynBackcraft(interval);
         }
 
+        public async Task AsynBackcraft(int interval)
+        {
+            while (!token.IsCancellationRequested)
+            {
+                if (CheckIfMinecraftIsRunning())
+                {
+                    await Backcraft();
+                    try
+                    {
+                        await Task.Delay(TimeSpan.FromSeconds(interval), token.Token);
+                    }
+                    catch (TaskCanceledException)
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    await Task.Delay(TimeSpan.FromMinutes(5), token.Token);
+                }
+
+            }
+        }
         private void account_save_Click(object sender, EventArgs e)
         {
             try
@@ -194,6 +238,20 @@ namespace backcraft
 
         private void button1_Click(object sender, EventArgs e)
         {
+            Backcraft();
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            /// Link to github repo
+            System.Diagnostics.Process.Start("https://github.com/emimontesdeoca/backcraft");
+        }
+
+        private async Task Backcraft()
+        {
+
+            #region Make folder
+
             /// Save log
             if (back_enablelog.Checked)
             {
@@ -215,6 +273,10 @@ namespace backcraft
 
             /// Get Minecraft folder location
             string folderlocation = set_folderlocation.Text.ToString();
+
+            #endregion
+
+            #region Copy files 
 
             /// If resource folder is checked, copy for the backup
             if (set_resource.Checked)
@@ -277,6 +339,10 @@ namespace backcraft
                 }
             }
 
+            #endregion
+
+            #region Compression
+
             /// Compress it with 7Zip
             bs.compression.CreateZipFile(folderpath, folderpath);
 
@@ -286,6 +352,11 @@ namespace backcraft
                 new data.bsettings().WriteLog(DateTime.Now.ToShortDateString() + " - " + DateTime.Now.ToLongTimeString(), "Folder compressed in : " + folderpath + ".7z", 1);
             }
 
+            #endregion
+
+            #region Delete folder
+
+
             /// Delete recursively the folder created
             Directory.Delete(folderpath, true);
 
@@ -294,6 +365,11 @@ namespace backcraft
             {
                 new data.bsettings().WriteLog(DateTime.Now.ToShortDateString() + " - " + DateTime.Now.ToLongTimeString(), "Folder deleted: " + folderpath, 1);
             }
+
+            #endregion
+
+            #region Upload to drive
+
 
             /// Upload to drive 
             if (back_uploadtodrive.Checked)
@@ -311,6 +387,10 @@ namespace backcraft
                 }
             }
 
+            #endregion
+
+            #region Save offline backup
+
             /// Save offline backup
             if (!back_saveofflinebackup.Checked)
             {
@@ -322,12 +402,23 @@ namespace backcraft
                     new data.bsettings().WriteLog(DateTime.Now.ToShortDateString() + " - " + DateTime.Now.ToLongTimeString(), "7zip file deleted: " + folderpath + ".7z", 1);
                 }
             }
+
+            #endregion
+
         }
 
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private bool CheckIfMinecraftIsRunning()
         {
-            /// Link to github repo
-            System.Diagnostics.Process.Start("https://github.com/emimontesdeoca/backcraft");
+            bool res = false;
+            var runningProcessByName = Process.GetProcessesByName("javaw");
+            if (runningProcessByName.Length > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return res;
+            }
         }
     }
 }
