@@ -63,6 +63,24 @@ After the first lunch, 2 folders with files will be created:
   - Backcraft_13-07-2017_20-32-44.7z (example)
   - Backcraft_13-07-2017_20-52-47.7z (example)
 
+### Configuration
+
+When open, there will be a few things to configure:
+
+- Folder path to Minecraft folder.
+- Checkboxes to select what you want to backup with a bit of explanation
+- Enable the backup system.
+- Enable the logs.
+- Interval between backups.
+
+Remember to save every step (saved in data/msettings.txt and data/bsettings.txt).
+
+### Working
+
+As the application opens, it will automatically read the settings that you putt before, and if Minecraft is open, it will instatly make a backup, in case it is not open it will try to look if Minecraft is open in 5 minutes, this is in case you have this application as a startup program and you are not playing. After the first backup that it will do it again depeding the interval that you selected.
+
+Also there is a button in case you want to do an instant backup when you want. This will not affect the interval between automatic updates.
+
 ## Contributing
 
 As a developer, if you feel like helping, any contribution is welcome.
