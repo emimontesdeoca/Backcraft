@@ -67,6 +67,8 @@
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.label11 = new System.Windows.Forms.Label();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.back_startup = new System.Windows.Forms.CheckBox();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.SuspendLayout();
@@ -85,7 +87,7 @@
             // 
             this.set_resource.AutoSize = true;
             this.set_resource.Font = new System.Drawing.Font("Arial Narrow", 12F);
-            this.set_resource.Location = new System.Drawing.Point(10, 68);
+            this.set_resource.Location = new System.Drawing.Point(10, 65);
             this.set_resource.Name = "set_resource";
             this.set_resource.Size = new System.Drawing.Size(126, 24);
             this.set_resource.TabIndex = 3;
@@ -96,7 +98,7 @@
             // 
             this.set_screenshots.AutoSize = true;
             this.set_screenshots.Font = new System.Drawing.Font("Arial Narrow", 12F);
-            this.set_screenshots.Location = new System.Drawing.Point(10, 128);
+            this.set_screenshots.Location = new System.Drawing.Point(10, 105);
             this.set_screenshots.Name = "set_screenshots";
             this.set_screenshots.Size = new System.Drawing.Size(103, 24);
             this.set_screenshots.TabIndex = 4;
@@ -107,7 +109,7 @@
             // 
             this.set_saves.AutoSize = true;
             this.set_saves.Font = new System.Drawing.Font("Arial Narrow", 12F);
-            this.set_saves.Location = new System.Drawing.Point(10, 188);
+            this.set_saves.Location = new System.Drawing.Point(10, 145);
             this.set_saves.Name = "set_saves";
             this.set_saves.Size = new System.Drawing.Size(66, 24);
             this.set_saves.TabIndex = 5;
@@ -118,7 +120,7 @@
             // 
             this.set_launcher.AutoSize = true;
             this.set_launcher.Font = new System.Drawing.Font("Arial Narrow", 12F);
-            this.set_launcher.Location = new System.Drawing.Point(10, 98);
+            this.set_launcher.Location = new System.Drawing.Point(10, 85);
             this.set_launcher.Name = "set_launcher";
             this.set_launcher.Size = new System.Drawing.Size(133, 24);
             this.set_launcher.TabIndex = 6;
@@ -129,7 +131,7 @@
             // 
             this.set_options.AutoSize = true;
             this.set_options.Font = new System.Drawing.Font("Arial Narrow", 12F);
-            this.set_options.Location = new System.Drawing.Point(10, 158);
+            this.set_options.Location = new System.Drawing.Point(10, 125);
             this.set_options.Name = "set_options";
             this.set_options.Size = new System.Drawing.Size(74, 24);
             this.set_options.TabIndex = 7;
@@ -138,6 +140,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.checkBox2);
             this.groupBox2.Controls.Add(this.sett_searchfolder);
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.set_folderlocation);
@@ -153,16 +156,16 @@
             this.groupBox2.Controls.Add(this.set_launcher);
             this.groupBox2.Location = new System.Drawing.Point(9, 39);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(338, 221);
+            this.groupBox2.Size = new System.Drawing.Size(338, 175);
             this.groupBox2.TabIndex = 11;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Backup settings";
             // 
             // sett_searchfolder
             // 
-            this.sett_searchfolder.Location = new System.Drawing.Point(162, 16);
+            this.sett_searchfolder.Location = new System.Drawing.Point(134, 16);
             this.sett_searchfolder.Name = "sett_searchfolder";
-            this.sett_searchfolder.Size = new System.Drawing.Size(161, 23);
+            this.sett_searchfolder.Size = new System.Drawing.Size(77, 23);
             this.sett_searchfolder.TabIndex = 14;
             this.sett_searchfolder.Text = "Search folder";
             this.sett_searchfolder.UseVisualStyleBackColor = true;
@@ -189,7 +192,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Italic);
-            this.label7.Location = new System.Drawing.Point(90, 162);
+            this.label7.Location = new System.Drawing.Point(82, 129);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(134, 16);
             this.label7.TabIndex = 13;
@@ -199,7 +202,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Italic);
-            this.label6.Location = new System.Drawing.Point(149, 102);
+            this.label6.Location = new System.Drawing.Point(141, 89);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(146, 16);
             this.label6.TabIndex = 12;
@@ -209,7 +212,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Italic);
-            this.label5.Location = new System.Drawing.Point(82, 192);
+            this.label5.Location = new System.Drawing.Point(76, 149);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(157, 16);
             this.label5.TabIndex = 11;
@@ -219,7 +222,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Italic);
-            this.label4.Location = new System.Drawing.Point(119, 132);
+            this.label4.Location = new System.Drawing.Point(112, 109);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(168, 16);
             this.label4.TabIndex = 10;
@@ -229,7 +232,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(142, 72);
+            this.label3.Location = new System.Drawing.Point(142, 69);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(128, 16);
             this.label3.TabIndex = 9;
@@ -237,6 +240,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.back_startup);
             this.groupBox3.Controls.Add(this.checkBox1);
             this.groupBox3.Controls.Add(this.button2);
             this.groupBox3.Controls.Add(this.acc_default7zip);
@@ -252,9 +256,9 @@
             this.groupBox3.Controls.Add(this.radioButton3);
             this.groupBox3.Controls.Add(this.radioButton2);
             this.groupBox3.Controls.Add(this.radioButton1);
-            this.groupBox3.Location = new System.Drawing.Point(9, 266);
+            this.groupBox3.Location = new System.Drawing.Point(9, 220);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(338, 184);
+            this.groupBox3.Size = new System.Drawing.Size(338, 181);
             this.groupBox3.TabIndex = 12;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Backcraft settings";
@@ -263,7 +267,7 @@
             // 
             this.checkBox1.AutoSize = true;
             this.checkBox1.Font = new System.Drawing.Font("Arial Narrow", 12F);
-            this.checkBox1.Location = new System.Drawing.Point(217, 103);
+            this.checkBox1.Location = new System.Drawing.Point(222, 95);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(97, 24);
             this.checkBox1.TabIndex = 19;
@@ -273,7 +277,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(134, 104);
+            this.button2.Location = new System.Drawing.Point(134, 96);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(77, 23);
             this.button2.TabIndex = 17;
@@ -285,7 +289,7 @@
             // 
             this.acc_default7zip.AutoSize = true;
             this.acc_default7zip.Font = new System.Drawing.Font("Arial Narrow", 12F);
-            this.acc_default7zip.Location = new System.Drawing.Point(217, 48);
+            this.acc_default7zip.Location = new System.Drawing.Point(222, 37);
             this.acc_default7zip.Name = "acc_default7zip";
             this.acc_default7zip.Size = new System.Drawing.Size(97, 24);
             this.acc_default7zip.TabIndex = 18;
@@ -297,7 +301,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(6, 107);
+            this.label2.Location = new System.Drawing.Point(6, 96);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(99, 20);
             this.label2.TabIndex = 16;
@@ -305,14 +309,14 @@
             // 
             // back_backupfolderpath
             // 
-            this.back_backupfolderpath.Location = new System.Drawing.Point(10, 130);
+            this.back_backupfolderpath.Location = new System.Drawing.Point(10, 128);
             this.back_backupfolderpath.Name = "back_backupfolderpath";
             this.back_backupfolderpath.Size = new System.Drawing.Size(313, 20);
             this.back_backupfolderpath.TabIndex = 15;
             // 
             // back_search7zip
             // 
-            this.back_search7zip.Location = new System.Drawing.Point(134, 49);
+            this.back_search7zip.Location = new System.Drawing.Point(134, 38);
             this.back_search7zip.Name = "back_search7zip";
             this.back_search7zip.Size = new System.Drawing.Size(77, 23);
             this.back_search7zip.TabIndex = 17;
@@ -324,7 +328,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(6, 49);
+            this.label1.Location = new System.Drawing.Point(6, 38);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(101, 20);
             this.label1.TabIndex = 16;
@@ -332,7 +336,7 @@
             // 
             // back_7zippath
             // 
-            this.back_7zippath.Location = new System.Drawing.Point(10, 78);
+            this.back_7zippath.Location = new System.Drawing.Point(10, 70);
             this.back_7zippath.Name = "back_7zippath";
             this.back_7zippath.Size = new System.Drawing.Size(313, 20);
             this.back_7zippath.TabIndex = 15;
@@ -341,18 +345,18 @@
             // 
             this.back_enablelog.AutoSize = true;
             this.back_enablelog.Font = new System.Drawing.Font("Arial Narrow", 12F);
-            this.back_enablelog.Location = new System.Drawing.Point(152, 19);
+            this.back_enablelog.Location = new System.Drawing.Point(138, 15);
             this.back_enablelog.Name = "back_enablelog";
-            this.back_enablelog.Size = new System.Drawing.Size(164, 24);
+            this.back_enablelog.Size = new System.Drawing.Size(86, 24);
             this.back_enablelog.TabIndex = 13;
-            this.back_enablelog.Text = "Save log for each step";
+            this.back_enablelog.Text = "Save log ";
             this.back_enablelog.UseVisualStyleBackColor = true;
             // 
             // back_enable
             // 
             this.back_enable.AutoSize = true;
             this.back_enable.Font = new System.Drawing.Font("Arial Narrow", 12F);
-            this.back_enable.Location = new System.Drawing.Point(10, 19);
+            this.back_enable.Location = new System.Drawing.Point(10, 15);
             this.back_enable.Name = "back_enable";
             this.back_enable.Size = new System.Drawing.Size(128, 24);
             this.back_enable.TabIndex = 12;
@@ -363,7 +367,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(6, 153);
+            this.label8.Location = new System.Drawing.Point(6, 151);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(158, 20);
             this.label8.TabIndex = 11;
@@ -372,7 +376,7 @@
             // radioButton4
             // 
             this.radioButton4.AutoSize = true;
-            this.radioButton4.Location = new System.Drawing.Point(293, 156);
+            this.radioButton4.Location = new System.Drawing.Point(293, 154);
             this.radioButton4.Name = "radioButton4";
             this.radioButton4.Size = new System.Drawing.Size(37, 17);
             this.radioButton4.TabIndex = 3;
@@ -383,7 +387,7 @@
             // radioButton3
             // 
             this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(250, 156);
+            this.radioButton3.Location = new System.Drawing.Point(250, 154);
             this.radioButton3.Name = "radioButton3";
             this.radioButton3.Size = new System.Drawing.Size(37, 17);
             this.radioButton3.TabIndex = 2;
@@ -394,7 +398,7 @@
             // radioButton2
             // 
             this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(207, 156);
+            this.radioButton2.Location = new System.Drawing.Point(207, 154);
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(37, 17);
             this.radioButton2.TabIndex = 1;
@@ -405,7 +409,7 @@
             // radioButton1
             // 
             this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(170, 156);
+            this.radioButton1.Location = new System.Drawing.Point(170, 154);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(31, 17);
             this.radioButton1.TabIndex = 0;
@@ -415,9 +419,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(179, 456);
+            this.button1.Location = new System.Drawing.Point(179, 407);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(110, 32);
+            this.button1.Size = new System.Drawing.Size(105, 32);
             this.button1.TabIndex = 15;
             this.button1.Text = "Backup now";
             this.button1.UseVisualStyleBackColor = true;
@@ -425,18 +429,18 @@
             // 
             // back_save
             // 
-            this.back_save.Location = new System.Drawing.Point(63, 456);
+            this.back_save.Location = new System.Drawing.Point(68, 407);
             this.back_save.Name = "back_save";
-            this.back_save.Size = new System.Drawing.Size(110, 32);
+            this.back_save.Size = new System.Drawing.Size(105, 32);
             this.back_save.TabIndex = 14;
-            this.back_save.Text = "Save";
+            this.back_save.Text = "Save settings";
             this.back_save.UseVisualStyleBackColor = true;
             this.back_save.Click += new System.EventHandler(this.back_save_Click);
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 491);
+            this.label10.Location = new System.Drawing.Point(6, 444);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(114, 13);
             this.label10.TabIndex = 13;
@@ -445,7 +449,7 @@
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(309, 491);
+            this.linkLabel1.Location = new System.Drawing.Point(309, 444);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(38, 13);
             this.linkLabel1.TabIndex = 14;
@@ -469,11 +473,34 @@
             this.notifyIcon1.Visible = true;
             this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
             // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Font = new System.Drawing.Font("Arial Narrow", 12F);
+            this.checkBox2.Location = new System.Drawing.Point(222, 15);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(97, 24);
+            this.checkBox2.TabIndex = 18;
+            this.checkBox2.Text = "Default path";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
+            // 
+            // back_startup
+            // 
+            this.back_startup.AutoSize = true;
+            this.back_startup.Font = new System.Drawing.Font("Arial Narrow", 12F);
+            this.back_startup.Location = new System.Drawing.Point(222, 15);
+            this.back_startup.Name = "back_startup";
+            this.back_startup.Size = new System.Drawing.Size(110, 24);
+            this.back_startup.TabIndex = 18;
+            this.back_startup.Text = "Run at Startup";
+            this.back_startup.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(359, 512);
+            this.ClientSize = new System.Drawing.Size(359, 466);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.label10);
@@ -535,6 +562,8 @@
         private System.Windows.Forms.Button back_search7zip;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox back_7zippath;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox back_startup;
     }
 }
 

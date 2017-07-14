@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Threading;
+using Microsoft.Win32;
 
 namespace backcraft
 {
@@ -46,95 +47,127 @@ namespace backcraft
 
             #endregion
 
-            #region Minecraft settings 
+            notifyIcon1.BalloonTipTitle = "Backcraft minimized!";
+            notifyIcon1.BalloonTipText = "Backcraft will be running in the background.";
 
-            /// Getting minecraft settings
             try
             {
-                string[] b = new data.msettings().GetMinecraftSettingsData();
 
-                /// Folder location string
-                set_folderlocation.Text = b[0].ToString();
-                /// Resource folder checkbox
-                set_resource.Checked = Convert.ToBoolean(b[1]);
-                /// Launcher options file checkbox
-                set_launcher.Checked = Convert.ToBoolean(b[2]);
-                /// Screenshots folder checkbox
-                set_screenshots.Checked = Convert.ToBoolean(b[3]);
-                /// Options file checkbox
-                set_options.Checked = Convert.ToBoolean(b[4]);
-                /// Saves folder checkbox
-                set_saves.Checked = Convert.ToBoolean(b[5]);
+                #region Minecraft settings 
+
+                /// Getting minecraft settings
+                try
+                {
+                    string[] b = new data.msettings().GetMinecraftSettingsData();
+
+                    /// Folder location string
+                    set_folderlocation.Text = b[0].ToString();
+
+                    if (b[0].ToString() == @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\.minecraft")
+                    {
+                        checkBox2.Checked = true;
+                    }
+                    else
+                    {
+                        checkBox2.Checked = false;
+                    }
+                    /// Resource folder checkbox
+                    set_resource.Checked = Convert.ToBoolean(b[1]);
+                    /// Launcher options file checkbox
+                    set_launcher.Checked = Convert.ToBoolean(b[2]);
+                    /// Screenshots folder checkbox
+                    set_screenshots.Checked = Convert.ToBoolean(b[3]);
+                    /// Options file checkbox
+                    set_options.Checked = Convert.ToBoolean(b[4]);
+                    /// Saves folder checkbox
+                    set_saves.Checked = Convert.ToBoolean(b[5]);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+
+                #endregion
+
+                #region Backcraft settings
+
+                /// Getting backcraft settings
+                try
+                {
+                    string[] c = new data.bsettings().GetBackcraftSettingsData();
+                    /// Backcraft enabled checkbox
+                    back_enable.Checked = Convert.ToBoolean(c[0]);
+                    /// Save log enabled checkbox
+                    back_enablelog.Checked = Convert.ToBoolean(c[1]);
+                    /// 7zip path enabled checkbox
+                    back_7zippath.Text = c[2];
+                    if (c[2] == @"C:\Program Files\7-Zip\7z.exe")
+                    {
+                        acc_default7zip.Checked = true;
+                    }
+                    else
+                    {
+                        acc_default7zip.Checked = false;
+
+                    }
+                    /// 7zip path enabled checkbox
+                    back_backupfolderpath.Text = c[3];
+                    if (c[3] == @"backups\")
+                    {
+                        checkBox1.Checked = true;
+                    }
+                    else
+                    {
+                        checkBox1.Checked = false;
+
+                    }
+
+                    /// Interval value
+                    switch (Convert.ToInt32(c[4]))
+                    {
+                        case 5:
+                            radioButton1.Checked = true;
+                            break;
+                        case 10:
+                            radioButton2.Checked = true;
+                            break;
+                        case 30:
+                            radioButton3.Checked = true;
+                            break;
+                        case 60:
+                            radioButton4.Checked = true;
+                            break;
+                    }
+                    ///Startup
+
+                    back_startup.Checked = Convert.ToBoolean(c[5]);
+
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+
+                #endregion
+
+                WindowState = FormWindowState.Minimized;
+                ShowInTaskbar = false;
+                ShowIcon = true;
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(50);
+
             }
             catch (Exception)
             {
+                ShowInTaskbar = true;
+                ShowIcon = false;
             }
 
-            #endregion
 
-            #region Backcraft settings
-
-            /// Getting backcraft settings
-            try
-            {
-                string[] c = new data.bsettings().GetBackcraftSettingsData();
-                /// Backcraft enabled checkbox
-                back_enable.Checked = Convert.ToBoolean(c[0]);
-                /// Save log enabled checkbox
-                back_enablelog.Checked = Convert.ToBoolean(c[1]);
-                /// 7zip path enabled checkbox
-                back_7zippath.Text = c[2];
-                if (c[2] == @"C:\Program Files\7-Zip\7z.exe")
-                {
-                    acc_default7zip.Checked = true;
-                }
-                else
-                {
-                    acc_default7zip.Checked = false;
-
-                }
-                /// 7zip path enabled checkbox
-                back_backupfolderpath.Text = c[3];
-                if (c[3] == @"backups\")
-                {
-                    checkBox1.Checked = true;
-                }
-                else
-                {
-                    checkBox1.Checked = false;
-
-                }
-
-                /// Interval value
-                switch (Convert.ToInt32(c[4]))
-                {
-                    case 5:
-                        radioButton1.Checked = true;
-                        break;
-                    case 10:
-                        radioButton2.Checked = true;
-                        break;
-                    case 30:
-                        radioButton3.Checked = true;
-                        break;
-                    case 60:
-                        radioButton4.Checked = true;
-                        break;
-                }
-
-            }
-            catch (Exception)
-            {
-            }
-
-            #endregion
 
             #region Forms settings
 
-            notifyIcon1.BalloonTipTitle = "Backcraft minimized!";
-            notifyIcon1.BalloonTipText = "Backcraft will be running in the background.";
-            ShowInTaskbar = true;
-            ShowIcon = false;
+
 
             #endregion
 
@@ -183,6 +216,7 @@ namespace backcraft
         {
             /// Browse for folder
             FolderBrowserDialog fbd = new FolderBrowserDialog();
+            fbd.Description = "Search your Minecraft folder.";
             if (fbd.ShowDialog() == DialogResult.OK)
             {
                 set_folderlocation.Text = fbd.SelectedPath.ToString();
@@ -217,7 +251,21 @@ namespace backcraft
                 new data.msettings().WriteSettings(set_folderlocation.Text.ToString(), set_resource.Checked, set_launcher.Checked, set_screenshots.Checked, set_options.Checked, set_saves.Checked);
 
                 /// Save backcraft data
-                new data.bsettings().WriteSettings(back_enable.Checked, back_enablelog.Checked, back_7zippath.Text, back_backupfolderpath.Text, _interval);
+                new data.bsettings().WriteSettings(back_enable.Checked, back_enablelog.Checked, back_7zippath.Text, back_backupfolderpath.Text, _interval, back_startup.Checked);
+
+
+                RegistryKey registryKey = Registry.CurrentUser.OpenSubKey
+("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+
+                if (back_startup.Checked)
+                {
+                    registryKey.SetValue("Backcraft", Application.ExecutablePath);
+                }
+                else
+                {
+                    registryKey.DeleteValue("Backcraft");
+                }
+
 
                 /// Change text value for btn
                 back_save.Text = "Saved!";
@@ -430,15 +478,27 @@ namespace backcraft
 
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            ShowInTaskbar = true;
-            notifyIcon1.Visible = false;
-            WindowState = FormWindowState.Normal;
+            try
+            {
+                WindowState = FormWindowState.Normal;
+                ShowInTaskbar = true;
+                ShowIcon = false;
+                notifyIcon1.Visible = false;
+                
+            }
+            catch (Exception)
+            {
+                
+            }
+            
         }
 
         private void back_search7zip_Click(object sender, EventArgs e)
         {
             /// Browse for folder
             FolderBrowserDialog fbd = new FolderBrowserDialog();
+            fbd.Description = "Search the 7zip installation folder.";
+
             if (fbd.ShowDialog() == DialogResult.OK)
             {
                 back_7zippath.Text = fbd.SelectedPath.ToString();
@@ -449,6 +509,8 @@ namespace backcraft
         {
             /// Browse for folder
             FolderBrowserDialog fbd = new FolderBrowserDialog();
+            fbd.Description = "Select where you want to store the backups.";
+
             if (fbd.ShowDialog() == DialogResult.OK)
             {
                 back_backupfolderpath.Text = fbd.SelectedPath.ToString();
@@ -480,6 +542,21 @@ namespace backcraft
             {
                 back_backupfolderpath.Text = "";
                 back_backupfolderpath.Enabled = true;
+            }
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox2.Checked)
+            {
+                string builder = @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\.minecraft";
+                set_folderlocation.Text = builder;
+                set_folderlocation.Enabled = false;
+            }
+            else
+            {
+                set_folderlocation.Text = "";
+                set_folderlocation.Enabled = true;
             }
         }
     }
