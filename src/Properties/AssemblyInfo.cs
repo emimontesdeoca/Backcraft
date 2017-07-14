@@ -7,11 +7,11 @@ using System.Runtime.InteropServices;
 // asociada con un ensamblado.
 [assembly: AssemblyTitle("Backcraft")]
 [assembly: AssemblyDescription("A tool to backup player's Minecraft folder")]
-[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyConfiguration("Comercial")]
 [assembly: AssemblyCompany("Emiliano Montesdeoca")]
 [assembly: AssemblyProduct("Backcraft")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyTrademark("Emiliano Montesdeoca")]
 [assembly: AssemblyCulture("")]
 
 // Si establece ComVisible en false, los tipos de este ensamblado no estarán visibles 
