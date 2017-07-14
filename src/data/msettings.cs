@@ -11,7 +11,7 @@ namespace backcraft.data
     {
         public void WriteSettings(string folderlocation, bool resourcepack, bool launcheroptions, bool screenshots, bool options, bool saves)
         {
-            string path = "data/msettings.txt";
+            string path = @"data\msettings.txt";
             string _flocation = "# folder_location=" + folderlocation;
             string _rpack = "# resourcepack=" + resourcepack;
             string _loptions = "# launcheroptions=" + launcheroptions;
@@ -32,9 +32,9 @@ namespace backcraft.data
                     tw.WriteLine(_saves);
                 }
             }
-            catch (Exception)
+            catch (Exception err)
             {
-                File.Create(path);
+                string a = err.ToString();
                 using (StreamWriter tw = new StreamWriter(path, false))
                 {
                     tw.WriteLine(_flocation);

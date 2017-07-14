@@ -30,11 +30,11 @@ namespace backcraft
 
                 if (!File.Exists("data/bsettings.txt"))
                 {
-                    File.Create("data/bsettings.txt");
+                    //File.Create("data/bsettings.txt");
                 }
                 if (!File.Exists("data/msettings.txt"))
                 {
-                    File.Create("data/msettings.txt");
+                    //File.Create("data/msettings.txt");
                 }
             }
 
@@ -82,9 +82,31 @@ namespace backcraft
                 back_enable.Checked = Convert.ToBoolean(c[0]);
                 /// Save log enabled checkbox
                 back_enablelog.Checked = Convert.ToBoolean(c[1]);
+                /// 7zip path enabled checkbox
+                back_7zippath.Text = c[2];
+                if (c[2] == @"C:\Program Files\7-Zip\7z.exe")
+                {
+                    acc_default7zip.Checked = true;
+                }
+                else
+                {
+                    acc_default7zip.Checked = false;
+
+                }
+                /// 7zip path enabled checkbox
+                back_backupfolderpath.Text = c[3];
+                if (c[3] == @"backups\")
+                {
+                    checkBox1.Checked = true;
+                }
+                else
+                {
+                    checkBox1.Checked = false;
+
+                }
 
                 /// Interval value
-                switch (Convert.ToInt32(c[2]))
+                switch (Convert.ToInt32(c[4]))
                 {
                     case 5:
                         radioButton1.Checked = true;
@@ -120,7 +142,7 @@ namespace backcraft
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            int interval = Convert.ToInt32(new data.bsettings().GetBackcraftSettingsData()[2]);
+            int interval = Convert.ToInt32(new data.bsettings().GetBackcraftSettingsData()[4]);
 
             CancellationToken cancel = new CancellationToken();
             cancel = token.Token;
@@ -130,10 +152,10 @@ namespace backcraft
                 token.Cancel();
             }
 
-            var x = AsynBackcraft(interval);
+            var x = AsyncBackcraft(interval);
         }
 
-        public async Task AsynBackcraft(int interval)
+        public async Task AsyncBackcraft(int interval)
         {
             while (!token.IsCancellationRequested)
             {
@@ -167,23 +189,6 @@ namespace backcraft
             }
         }
 
-        private void settings_save_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                /// Save settings data
-                new data.msettings().WriteSettings(set_folderlocation.Text.ToString(), set_resource.Checked, set_launcher.Checked, set_screenshots.Checked, set_options.Checked, set_saves.Checked);
-
-                /// Change text value for btn
-                settings_save.Text = "Saved!";
-            }
-            catch (Exception)
-            {
-                /// Change text value for btn
-                settings_save.Text = "Error!";
-            }
-        }
-
         private void back_save_Click(object sender, EventArgs e)
         {
             try
@@ -208,15 +213,26 @@ namespace backcraft
                     _interval = 60;
                 }
 
+                /// Save settings data
+                new data.msettings().WriteSettings(set_folderlocation.Text.ToString(), set_resource.Checked, set_launcher.Checked, set_screenshots.Checked, set_options.Checked, set_saves.Checked);
 
                 /// Save backcraft data
-                new data.bsettings().WriteSettings(back_enable.Checked, back_enablelog.Checked, _interval);
+                new data.bsettings().WriteSettings(back_enable.Checked, back_enablelog.Checked, back_7zippath.Text, back_backupfolderpath.Text, _interval);
 
                 /// Change text value for btn
                 back_save.Text = "Saved!";
+
+                try
+                {
+                    Process.Start(Application.StartupPath + "\\backcraft.exe");
+                    Process.GetCurrentProcess().Kill();
+                }
+                catch
+                { }
             }
-            catch (Exception)
+            catch (Exception err)
             {
+                string a = err.ToString();
                 /// Change text value for btn
                 back_save.Text = "Error!";
             }
@@ -337,7 +353,8 @@ namespace backcraft
                 string fullname = f.FullName;
 
                 /// Compress it with 7Zip
-                bs.compression.CreateZipFile(folderpath, fullname);
+                bs.compression.CreateZipFile(back_7zippath.Text, back_backupfolderpath.Text + "\\" + fileName.Split('\\')[1], fullname);
+                //bs.compression.CreateZipFile(back_7zippath.Text, folderpath, fullname);
 
                 /// Save log
                 if (back_enablelog.Checked)
@@ -396,7 +413,6 @@ namespace backcraft
             }
             catch (Exception)
             {
-
             }
         }
 
@@ -417,6 +433,54 @@ namespace backcraft
             ShowInTaskbar = true;
             notifyIcon1.Visible = false;
             WindowState = FormWindowState.Normal;
+        }
+
+        private void back_search7zip_Click(object sender, EventArgs e)
+        {
+            /// Browse for folder
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            if (fbd.ShowDialog() == DialogResult.OK)
+            {
+                back_7zippath.Text = fbd.SelectedPath.ToString();
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            /// Browse for folder
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            if (fbd.ShowDialog() == DialogResult.OK)
+            {
+                back_backupfolderpath.Text = fbd.SelectedPath.ToString();
+            }
+        }
+
+        private void acc_default7zip_CheckedChanged(object sender, EventArgs e)
+        {
+            if (acc_default7zip.Checked)
+            {
+                back_7zippath.Text = @"C:\Program Files\7-Zip\7z.exe";
+                back_7zippath.Enabled = false;
+            }
+            else
+            {
+                back_7zippath.Text = @"";
+                back_7zippath.Enabled = true;
+            }
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                back_backupfolderpath.Text = @"backup\";
+                back_backupfolderpath.Enabled = false;
+            }
+            else
+            {
+                back_backupfolderpath.Text = "";
+                back_backupfolderpath.Enabled = true;
+            }
         }
     }
 }

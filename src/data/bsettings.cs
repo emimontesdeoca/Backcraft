@@ -9,11 +9,13 @@ namespace backcraft.data
 {
     class bsettings
     {
-        public void WriteSettings(bool enable, bool savelog, int interval)
+        public void WriteSettings(bool enable, bool savelog, string path7zip, string pathbackps, int interval)
         {
-            string path = "data/bsettings.txt";
+            string path = @"data\bsettings.txt";
             string _enable = "# enable=" + enable;
             string _savelog = "# savelog=" + savelog;
+            string _7zip = "# 7zippath=" + path7zip;
+            string _backups = "# backupspath=" + pathbackps;
             string _intervarl = "# interval=" + interval.ToString();
 
             try
@@ -23,6 +25,8 @@ namespace backcraft.data
                 {
                     tw.WriteLine(_enable);
                     tw.WriteLine(_savelog);
+                    tw.WriteLine(_7zip);
+                    tw.WriteLine(_backups);
                     tw.WriteLine(_intervarl);
                 }
             }
@@ -33,6 +37,8 @@ namespace backcraft.data
                 {
                     tw.WriteLine(_enable);
                     tw.WriteLine(_savelog);
+                    tw.WriteLine(_7zip);
+                    tw.WriteLine(_backups);
                     tw.WriteLine(_intervarl);
                 }
             }
@@ -85,7 +91,7 @@ namespace backcraft.data
 
         public string[] GetBackcraftSettingsData()
         {
-            string[] data = new string[3];
+            string[] data = new string[5];
             string path = "data/bsettings.txt";
 
             try
@@ -95,6 +101,8 @@ namespace backcraft.data
                     data[0] = tw.ReadLine().Split('=')[1];
                     data[1] = tw.ReadLine().Split('=')[1];
                     data[2] = tw.ReadLine().Split('=')[1];
+                    data[3] = tw.ReadLine().Split('=')[1];
+                    data[4] = tw.ReadLine().Split('=')[1];
                 }
 
             }

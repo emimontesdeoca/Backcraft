@@ -38,10 +38,10 @@ namespace backcraft.bs
             }
         }
 
-        public static void CreateZipFile(string prefferedPath, string fileDirPath)
+        public static void CreateZipFile(string programpath, string prefferedPath, string fileDirPath)
         {
             ProcessStartInfo p = new ProcessStartInfo();
-            p.FileName = @"C:\Program Files\7-Zip\7z.exe";
+            p.FileName = programpath;
             p.Arguments = "a \"" + prefferedPath + "\" \"" + fileDirPath + "\\*";
             p.WindowStyle = ProcessWindowStyle.Hidden;
             Process x = Process.Start(p);

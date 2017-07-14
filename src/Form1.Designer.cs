@@ -45,9 +45,15 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.settings_save = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.back_save = new System.Windows.Forms.Button();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.acc_default7zip = new System.Windows.Forms.CheckBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.back_backupfolderpath = new System.Windows.Forms.TextBox();
+            this.back_search7zip = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.back_7zippath = new System.Windows.Forms.TextBox();
             this.back_enablelog = new System.Windows.Forms.CheckBox();
             this.back_enable = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -55,10 +61,11 @@
             this.radioButton3 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.button1 = new System.Windows.Forms.Button();
+            this.back_save = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.label11 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -139,7 +146,6 @@
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.settings_save);
             this.groupBox2.Controls.Add(this.set_saves);
             this.groupBox2.Controls.Add(this.set_resource);
             this.groupBox2.Controls.Add(this.set_options);
@@ -147,7 +153,7 @@
             this.groupBox2.Controls.Add(this.set_launcher);
             this.groupBox2.Location = new System.Drawing.Point(9, 39);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(338, 268);
+            this.groupBox2.Size = new System.Drawing.Size(338, 221);
             this.groupBox2.TabIndex = 11;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Backup settings";
@@ -168,9 +174,9 @@
             this.label9.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.Location = new System.Drawing.Point(6, 16);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(150, 20);
+            this.label9.Size = new System.Drawing.Size(129, 20);
             this.label9.TabIndex = 12;
-            this.label9.Text = "Minecraft folder location";
+            this.label9.Text = "Minecraft folder path";
             // 
             // set_folderlocation
             // 
@@ -229,20 +235,16 @@
             this.label3.TabIndex = 9;
             this.label3.Text = "Contains resource packs.";
             // 
-            // settings_save
-            // 
-            this.settings_save.Location = new System.Drawing.Point(114, 221);
-            this.settings_save.Name = "settings_save";
-            this.settings_save.Size = new System.Drawing.Size(110, 32);
-            this.settings_save.TabIndex = 8;
-            this.settings_save.Text = "Save";
-            this.settings_save.UseVisualStyleBackColor = true;
-            this.settings_save.Click += new System.EventHandler(this.settings_save_Click);
-            // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.button1);
-            this.groupBox3.Controls.Add(this.back_save);
+            this.groupBox3.Controls.Add(this.checkBox1);
+            this.groupBox3.Controls.Add(this.button2);
+            this.groupBox3.Controls.Add(this.acc_default7zip);
+            this.groupBox3.Controls.Add(this.label2);
+            this.groupBox3.Controls.Add(this.back_backupfolderpath);
+            this.groupBox3.Controls.Add(this.back_search7zip);
+            this.groupBox3.Controls.Add(this.label1);
+            this.groupBox3.Controls.Add(this.back_7zippath);
             this.groupBox3.Controls.Add(this.back_enablelog);
             this.groupBox3.Controls.Add(this.back_enable);
             this.groupBox3.Controls.Add(this.label8);
@@ -250,22 +252,90 @@
             this.groupBox3.Controls.Add(this.radioButton3);
             this.groupBox3.Controls.Add(this.radioButton2);
             this.groupBox3.Controls.Add(this.radioButton1);
-            this.groupBox3.Location = new System.Drawing.Point(9, 313);
+            this.groupBox3.Location = new System.Drawing.Point(9, 266);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(338, 120);
+            this.groupBox3.Size = new System.Drawing.Size(338, 184);
             this.groupBox3.TabIndex = 12;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Backcraft settings";
             // 
-            // back_save
+            // checkBox1
             // 
-            this.back_save.Location = new System.Drawing.Point(54, 72);
-            this.back_save.Name = "back_save";
-            this.back_save.Size = new System.Drawing.Size(110, 32);
-            this.back_save.TabIndex = 14;
-            this.back_save.Text = "Save";
-            this.back_save.UseVisualStyleBackColor = true;
-            this.back_save.Click += new System.EventHandler(this.back_save_Click);
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Font = new System.Drawing.Font("Arial Narrow", 12F);
+            this.checkBox1.Location = new System.Drawing.Point(217, 103);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(97, 24);
+            this.checkBox1.TabIndex = 19;
+            this.checkBox1.Text = "Default path";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(134, 104);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(77, 23);
+            this.button2.TabIndex = 17;
+            this.button2.Text = "Search";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // acc_default7zip
+            // 
+            this.acc_default7zip.AutoSize = true;
+            this.acc_default7zip.Font = new System.Drawing.Font("Arial Narrow", 12F);
+            this.acc_default7zip.Location = new System.Drawing.Point(217, 48);
+            this.acc_default7zip.Name = "acc_default7zip";
+            this.acc_default7zip.Size = new System.Drawing.Size(97, 24);
+            this.acc_default7zip.TabIndex = 18;
+            this.acc_default7zip.Text = "Default path";
+            this.acc_default7zip.UseVisualStyleBackColor = true;
+            this.acc_default7zip.CheckedChanged += new System.EventHandler(this.acc_default7zip_CheckedChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(6, 107);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(99, 20);
+            this.label2.TabIndex = 16;
+            this.label2.Text = "Backups folder";
+            // 
+            // back_backupfolderpath
+            // 
+            this.back_backupfolderpath.Location = new System.Drawing.Point(10, 130);
+            this.back_backupfolderpath.Name = "back_backupfolderpath";
+            this.back_backupfolderpath.Size = new System.Drawing.Size(313, 20);
+            this.back_backupfolderpath.TabIndex = 15;
+            // 
+            // back_search7zip
+            // 
+            this.back_search7zip.Location = new System.Drawing.Point(134, 49);
+            this.back_search7zip.Name = "back_search7zip";
+            this.back_search7zip.Size = new System.Drawing.Size(77, 23);
+            this.back_search7zip.TabIndex = 17;
+            this.back_search7zip.Text = "Search";
+            this.back_search7zip.UseVisualStyleBackColor = true;
+            this.back_search7zip.Click += new System.EventHandler(this.back_search7zip_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(6, 49);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(101, 20);
+            this.label1.TabIndex = 16;
+            this.label1.Text = "7zip folder path";
+            // 
+            // back_7zippath
+            // 
+            this.back_7zippath.Location = new System.Drawing.Point(10, 78);
+            this.back_7zippath.Name = "back_7zippath";
+            this.back_7zippath.Size = new System.Drawing.Size(313, 20);
+            this.back_7zippath.TabIndex = 15;
             // 
             // back_enablelog
             // 
@@ -293,7 +363,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(6, 46);
+            this.label8.Location = new System.Drawing.Point(6, 153);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(158, 20);
             this.label8.TabIndex = 11;
@@ -302,7 +372,7 @@
             // radioButton4
             // 
             this.radioButton4.AutoSize = true;
-            this.radioButton4.Location = new System.Drawing.Point(293, 49);
+            this.radioButton4.Location = new System.Drawing.Point(293, 156);
             this.radioButton4.Name = "radioButton4";
             this.radioButton4.Size = new System.Drawing.Size(37, 17);
             this.radioButton4.TabIndex = 3;
@@ -313,7 +383,7 @@
             // radioButton3
             // 
             this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(250, 49);
+            this.radioButton3.Location = new System.Drawing.Point(250, 156);
             this.radioButton3.Name = "radioButton3";
             this.radioButton3.Size = new System.Drawing.Size(37, 17);
             this.radioButton3.TabIndex = 2;
@@ -324,7 +394,7 @@
             // radioButton2
             // 
             this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(207, 49);
+            this.radioButton2.Location = new System.Drawing.Point(207, 156);
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(37, 17);
             this.radioButton2.TabIndex = 1;
@@ -335,7 +405,7 @@
             // radioButton1
             // 
             this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(170, 49);
+            this.radioButton1.Location = new System.Drawing.Point(170, 156);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(31, 17);
             this.radioButton1.TabIndex = 0;
@@ -343,10 +413,30 @@
             this.radioButton1.Text = "5";
             this.radioButton1.UseVisualStyleBackColor = true;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(179, 456);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(110, 32);
+            this.button1.TabIndex = 15;
+            this.button1.Text = "Backup now";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // back_save
+            // 
+            this.back_save.Location = new System.Drawing.Point(63, 456);
+            this.back_save.Name = "back_save";
+            this.back_save.Size = new System.Drawing.Size(110, 32);
+            this.back_save.TabIndex = 14;
+            this.back_save.Text = "Save";
+            this.back_save.UseVisualStyleBackColor = true;
+            this.back_save.Click += new System.EventHandler(this.back_save_Click);
+            // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 436);
+            this.label10.Location = new System.Drawing.Point(6, 491);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(114, 13);
             this.label10.TabIndex = 13;
@@ -355,7 +445,7 @@
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(309, 436);
+            this.linkLabel1.Location = new System.Drawing.Point(309, 491);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(38, 13);
             this.linkLabel1.TabIndex = 14;
@@ -370,17 +460,7 @@
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(28, 13);
             this.label11.TabIndex = 16;
-            this.label11.Text = "v1.0";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(177, 72);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(110, 32);
-            this.button1.TabIndex = 15;
-            this.button1.Text = "Backup now";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.label11.Text = "v2.0";
             // 
             // notifyIcon1
             // 
@@ -393,13 +473,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(359, 457);
+            this.ClientSize = new System.Drawing.Size(359, 512);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.label);
+            this.Controls.Add(this.back_save);
+            this.Controls.Add(this.button1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Backcraft";
@@ -428,7 +510,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button settings_save;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.RadioButton radioButton3;
         private System.Windows.Forms.RadioButton radioButton2;
@@ -446,6 +527,14 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.CheckBox acc_default7zip;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox back_backupfolderpath;
+        private System.Windows.Forms.Button back_search7zip;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox back_7zippath;
     }
 }
 
