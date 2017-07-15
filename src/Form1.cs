@@ -63,14 +63,6 @@ namespace backcraft
                     /// Folder location string
                     set_folderlocation.Text = b[0].ToString();
 
-                    if (b[0].ToString() == @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\.minecraft")
-                    {
-                        checkBox2.Checked = true;
-                    }
-                    else
-                    {
-                        checkBox2.Checked = false;
-                    }
                     /// Resource folder checkbox
                     set_resource.Checked = Convert.ToBoolean(b[1]);
                     /// Launcher options file checkbox
@@ -99,28 +91,6 @@ namespace backcraft
                     back_enable.Checked = Convert.ToBoolean(c[0]);
                     /// Save log enabled checkbox
                     back_enablelog.Checked = Convert.ToBoolean(c[1]);
-                    /// 7zip path enabled checkbox
-                    back_7zippath.Text = c[2];
-                    if (c[2] == @"C:\Program Files\7-Zip\7z.exe")
-                    {
-                        acc_default7zip.Checked = true;
-                    }
-                    else
-                    {
-                        acc_default7zip.Checked = false;
-
-                    }
-                    /// 7zip path enabled checkbox
-                    back_backupfolderpath.Text = c[3];
-                    if (c[3] == @"backups\")
-                    {
-                        checkBox1.Checked = true;
-                    }
-                    else
-                    {
-                        checkBox1.Checked = false;
-
-                    }
 
                     /// Interval value
                     switch (Convert.ToInt32(c[4]))
@@ -175,6 +145,8 @@ namespace backcraft
 
         private void Form1_Load(object sender, EventArgs e)
         {
+
+            pictureBox1.Image = this.Icon.ToBitmap ();
             int interval = Convert.ToInt32(new data.bsettings().GetBackcraftSettingsData()[4]);
 
             CancellationToken cancel = new CancellationToken();
@@ -517,47 +489,20 @@ namespace backcraft
             }
         }
 
-        private void acc_default7zip_CheckedChanged(object sender, EventArgs e)
+        private void UseDefaultMinePath_Click(object sender, EventArgs e)
         {
-            if (acc_default7zip.Checked)
-            {
-                back_7zippath.Text = @"C:\Program Files\7-Zip\7z.exe";
-                back_7zippath.Enabled = false;
-            }
-            else
-            {
-                back_7zippath.Text = @"";
-                back_7zippath.Enabled = true;
-            }
+            string builder = @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\.minecraft";
+            set_folderlocation.Text = builder;
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        private void UseDefault7ZipPath_Click(object sender, EventArgs e)
         {
-            if (checkBox1.Checked)
-            {
-                back_backupfolderpath.Text = @"backup\";
-                back_backupfolderpath.Enabled = false;
-            }
-            else
-            {
-                back_backupfolderpath.Text = "";
-                back_backupfolderpath.Enabled = true;
-            }
+            back_7zippath.Text = @"C:\Program Files\7-Zip\7z.exe";
         }
 
-        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        private void UseDefaultBackupPath_Click(object sender, EventArgs e)
         {
-            if (checkBox2.Checked)
-            {
-                string builder = @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\.minecraft";
-                set_folderlocation.Text = builder;
-                set_folderlocation.Enabled = false;
-            }
-            else
-            {
-                set_folderlocation.Text = "";
-                set_folderlocation.Enabled = true;
-            }
+            back_backupfolderpath.Text = @"backup\";
         }
     }
 }
