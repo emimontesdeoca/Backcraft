@@ -48,16 +48,25 @@ namespace backcraft.forms.minecraft
 
         private void btn_loadworlds_Click(object sender, EventArgs e)
         {
-            List<string> d = Directory.GetDirectories(_MinecraftSavesPath).ToList();
-
-            foreach (string dir in d)
+            try
             {
-                string name = dir.Split('\\').Last();
-                string path = dir;
-                gridview_worlds.Rows.Add(name, path, false);
+                List<string> d = Directory.GetDirectories(_MinecraftSavesPath).ToList();
+
+                foreach (string dir in d)
+                {
+                    string name = dir.Split('\\').Last();
+                    string path = dir;
+                    gridview_worlds.Rows.Add(name, path, false);
+                }
+
+                gridview_worlds.Enabled = true;
+                btn_save.Enabled = true;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("No Minecraft path configured!", "Backcraft");
             }
 
-            gridview_worlds.Enabled = true;
         }
 
         private void btn_save_Click(object sender, EventArgs e)
@@ -71,6 +80,6 @@ namespace backcraft.forms.minecraft
             this.Close();
         }
 
-       
+
     }
 }

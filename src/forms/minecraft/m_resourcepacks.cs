@@ -47,20 +47,55 @@ namespace backcraft.forms.minecraft
 
         private void btn_loadresourcepakcs_Click(object sender, EventArgs e)
         {
-            List<string> d = Directory.GetDirectories(_MinecraftResourcePacksPath).ToList();
-
-            foreach (string dir in d)
+            gridview_resourcepacks.Rows.Clear();
+            try
             {
-                string name = dir.Split('\\').Last();
-                string path = dir;
-                gridview_resourcepacks.Rows.Add(name, path, false);
+                List<string> d = Directory.GetDirectories(_MinecraftResourcePacksPath).ToList();
+
+                List<logic.resourcepacks> list = new logic.resourcepacks().GetResourcePackFrom();
+
+                foreach (string dir in d)
+                {
+                    string name = dir.Split('\\').Last();
+                    string path = dir;
+                    bool check = false;
+                    try
+                    {
+                        if (list.Single(x => x.name == name && x.path == path) != null)
+                        {
+                            check = true;
+                        }
+                    }
+                    catch (Exception)
+                    {
+                    }
+                    gridview_resourcepacks.Rows.Add(name, path, check);
+                }
+
+                gridview_resourcepacks.Enabled = true;
+                btn_save.Enabled = true;
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("No Minecraft path configured!", "Backcraft");
             }
 
-            gridview_resourcepacks.Enabled = true;
         }
 
         private void btn_save_Click(object sender, EventArgs e)
         {
+            btn_save.Text = "Working...";
+
+            foreach (DataGridViewRow r in gridview_resourcepacks.Rows)
+            {
+                string name = r.Cells[0].Value.ToString();
+                string path = r.Cells[1].Value.ToString();
+                string check = r.Cells[2].Value.ToString();
+                new logic.resourcepacks(name, path).WriteResourcePackDirectories(Convert.ToBoolean(check));
+
+            }
+            logic.resourcepacks.FinallyWriteFile();
 
             this.Close();
         }

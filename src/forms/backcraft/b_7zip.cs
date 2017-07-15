@@ -8,18 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace backcraft.forms.minecraft
+namespace backcraft.forms.backcraft
 {
-    public partial class m_minecraftpath : Form
+    public partial class b_7zip : Form
     {
-        public m_minecraftpath()
+        public b_7zip()
         {
             InitializeComponent();
-        }
-
-        private void m_minecraftpath_Load(object sender, EventArgs e)
-        {
-            textbox_path.Text = logic.minecraftpath.GetMinecraftPath();
         }
 
         private void brn_search_Click(object sender, EventArgs e)
@@ -33,13 +28,13 @@ namespace backcraft.forms.minecraft
 
         private void btn_usedefault_Click(object sender, EventArgs e)
         {
-            textbox_path.Text = @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\.minecraft";
+            textbox_path.Text = @"C:\Program Files\7-Zip";
         }
 
         private void btn_save_Click(object sender, EventArgs e)
         {
-            new logic.minecraftpath(textbox_path.Text.ToString()).WriteToFile();
-            Form1._MinecraftPath = textbox_path.Text.ToString();
+            Form1._Backcraft7ZipPath = textbox_path.Text.ToString();
+
             this.Close();
         }
 

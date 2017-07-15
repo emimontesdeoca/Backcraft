@@ -589,6 +589,7 @@
             // 
             this.label_settingsload.AutoSize = true;
             this.label_settingsload.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Italic);
+            this.label_settingsload.ForeColor = System.Drawing.Color.Red;
             this.label_settingsload.Location = new System.Drawing.Point(298, 13);
             this.label_settingsload.Name = "label_settingsload";
             this.label_settingsload.Size = new System.Drawing.Size(74, 16);

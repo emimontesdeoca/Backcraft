@@ -17,7 +17,8 @@ namespace backcraft
     public partial class Form1 : Form
     {
         public CancellationTokenSource token = new CancellationTokenSource();
-        public static string _MinecraftPath { get; set; } = @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\.minecraft";
+        public static string _MinecraftPath { get; set; } = logic.minecraftpath.GetMinecraftPath();
+        public static string _Backcraft7ZipPath { get; set; }
 
         public Form1()
         {
@@ -29,18 +30,10 @@ namespace backcraft
             #region Folder creation and files creation
 
             /// Create data folder if not created for user settings
-            if (!Directory.Exists("data"))
+            if (!Directory.Exists("config"))
             {
-                Directory.CreateDirectory("data");
+                Directory.CreateDirectory("config");
 
-                if (!File.Exists("data/bsettings.txt"))
-                {
-                    //File.Create("data/bsettings.txt");
-                }
-                if (!File.Exists("data/msettings.txt"))
-                {
-                    //File.Create("data/msettings.txt");
-                }
             }
 
             /// Create backup folder if not created for backups
@@ -239,12 +232,12 @@ namespace backcraft
 
         private void button3_Click(object sender, EventArgs e)
         {
-
+            new forms.backcraft.b_7zip().ShowDialog();
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-
+            new forms.backcraft.b_backups().ShowDialog();
         }
 
         #endregion
