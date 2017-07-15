@@ -463,6 +463,7 @@
             this.scroll_interval.TickFrequency = 5;
             this.scroll_interval.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.scroll_interval.Value = 5;
+            this.scroll_interval.Scroll += new System.EventHandler(this.scroll_interval_Scroll);
             // 
             // back_startup
             // 
@@ -588,7 +589,7 @@
             // 
             this.label_settingsload.AutoSize = true;
             this.label_settingsload.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Italic);
-            this.label_settingsload.Location = new System.Drawing.Point(294, 17);
+            this.label_settingsload.Location = new System.Drawing.Point(298, 13);
             this.label_settingsload.Name = "label_settingsload";
             this.label_settingsload.Size = new System.Drawing.Size(74, 16);
             this.label_settingsload.TabIndex = 17;
@@ -602,6 +603,7 @@
             this.button6.TabIndex = 18;
             this.button6.Text = "Delete settings";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // Form1
             // 
@@ -619,6 +621,7 @@
             this.Controls.Add(this.back_save);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.back_enable);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Backcraft";

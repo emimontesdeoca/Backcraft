@@ -17,11 +17,12 @@ namespace backcraft
     public partial class Form1 : Form
     {
         public CancellationTokenSource token = new CancellationTokenSource();
+        public static string _MinecraftPath { get; set; } = @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\.minecraft";
 
         public Form1()
         {
 
-            //string builder = @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\.minecraft";
+
 
             InitializeComponent();
 
@@ -180,6 +181,190 @@ namespace backcraft
             //var x = AsyncBackcraft(interval);
         }
 
+        #region BACKCRAFT
+
+        #region ENABLING
+
+        private void back_enable_CheckedChanged(object sender, EventArgs e)
+        {
+            if (back_enable.Checked)
+            {
+                b_panel.Enabled = true;
+                m_panel.Enabled = true;
+            }
+            else
+            {
+                b_panel.Enabled = false;
+                m_panel.Enabled = false;
+            }
+        }
+
+        #endregion
+
+        #region SETTINGS
+
+        #region CHECKBOXES
+
+        private void back_enablelog_CheckedChanged(object sender, EventArgs e)
+        {
+            if (back_enablelog.Checked)
+            {
+                label_checkboxlogs.Enabled = true;
+                label_logs.Enabled = true;
+            }
+            else
+            {
+                label_checkboxlogs.Enabled = false;
+                label_logs.Enabled = false;
+            }
+        }
+
+        private void back_startup_CheckedChanged(object sender, EventArgs e)
+        {
+            if (back_startup.Checked)
+            {
+                label_checkboxstartup.Enabled = true;
+                label_startup.Enabled = true;
+            }
+            else
+            {
+                label_checkboxstartup.Enabled = false;
+                label_startup.Enabled = false;
+            }
+        }
+
+        #endregion
+
+        #region BUTTONS
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        #endregion
+
+        #endregion
+
+        #endregion
+
+        #region MINECRAFT SETTINGS
+
+        #region ACTIVATING CHECKBOXES
+
+        private void set_resource_CheckedChanged(object sender, EventArgs e)
+        {
+            if (set_resource.Checked)
+            {
+                label_resource.Enabled = true;
+                label_checkboxresources.Enabled = true;
+                btn_resourcepacks.Enabled = true;
+            }
+            else
+            {
+                label_resource.Enabled = false;
+                label_checkboxresources.Enabled = false;
+                btn_resourcepacks.Enabled = false;
+            }
+        }
+
+        private void set_saves_CheckedChanged(object sender, EventArgs e)
+        {
+            if (set_saves.Checked)
+            {
+                label_checkboxsaves.Enabled = true;
+                label_saves.Enabled = true;
+                btn_saves.Enabled = true;
+            }
+            else
+            {
+                label_checkboxsaves.Enabled = false;
+                label_saves.Enabled = false;
+                btn_saves.Enabled = false;
+            }
+        }
+
+        private void set_launcher_CheckedChanged(object sender, EventArgs e)
+        {
+            if (set_launcher.Checked)
+            {
+                label_checkboxlauncher.Enabled = true;
+                label_launcher.Enabled = true;
+            }
+            else
+            {
+                label_checkboxlauncher.Enabled = false;
+                label_launcher.Enabled = false;
+            }
+        }
+
+        private void set_options_CheckedChanged(object sender, EventArgs e)
+        {
+            if (set_options.Checked)
+            {
+                label_checkboxoptions.Enabled = true;
+                label_options.Enabled = true;
+            }
+            else
+            {
+                label_checkboxoptions.Enabled = false;
+                label_options.Enabled = false;
+            }
+        }
+
+        private void set_screenshots_CheckedChanged(object sender, EventArgs e)
+        {
+            if (set_screenshots.Checked)
+            {
+                label_checkboxscreenshots.Enabled = true;
+                label_screenshots.Enabled = true;
+            }
+            else
+            {
+                label_checkboxscreenshots.Enabled = false;
+                label_screenshots.Enabled = false;
+            }
+        }
+
+        #endregion
+
+        #region BUTTONS
+
+        private void btn_minecraftfolder_Click(object sender, EventArgs e)
+        {
+            new forms.minecraft.m_minecraftpath().ShowDialog();
+        }
+
+        private void btn_resourcepacks_Click(object sender, EventArgs e)
+        {
+            new forms.minecraft.m_resourcepacks().ShowDialog();
+        }
+
+        private void btn_saves_Click(object sender, EventArgs e)
+        {
+            new forms.minecraft.m_saves().ShowDialog();
+        }
+
+        #endregion
+
+        #region SCROLL
+
+        private void scroll_interval_Scroll(object sender, EventArgs e)
+        {
+            back_intervaltextbox.Text = scroll_interval.Value.ToString();
+        }
+
+        #endregion
+
+        #endregion
+
+        #region LOGIC
+
         public async Task AsyncBackcraft(int interval)
         {
             while (!token.IsCancellationRequested)
@@ -202,76 +387,6 @@ namespace backcraft
                 }
 
             }
-        }
-
-
-        private void back_save_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                /// Getting the interval, this is ugly I know, dont killerino me
-                int _interval = 5;
-
-                //if (radioButton1.Checked)
-                //{
-                //    _interval = 5;
-                //}
-                //else if (radioButton2.Checked)
-                //{
-                //    _interval = 10;
-                //}
-                //else if (radioButton3.Checked)
-                //{
-                //    _interval = 30;
-                //}
-                //else if (radioButton4.Checked)
-                //{
-                //    _interval = 60;
-                //}
-
-                /// Save settings data
-                //new data.msettings().WriteSettings(set_folderlocation.Text.ToString(), set_resource.Checked, set_launcher.Checked, set_screenshots.Checked, set_options.Checked, set_saves.Checked);
-
-                /// Save backcraft data
-                //new data.bsettings().WriteSettings(back_enable.Checked, back_enablelog.Checked, back_7zippath.Text, back_backupfolderpath.Text, _interval, back_startup.Checked);
-
-
-                RegistryKey registryKey = Registry.CurrentUser.OpenSubKey
-("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
-
-                if (back_startup.Checked)
-                {
-                    registryKey.SetValue("Backcraft", Application.ExecutablePath);
-                }
-                else
-                {
-                    registryKey.DeleteValue("Backcraft");
-                }
-
-
-                /// Change text value for btn
-                back_save.Text = "Saved!";
-
-                try
-                {
-                    Process.Start(Application.StartupPath + "\\backcraft.exe");
-                    Process.GetCurrentProcess().Kill();
-                }
-                catch
-                { }
-            }
-            catch (Exception err)
-            {
-                string a = err.ToString();
-                /// Change text value for btn
-                back_save.Text = "Error!";
-            }
-        }
-
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            /// Link to github repo
-            System.Diagnostics.Process.Start("https://github.com/emimontesdeoca/backcraft");
         }
 
         private async Task Backcraft()
@@ -435,16 +550,9 @@ namespace backcraft
             }
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            try
-            {
-                var a = Backcraft();
-            }
-            catch (Exception)
-            {
-            }
-        }
+        #endregion
+
+        #region SYSTEM TRAY AND WINDOWS SIZE
 
         private void Form1_Resize(object sender, EventArgs e)
         {
@@ -475,189 +583,102 @@ namespace backcraft
 
         }
 
-        #region BACKCRAFT
-
-        #region ENABLING
-
-        private void back_enable_CheckedChanged(object sender, EventArgs e)
-        {
-            if (back_enable.Checked)
-            {
-                b_panel.Enabled = true;
-                m_panel.Enabled = true;
-            }
-            else
-            {
-                b_panel.Enabled = false;
-                m_panel.Enabled = false;
-            }
-        }
-
-        #endregion
-
-        #region SETTINGS
-
-        #region CHECKBOXES
-
-        private void back_enablelog_CheckedChanged(object sender, EventArgs e)
-        {
-            if (back_enablelog.Checked)
-            {
-                label_checkboxlogs.Enabled = true;
-                label_logs.Enabled = true;
-            }
-            else
-            {
-                label_checkboxlogs.Enabled = false;
-                label_logs.Enabled = false;
-            }
-        }
-
-        private void back_startup_CheckedChanged(object sender, EventArgs e)
-        {
-            if (back_startup.Checked)
-            {
-                label_checkboxstartup.Enabled = true;
-                label_startup.Enabled = true;
-            }
-            else
-            {
-                label_checkboxstartup.Enabled = false;
-                label_startup.Enabled = false;
-            }
-        }
-
         #endregion
 
         #region BUTTONS
 
-        private void button3_Click(object sender, EventArgs e)
+        private void back_save_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        #endregion
-
-        #endregion
-
-        #endregion
-
-        #region MINECRAFT SETTINGS
-
-        #region ACTIVATING CHECKBOXES
-
-        private void set_resource_CheckedChanged(object sender, EventArgs e)
-        {
-            if (set_resource.Checked)
+            try
             {
-                label_resource.Enabled = true;
-                label_checkboxresources.Enabled = true;
-                btn_resourcepacks.Enabled = true;
+                /// Getting the interval, this is ugly I know, dont killerino me
+                int _interval = 5;
+
+                //if (radioButton1.Checked)
+                //{
+                //    _interval = 5;
+                //}
+                //else if (radioButton2.Checked)
+                //{
+                //    _interval = 10;
+                //}
+                //else if (radioButton3.Checked)
+                //{
+                //    _interval = 30;
+                //}
+                //else if (radioButton4.Checked)
+                //{
+                //    _interval = 60;
+                //}
+
+                /// Save settings data
+                //new data.msettings().WriteSettings(set_folderlocation.Text.ToString(), set_resource.Checked, set_launcher.Checked, set_screenshots.Checked, set_options.Checked, set_saves.Checked);
+
+                /// Save backcraft data
+                //new data.bsettings().WriteSettings(back_enable.Checked, back_enablelog.Checked, back_7zippath.Text, back_backupfolderpath.Text, _interval, back_startup.Checked);
+
+
+                RegistryKey registryKey = Registry.CurrentUser.OpenSubKey
+("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+
+                if (back_startup.Checked)
+                {
+                    registryKey.SetValue("Backcraft", Application.ExecutablePath);
+                }
+                else
+                {
+                    registryKey.DeleteValue("Backcraft");
+                }
+
+
+                /// Change text value for btn
+                back_save.Text = "Saved!";
+
+                try
+                {
+                    Process.Start(Application.StartupPath + "\\backcraft.exe");
+                    Process.GetCurrentProcess().Kill();
+                }
+                catch
+                { }
             }
-            else
+            catch (Exception err)
             {
-                label_resource.Enabled = true;
-                label_checkboxresources.Enabled = true;
-                btn_resourcepacks.Enabled = true;
-            }
-        }
-
-        private void set_saves_CheckedChanged(object sender, EventArgs e)
-        {
-            if (set_saves.Checked)
-            {
-                label_checkboxsaves.Enabled = true;
-                label_saves.Enabled = true;
-                btn_saves.Enabled = true;
-            }
-            else
-            {
-                label_checkboxsaves.Enabled = true;
-                label_saves.Enabled = true;
-                btn_saves.Enabled = true;
-            }
-        }
-
-        private void set_launcher_CheckedChanged(object sender, EventArgs e)
-        {
-            if (set_launcher.Checked)
-            {
-                label_checkboxlauncher.Enabled = true;
-                label_launcher.Enabled = true;
-            }
-            else
-            {
-                label_checkboxlauncher.Enabled = true;
-                label_launcher.Enabled = true;
+                string a = err.ToString();
+                /// Change text value for btn
+                back_save.Text = "Error!";
             }
         }
 
-        private void set_options_CheckedChanged(object sender, EventArgs e)
+        private void button1_Click_1(object sender, EventArgs e)
         {
-            if (set_launcher.Checked)
+            /// BACKUP NOW BUTTON
+            try
             {
-                label_checkboxoptions.Enabled = true;
-                label_options.Enabled = true;
+                var a = Backcraft();
             }
-            else
+            catch (Exception)
             {
-                label_checkboxoptions.Enabled = true;
-                label_options.Enabled = true;
             }
         }
 
-        private void set_screenshots_CheckedChanged(object sender, EventArgs e)
+        private void button6_Click(object sender, EventArgs e)
         {
-            if (set_launcher.Checked)
-            {
-                label_checkboxscreenshots.Enabled = true;
-                label_screenshots.Enabled = true;
-            }
-            else
-            {
-                label_checkboxscreenshots.Enabled = true;
-                label_screenshots.Enabled = true;
-            }
+            /// DELETE SETTING BUTTON
         }
 
         #endregion
 
-        #region BUTTONS
+        #region BUTTON LABELS
 
-        private void btn_minecraftfolder_Click(object sender, EventArgs e)
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-
-        }
-
-        private void btn_resourcepacks_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btn_saves_Click(object sender, EventArgs e)
-        {
-
+            /// Link to github repo
+            System.Diagnostics.Process.Start("https://github.com/emimontesdeoca/backcraft");
         }
 
         #endregion
 
 
-        #endregion
-
-
-        private void label13_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void m_panel_Enter(object sender, EventArgs e)
-        {
-
-        }
     }
 }
