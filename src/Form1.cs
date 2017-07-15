@@ -22,12 +22,9 @@ namespace backcraft
 
         public Form1()
         {
-
-
-
             InitializeComponent();
 
-            #region Folder creation and files creation
+            #region FOLDER CREATION
 
             /// Create data folder if not created for user settings
             if (!Directory.Exists("config"))
@@ -44,8 +41,119 @@ namespace backcraft
 
             #endregion
 
+            #region LOAD CHECKBOXES
+
+            #region ENABLE
+
+            if (back_enable.Checked)
+            {
+                b_panel.Enabled = true;
+                m_panel.Enabled = true;
+            }
+            else
+            {
+                b_panel.Enabled = false;
+                m_panel.Enabled = false;
+            }
+
+            #endregion
+
+            #region MINECRAFT 
+
+            LoadMinecraftCheckboxes();
+
+            if (set_resource.Checked)
+            {
+                label_resource.Enabled = true;
+                label_checkboxresources.Enabled = true;
+                btn_resourcepacks.Enabled = true;
+            }
+            else
+            {
+                label_resource.Enabled = false;
+                label_checkboxresources.Enabled = false;
+                btn_resourcepacks.Enabled = false;
+            }
+
+            if (set_saves.Checked)
+            {
+                label_checkboxsaves.Enabled = true;
+                label_saves.Enabled = true;
+                btn_saves.Enabled = true;
+            }
+            else
+            {
+                label_checkboxsaves.Enabled = false;
+                label_saves.Enabled = false;
+                btn_saves.Enabled = false;
+            }
+            if (set_launcher.Checked)
+            {
+                label_checkboxlauncher.Enabled = true;
+                label_launcher.Enabled = true;
+            }
+            else
+            {
+                label_checkboxlauncher.Enabled = false;
+                label_launcher.Enabled = false;
+            }
+            if (set_options.Checked)
+            {
+                label_checkboxoptions.Enabled = true;
+                label_options.Enabled = true;
+            }
+            else
+            {
+                label_checkboxoptions.Enabled = false;
+                label_options.Enabled = false;
+            }
+            if (set_screenshots.Checked)
+            {
+                label_checkboxscreenshots.Enabled = true;
+                label_screenshots.Enabled = true;
+            }
+            else
+            {
+                label_checkboxscreenshots.Enabled = false;
+                label_screenshots.Enabled = false;
+            }
+
+            #endregion
+
+            #region BACKCRAFT
+
+            if (back_enablelog.Checked)
+            {
+                label_checkboxlogs.Enabled = true;
+                label_logs.Enabled = true;
+            }
+            else
+            {
+                label_checkboxlogs.Enabled = false;
+                label_logs.Enabled = false;
+            }
+
+            if (back_startup.Checked)
+            {
+                label_checkboxstartup.Enabled = true;
+                label_startup.Enabled = true;
+            }
+            else
+            {
+                label_checkboxstartup.Enabled = false;
+                label_startup.Enabled = false;
+            }
+
+            #endregion
+
+            #endregion
+
+            #region ICON TRAY SETTINGS
+
             notifyIcon1.BalloonTipTitle = "Backcraft minimized!";
             notifyIcon1.BalloonTipText = "Backcraft will be running in the background.";
+
+            #endregion
 
             try
             {
@@ -192,7 +300,32 @@ namespace backcraft
             }
         }
 
+        private void LoadMinecraftCheckboxes()
+        {
+
+            if (_MinecraftPath == "" || _MinecraftPath == null)
+            {
+                set_resource.Enabled = false;
+                set_saves.Enabled = false;
+                set_launcher.Enabled = false;
+                set_options.Enabled = false;
+                set_screenshots.Enabled = false;
+            }
+            else
+            {
+                set_resource.Enabled = true;
+                set_saves.Enabled = true;
+                set_launcher.Enabled = true;
+                set_options.Enabled = true;
+                set_screenshots.Enabled = true;
+            }
+        }
+
+
+
         #endregion
+
+
 
         #region SETTINGS
 

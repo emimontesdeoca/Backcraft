@@ -52,7 +52,7 @@ namespace backcraft.forms.minecraft
             {
                 List<string> d = Directory.GetDirectories(_MinecraftResourcePacksPath).ToList();
 
-                List<logic.resourcepacks> list = new logic.resourcepacks().GetResourcePackFrom();
+                List<logic.resourcepacks> list = new logic.resourcepacks().GetWorldsFromFile();
 
                 foreach (string dir in d)
                 {
@@ -85,8 +85,6 @@ namespace backcraft.forms.minecraft
 
         private void btn_save_Click(object sender, EventArgs e)
         {
-            btn_save.Text = "Working...";
-
             foreach (DataGridViewRow r in gridview_resourcepacks.Rows)
             {
                 string name = r.Cells[0].Value.ToString();

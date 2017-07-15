@@ -17,6 +17,11 @@ namespace backcraft.forms.backcraft
             InitializeComponent();
         }
 
+        private void b_7zip_Load(object sender, EventArgs e)
+        {
+            textbox_path.Text = logic._7zippath.Get7ZipPath();
+        }
+
         private void brn_search_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog fbd = new FolderBrowserDialog();
@@ -33,8 +38,8 @@ namespace backcraft.forms.backcraft
 
         private void btn_save_Click(object sender, EventArgs e)
         {
+            new logic._7zippath(textbox_path.Text.ToString()).WriteToFile();
             Form1._Backcraft7ZipPath = textbox_path.Text.ToString();
-
             this.Close();
         }
 
@@ -42,5 +47,7 @@ namespace backcraft.forms.backcraft
         {
             this.Close();
         }
+
+
     }
 }

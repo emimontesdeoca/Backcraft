@@ -521,7 +521,7 @@
             // 
             this.back_enable.AutoSize = true;
             this.back_enable.Font = new System.Drawing.Font("Arial Narrow", 12F);
-            this.back_enable.Location = new System.Drawing.Point(54, 9);
+            this.back_enable.Location = new System.Drawing.Point(19, 9);
             this.back_enable.Name = "back_enable";
             this.back_enable.Size = new System.Drawing.Size(70, 24);
             this.back_enable.TabIndex = 12;
@@ -590,7 +590,7 @@
             this.label_settingsload.AutoSize = true;
             this.label_settingsload.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Italic);
             this.label_settingsload.ForeColor = System.Drawing.Color.Red;
-            this.label_settingsload.Location = new System.Drawing.Point(298, 13);
+            this.label_settingsload.Location = new System.Drawing.Point(304, 13);
             this.label_settingsload.Name = "label_settingsload";
             this.label_settingsload.Size = new System.Drawing.Size(74, 16);
             this.label_settingsload.TabIndex = 17;

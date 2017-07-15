@@ -48,15 +48,29 @@ namespace backcraft.forms.minecraft
 
         private void btn_loadworlds_Click(object sender, EventArgs e)
         {
+            gridview_worlds.Rows.Clear();
+
             try
             {
                 List<string> d = Directory.GetDirectories(_MinecraftSavesPath).ToList();
+                List<logic.worlds> list = new logic.worlds().GetWorldsFromFile();
 
                 foreach (string dir in d)
                 {
                     string name = dir.Split('\\').Last();
                     string path = dir;
-                    gridview_worlds.Rows.Add(name, path, false);
+                    bool check = false;
+                    try
+                    {
+                        if (list.Single(x => x.name == name && x.path == path) != null)
+                        {
+                            check = true;
+                        }
+                    }
+                    catch (Exception)
+                    {
+                    }
+                    gridview_worlds.Rows.Add(name, path, check);
                 }
 
                 gridview_worlds.Enabled = true;
@@ -71,6 +85,16 @@ namespace backcraft.forms.minecraft
 
         private void btn_save_Click(object sender, EventArgs e)
         {
+
+            foreach (DataGridViewRow r in gridview_worlds.Rows)
+            {
+                string name = r.Cells[0].Value.ToString();
+                string path = r.Cells[1].Value.ToString();
+                string check = r.Cells[2].Value.ToString();
+                new logic.worlds(name, path).WriteWorldsDirectories(Convert.ToBoolean(check));
+
+            }
+            logic.worlds.FinallyWriteFile();
 
             this.Close();
         }

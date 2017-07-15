@@ -7,24 +7,24 @@ using System.Threading.Tasks;
 
 namespace backcraft.logic
 {
-    class resourcepacks
+    class worlds
     {
-        const string _txtpath = @"config\resourcepacks.txt";
+        const string _txtpath = @"config\worlds.txt";
         public string name { get; set; }
         public string path { get; set; }
         public string md5 { get; set; }
 
-        public static List<string> allresourcepacks;
-        public resourcepacks(string name, string path)
+        public static List<string> allworlds;
+
+        public worlds(string name, string path)
         {
             this.name = name;
             this.path = path;
             this.md5 = bs.md5.CreateMd5ForFolder(this.path);
         }
+        public worlds() { }
 
-        public resourcepacks() { }
-
-        public void WriteResourcePackDirectories(bool checkbox)
+        public void WriteWorldsDirectories(bool checkbox)
         {
             string _name = "name=" + this.name;
             string _path = "path=" + this.path;
@@ -42,15 +42,15 @@ namespace backcraft.logic
 
                 using (StreamReader rd = new StreamReader(_txtpath, true))
                 {
-                    if (allresourcepacks == null)
+                    if (allworlds == null)
                     {
-                        allresourcepacks = new List<string>();
+                        allworlds = new List<string>();
                         while (true)
                         {
                             try
                             {
                                 string newline = rd.ReadLine().Trim();
-                                allresourcepacks.Add(newline);
+                                allworlds.Add(newline);
                             }
                             catch (Exception)
                             {
@@ -58,23 +58,23 @@ namespace backcraft.logic
                             }
                         }
                     }
-                    if (allresourcepacks.Contains(fullstring))
+                    if (allworlds.Contains(fullstring))
                     {
                         if (!checkbox)
                         {
                             try
                             {
-                                var x = allresourcepacks.Single(a => a == fullstring);
-                                allresourcepacks.Remove(x);
+                                var x = allworlds.Single(a => a == fullstring);
+                                allworlds.Remove(x);
                             }
                             catch (Exception)
                             {
                             }
                         }
                     }
-                    else if (!allresourcepacks.Contains(fullstring) && checkbox)
+                    else if (!allworlds.Contains(fullstring) && checkbox)
                     {
-                        allresourcepacks.Add(fullstring);
+                        allworlds.Add(fullstring);
                     }
                 }
             }
@@ -82,12 +82,7 @@ namespace backcraft.logic
             {
 
             }
-            
-        }
 
-        public static void FinallyWriteFile()
-        {
-            new resourcepacks().WriteToFile(allresourcepacks);
         }
 
         public void WriteToFile(List<string> strings)
@@ -109,9 +104,14 @@ namespace backcraft.logic
             }
         }
 
-        public List<resourcepacks> GetWorldsFromFile()
+        public static void FinallyWriteFile()
         {
-            List<resourcepacks> resourcepacks = new List<logic.resourcepacks>();
+            new worlds().WriteToFile(allworlds);
+        }
+
+        public List<worlds> GetWorldsFromFile()
+        {
+            List<worlds> resourcepacks = new List<logic.worlds>();
 
             try
             {
@@ -126,7 +126,7 @@ namespace backcraft.logic
 
                             string name = newline.Split('&')[1];
                             string path = newline.Split('&')[2];
-                            resourcepacks.Add(new logic.resourcepacks(name.Split('=')[1], path.Split('=')[1]));
+                            resourcepacks.Add(new logic.worlds(name.Split('=')[1], path.Split('=')[1]));
                         }
                         catch (Exception)
                         {
