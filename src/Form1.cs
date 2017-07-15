@@ -20,6 +20,9 @@ namespace backcraft
 
         public Form1()
         {
+
+            //string builder = @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\.minecraft";
+
             InitializeComponent();
 
             #region Folder creation and files creation
@@ -60,17 +63,6 @@ namespace backcraft
                 {
                     string[] b = new data.msettings().GetMinecraftSettingsData();
 
-                    /// Folder location string
-                    set_folderlocation.Text = b[0].ToString();
-
-                    if (b[0].ToString() == @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\.minecraft")
-                    {
-                        checkBox2.Checked = true;
-                    }
-                    else
-                    {
-                        checkBox2.Checked = false;
-                    }
                     /// Resource folder checkbox
                     set_resource.Checked = Convert.ToBoolean(b[1]);
                     /// Launcher options file checkbox
@@ -100,44 +92,44 @@ namespace backcraft
                     /// Save log enabled checkbox
                     back_enablelog.Checked = Convert.ToBoolean(c[1]);
                     /// 7zip path enabled checkbox
-                    back_7zippath.Text = c[2];
-                    if (c[2] == @"C:\Program Files\7-Zip\7z.exe")
-                    {
-                        acc_default7zip.Checked = true;
-                    }
-                    else
-                    {
-                        acc_default7zip.Checked = false;
+                    //back_7zippath.Text = c[2];
+                    //if (c[2] == @"C:\Program Files\7-Zip\7z.exe")
+                    //{
+                    //    acc_default7zip.Checked = true;
+                    //}
+                    //else
+                    //{
+                    //    acc_default7zip.Checked = false;
 
-                    }
-                    /// 7zip path enabled checkbox
-                    back_backupfolderpath.Text = c[3];
-                    if (c[3] == @"backups\")
-                    {
-                        checkBox1.Checked = true;
-                    }
-                    else
-                    {
-                        checkBox1.Checked = false;
+                    //}
+                    ///// 7zip path enabled checkbox
+                    //back_backupfolderpath.Text = c[3];
+                    //if (c[3] == @"backups\")
+                    //{
+                    //    checkBox1.Checked = true;
+                    //}
+                    //else
+                    //{
+                    //    checkBox1.Checked = false;
 
-                    }
+                    //}
 
                     /// Interval value
-                    switch (Convert.ToInt32(c[4]))
-                    {
-                        case 5:
-                            radioButton1.Checked = true;
-                            break;
-                        case 10:
-                            radioButton2.Checked = true;
-                            break;
-                        case 30:
-                            radioButton3.Checked = true;
-                            break;
-                        case 60:
-                            radioButton4.Checked = true;
-                            break;
-                    }
+                    //switch (Convert.ToInt32(c[4]))
+                    //{
+                    //    case 5:
+                    //        radioButton1.Checked = true;
+                    //        break;
+                    //    case 10:
+                    //        radioButton2.Checked = true;
+                    //        break;
+                    //    case 30:
+                    //        radioButton3.Checked = true;
+                    //        break;
+                    //    case 60:
+                    //        radioButton4.Checked = true;
+                    //        break;
+                    //}
                     ///Startup
 
                     back_startup.Checked = Convert.ToBoolean(c[5]);
@@ -185,7 +177,7 @@ namespace backcraft
                 token.Cancel();
             }
 
-            var x = AsyncBackcraft(interval);
+            //var x = AsyncBackcraft(interval);
         }
 
         public async Task AsyncBackcraft(int interval)
@@ -212,16 +204,6 @@ namespace backcraft
             }
         }
 
-        private void sett_searchfolder_Click(object sender, EventArgs e)
-        {
-            /// Browse for folder
-            FolderBrowserDialog fbd = new FolderBrowserDialog();
-            fbd.Description = "Search your Minecraft folder.";
-            if (fbd.ShowDialog() == DialogResult.OK)
-            {
-                set_folderlocation.Text = fbd.SelectedPath.ToString();
-            }
-        }
 
         private void back_save_Click(object sender, EventArgs e)
         {
@@ -230,28 +212,28 @@ namespace backcraft
                 /// Getting the interval, this is ugly I know, dont killerino me
                 int _interval = 5;
 
-                if (radioButton1.Checked)
-                {
-                    _interval = 5;
-                }
-                else if (radioButton2.Checked)
-                {
-                    _interval = 10;
-                }
-                else if (radioButton3.Checked)
-                {
-                    _interval = 30;
-                }
-                else if (radioButton4.Checked)
-                {
-                    _interval = 60;
-                }
+                //if (radioButton1.Checked)
+                //{
+                //    _interval = 5;
+                //}
+                //else if (radioButton2.Checked)
+                //{
+                //    _interval = 10;
+                //}
+                //else if (radioButton3.Checked)
+                //{
+                //    _interval = 30;
+                //}
+                //else if (radioButton4.Checked)
+                //{
+                //    _interval = 60;
+                //}
 
                 /// Save settings data
-                new data.msettings().WriteSettings(set_folderlocation.Text.ToString(), set_resource.Checked, set_launcher.Checked, set_screenshots.Checked, set_options.Checked, set_saves.Checked);
+                //new data.msettings().WriteSettings(set_folderlocation.Text.ToString(), set_resource.Checked, set_launcher.Checked, set_screenshots.Checked, set_options.Checked, set_saves.Checked);
 
                 /// Save backcraft data
-                new data.bsettings().WriteSettings(back_enable.Checked, back_enablelog.Checked, back_7zippath.Text, back_backupfolderpath.Text, _interval, back_startup.Checked);
+                //new data.bsettings().WriteSettings(back_enable.Checked, back_enablelog.Checked, back_7zippath.Text, back_backupfolderpath.Text, _interval, back_startup.Checked);
 
 
                 RegistryKey registryKey = Registry.CurrentUser.OpenSubKey
@@ -316,7 +298,7 @@ namespace backcraft
             }
 
             /// Get Minecraft folder location
-            string folderlocation = set_folderlocation.Text.ToString();
+            string folderlocation = ""; /*set_folderlocation.Text.ToString();*/
 
             #endregion
 
@@ -401,7 +383,7 @@ namespace backcraft
                 string fullname = f.FullName;
 
                 /// Compress it with 7Zip
-                bs.compression.CreateZipFile(back_7zippath.Text, back_backupfolderpath.Text + "\\" + fileName.Split('\\')[1], fullname);
+                //bs.compression.CreateZipFile(back_7zippath.Text, back_backupfolderpath.Text + "\\" + fileName.Split('\\')[1], fullname);
                 //bs.compression.CreateZipFile(back_7zippath.Text, folderpath, fullname);
 
                 /// Save log
@@ -484,80 +466,198 @@ namespace backcraft
                 ShowInTaskbar = true;
                 ShowIcon = false;
                 notifyIcon1.Visible = false;
-                
+
             }
             catch (Exception)
             {
-                
+
             }
-            
+
         }
 
-        private void back_search7zip_Click(object sender, EventArgs e)
+        #region BACKCRAFT
+
+        #region ENABLING
+
+        private void back_enable_CheckedChanged(object sender, EventArgs e)
         {
-            /// Browse for folder
-            FolderBrowserDialog fbd = new FolderBrowserDialog();
-            fbd.Description = "Search the 7zip installation folder.";
-
-            if (fbd.ShowDialog() == DialogResult.OK)
+            if (back_enable.Checked)
             {
-                back_7zippath.Text = fbd.SelectedPath.ToString();
-            }
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            /// Browse for folder
-            FolderBrowserDialog fbd = new FolderBrowserDialog();
-            fbd.Description = "Select where you want to store the backups.";
-
-            if (fbd.ShowDialog() == DialogResult.OK)
-            {
-                back_backupfolderpath.Text = fbd.SelectedPath.ToString();
-            }
-        }
-
-        private void acc_default7zip_CheckedChanged(object sender, EventArgs e)
-        {
-            if (acc_default7zip.Checked)
-            {
-                back_7zippath.Text = @"C:\Program Files\7-Zip\7z.exe";
-                back_7zippath.Enabled = false;
+                b_panel.Enabled = true;
+                m_panel.Enabled = true;
             }
             else
             {
-                back_7zippath.Text = @"";
-                back_7zippath.Enabled = true;
+                b_panel.Enabled = false;
+                m_panel.Enabled = false;
             }
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        #endregion
+
+        #region SETTINGS
+
+        #region CHECKBOXES
+
+        private void back_enablelog_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked)
+            if (back_enablelog.Checked)
             {
-                back_backupfolderpath.Text = @"backup\";
-                back_backupfolderpath.Enabled = false;
+                label_checkboxlogs.Enabled = true;
+                label_logs.Enabled = true;
             }
             else
             {
-                back_backupfolderpath.Text = "";
-                back_backupfolderpath.Enabled = true;
+                label_checkboxlogs.Enabled = false;
+                label_logs.Enabled = false;
             }
         }
 
-        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        private void back_startup_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox2.Checked)
+            if (back_startup.Checked)
             {
-                string builder = @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\.minecraft";
-                set_folderlocation.Text = builder;
-                set_folderlocation.Enabled = false;
+                label_checkboxstartup.Enabled = true;
+                label_startup.Enabled = true;
             }
             else
             {
-                set_folderlocation.Text = "";
-                set_folderlocation.Enabled = true;
+                label_checkboxstartup.Enabled = false;
+                label_startup.Enabled = false;
             }
+        }
+
+        #endregion
+
+        #region BUTTONS
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        #endregion
+
+        #endregion
+
+        #endregion
+
+        #region MINECRAFT SETTINGS
+
+        #region ACTIVATING CHECKBOXES
+
+        private void set_resource_CheckedChanged(object sender, EventArgs e)
+        {
+            if (set_resource.Checked)
+            {
+                label_resource.Enabled = true;
+                label_checkboxresources.Enabled = true;
+                btn_resourcepacks.Enabled = true;
+            }
+            else
+            {
+                label_resource.Enabled = true;
+                label_checkboxresources.Enabled = true;
+                btn_resourcepacks.Enabled = true;
+            }
+        }
+
+        private void set_saves_CheckedChanged(object sender, EventArgs e)
+        {
+            if (set_saves.Checked)
+            {
+                label_checkboxsaves.Enabled = true;
+                label_saves.Enabled = true;
+                btn_saves.Enabled = true;
+            }
+            else
+            {
+                label_checkboxsaves.Enabled = true;
+                label_saves.Enabled = true;
+                btn_saves.Enabled = true;
+            }
+        }
+
+        private void set_launcher_CheckedChanged(object sender, EventArgs e)
+        {
+            if (set_launcher.Checked)
+            {
+                label_checkboxlauncher.Enabled = true;
+                label_launcher.Enabled = true;
+            }
+            else
+            {
+                label_checkboxlauncher.Enabled = true;
+                label_launcher.Enabled = true;
+            }
+        }
+
+        private void set_options_CheckedChanged(object sender, EventArgs e)
+        {
+            if (set_launcher.Checked)
+            {
+                label_checkboxoptions.Enabled = true;
+                label_options.Enabled = true;
+            }
+            else
+            {
+                label_checkboxoptions.Enabled = true;
+                label_options.Enabled = true;
+            }
+        }
+
+        private void set_screenshots_CheckedChanged(object sender, EventArgs e)
+        {
+            if (set_launcher.Checked)
+            {
+                label_checkboxscreenshots.Enabled = true;
+                label_screenshots.Enabled = true;
+            }
+            else
+            {
+                label_checkboxscreenshots.Enabled = true;
+                label_screenshots.Enabled = true;
+            }
+        }
+
+        #endregion
+
+        #region BUTTONS
+
+        private void btn_minecraftfolder_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_resourcepacks_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_saves_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        #endregion
+
+
+        #endregion
+
+
+        private void label13_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void m_panel_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -36,41 +36,51 @@
             this.set_saves = new System.Windows.Forms.CheckBox();
             this.set_launcher = new System.Windows.Forms.CheckBox();
             this.set_options = new System.Windows.Forms.CheckBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.sett_searchfolder = new System.Windows.Forms.Button();
+            this.m_panel = new System.Windows.Forms.GroupBox();
+            this.btn_minecraftfolder = new System.Windows.Forms.Button();
+            this.label_checkboxscreenshots = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.set_folderlocation = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label_checkboxoptions = new System.Windows.Forms.Label();
+            this.label_checkboxlauncher = new System.Windows.Forms.Label();
+            this.label_checkboxsaves = new System.Windows.Forms.Label();
+            this.label_checkboxresources = new System.Windows.Forms.Label();
+            this.btn_saves = new System.Windows.Forms.Button();
+            this.btn_resourcepacks = new System.Windows.Forms.Button();
+            this.label_options = new System.Windows.Forms.Label();
+            this.label_launcher = new System.Windows.Forms.Label();
+            this.label_saves = new System.Windows.Forms.Label();
+            this.label_screenshots = new System.Windows.Forms.Label();
+            this.label_resource = new System.Windows.Forms.Label();
+            this.b_panel = new System.Windows.Forms.GroupBox();
+            this.back_intervaltextbox = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.button5 = new System.Windows.Forms.Button();
+            this.label12 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.acc_default7zip = new System.Windows.Forms.CheckBox();
+            this.label_startup = new System.Windows.Forms.Label();
+            this.label_checkboxstartup = new System.Windows.Forms.Label();
+            this.label_checkboxlogs = new System.Windows.Forms.Label();
+            this.label_logs = new System.Windows.Forms.Label();
+            this.scroll_interval = new System.Windows.Forms.TrackBar();
+            this.back_startup = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.back_backupfolderpath = new System.Windows.Forms.TextBox();
-            this.back_search7zip = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.back_7zippath = new System.Windows.Forms.TextBox();
             this.back_enablelog = new System.Windows.Forms.CheckBox();
-            this.back_enable = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.radioButton4 = new System.Windows.Forms.RadioButton();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.back_enable = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
             this.back_save = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.label11 = new System.Windows.Forms.Label();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.back_startup = new System.Windows.Forms.CheckBox();
-            this.groupBox2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
+            this.label_settingsload = new System.Windows.Forms.Label();
+            this.button6 = new System.Windows.Forms.Button();
+            this.m_panel.SuspendLayout();
+            this.b_panel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.scroll_interval)).BeginInit();
             this.SuspendLayout();
             // 
             // label
@@ -87,339 +97,440 @@
             // 
             this.set_resource.AutoSize = true;
             this.set_resource.Font = new System.Drawing.Font("Arial Narrow", 12F);
-            this.set_resource.Location = new System.Drawing.Point(10, 65);
+            this.set_resource.Location = new System.Drawing.Point(10, 48);
             this.set_resource.Name = "set_resource";
-            this.set_resource.Size = new System.Drawing.Size(126, 24);
+            this.set_resource.Size = new System.Drawing.Size(15, 14);
             this.set_resource.TabIndex = 3;
-            this.set_resource.Text = "Resource packs";
             this.set_resource.UseVisualStyleBackColor = true;
+            this.set_resource.CheckedChanged += new System.EventHandler(this.set_resource_CheckedChanged);
             // 
             // set_screenshots
             // 
             this.set_screenshots.AutoSize = true;
             this.set_screenshots.Font = new System.Drawing.Font("Arial Narrow", 12F);
-            this.set_screenshots.Location = new System.Drawing.Point(10, 105);
+            this.set_screenshots.Location = new System.Drawing.Point(10, 148);
             this.set_screenshots.Name = "set_screenshots";
-            this.set_screenshots.Size = new System.Drawing.Size(103, 24);
+            this.set_screenshots.Size = new System.Drawing.Size(15, 14);
             this.set_screenshots.TabIndex = 4;
-            this.set_screenshots.Text = "Screenshots";
             this.set_screenshots.UseVisualStyleBackColor = true;
+            this.set_screenshots.CheckedChanged += new System.EventHandler(this.set_screenshots_CheckedChanged);
             // 
             // set_saves
             // 
             this.set_saves.AutoSize = true;
             this.set_saves.Font = new System.Drawing.Font("Arial Narrow", 12F);
-            this.set_saves.Location = new System.Drawing.Point(10, 145);
+            this.set_saves.Location = new System.Drawing.Point(10, 73);
             this.set_saves.Name = "set_saves";
-            this.set_saves.Size = new System.Drawing.Size(66, 24);
+            this.set_saves.Size = new System.Drawing.Size(15, 14);
             this.set_saves.TabIndex = 5;
-            this.set_saves.Text = "Saves";
             this.set_saves.UseVisualStyleBackColor = true;
+            this.set_saves.CheckedChanged += new System.EventHandler(this.set_saves_CheckedChanged);
             // 
             // set_launcher
             // 
             this.set_launcher.AutoSize = true;
             this.set_launcher.Font = new System.Drawing.Font("Arial Narrow", 12F);
-            this.set_launcher.Location = new System.Drawing.Point(10, 85);
+            this.set_launcher.Location = new System.Drawing.Point(10, 98);
             this.set_launcher.Name = "set_launcher";
-            this.set_launcher.Size = new System.Drawing.Size(133, 24);
+            this.set_launcher.Size = new System.Drawing.Size(15, 14);
             this.set_launcher.TabIndex = 6;
-            this.set_launcher.Text = "Launcher_profiles";
             this.set_launcher.UseVisualStyleBackColor = true;
+            this.set_launcher.CheckedChanged += new System.EventHandler(this.set_launcher_CheckedChanged);
             // 
             // set_options
             // 
             this.set_options.AutoSize = true;
             this.set_options.Font = new System.Drawing.Font("Arial Narrow", 12F);
-            this.set_options.Location = new System.Drawing.Point(10, 125);
+            this.set_options.Location = new System.Drawing.Point(10, 123);
             this.set_options.Name = "set_options";
-            this.set_options.Size = new System.Drawing.Size(74, 24);
+            this.set_options.Size = new System.Drawing.Size(15, 14);
             this.set_options.TabIndex = 7;
-            this.set_options.Text = "Options";
             this.set_options.UseVisualStyleBackColor = true;
+            this.set_options.CheckedChanged += new System.EventHandler(this.set_options_CheckedChanged);
             // 
-            // groupBox2
+            // m_panel
             // 
-            this.groupBox2.Controls.Add(this.checkBox2);
-            this.groupBox2.Controls.Add(this.sett_searchfolder);
-            this.groupBox2.Controls.Add(this.label9);
-            this.groupBox2.Controls.Add(this.set_folderlocation);
-            this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Controls.Add(this.label6);
-            this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.set_saves);
-            this.groupBox2.Controls.Add(this.set_resource);
-            this.groupBox2.Controls.Add(this.set_options);
-            this.groupBox2.Controls.Add(this.set_screenshots);
-            this.groupBox2.Controls.Add(this.set_launcher);
-            this.groupBox2.Location = new System.Drawing.Point(9, 39);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(338, 175);
-            this.groupBox2.TabIndex = 11;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Backup settings";
+            this.m_panel.Controls.Add(this.btn_minecraftfolder);
+            this.m_panel.Controls.Add(this.label_checkboxscreenshots);
+            this.m_panel.Controls.Add(this.label9);
+            this.m_panel.Controls.Add(this.label14);
+            this.m_panel.Controls.Add(this.label_checkboxoptions);
+            this.m_panel.Controls.Add(this.label_checkboxlauncher);
+            this.m_panel.Controls.Add(this.label_checkboxsaves);
+            this.m_panel.Controls.Add(this.label_checkboxresources);
+            this.m_panel.Controls.Add(this.btn_saves);
+            this.m_panel.Controls.Add(this.btn_resourcepacks);
+            this.m_panel.Controls.Add(this.label_options);
+            this.m_panel.Controls.Add(this.label_launcher);
+            this.m_panel.Controls.Add(this.label_saves);
+            this.m_panel.Controls.Add(this.label_screenshots);
+            this.m_panel.Controls.Add(this.label_resource);
+            this.m_panel.Controls.Add(this.set_saves);
+            this.m_panel.Controls.Add(this.set_resource);
+            this.m_panel.Controls.Add(this.set_options);
+            this.m_panel.Controls.Add(this.set_screenshots);
+            this.m_panel.Controls.Add(this.set_launcher);
+            this.m_panel.Location = new System.Drawing.Point(9, 39);
+            this.m_panel.Name = "m_panel";
+            this.m_panel.Size = new System.Drawing.Size(369, 172);
+            this.m_panel.TabIndex = 11;
+            this.m_panel.TabStop = false;
+            this.m_panel.Text = "Backup settings";
             // 
-            // sett_searchfolder
+            // btn_minecraftfolder
             // 
-            this.sett_searchfolder.Location = new System.Drawing.Point(134, 16);
-            this.sett_searchfolder.Name = "sett_searchfolder";
-            this.sett_searchfolder.Size = new System.Drawing.Size(77, 23);
-            this.sett_searchfolder.TabIndex = 14;
-            this.sett_searchfolder.Text = "Search folder";
-            this.sett_searchfolder.UseVisualStyleBackColor = true;
-            this.sett_searchfolder.Click += new System.EventHandler(this.sett_searchfolder_Click);
+            this.btn_minecraftfolder.Location = new System.Drawing.Point(288, 18);
+            this.btn_minecraftfolder.Name = "btn_minecraftfolder";
+            this.btn_minecraftfolder.Size = new System.Drawing.Size(75, 23);
+            this.btn_minecraftfolder.TabIndex = 35;
+            this.btn_minecraftfolder.Text = "Settings";
+            this.btn_minecraftfolder.UseVisualStyleBackColor = true;
+            this.btn_minecraftfolder.Click += new System.EventHandler(this.btn_minecraftfolder_Click);
+            // 
+            // label_checkboxscreenshots
+            // 
+            this.label_checkboxscreenshots.AutoSize = true;
+            this.label_checkboxscreenshots.Font = new System.Drawing.Font("Arial Narrow", 12F);
+            this.label_checkboxscreenshots.Location = new System.Drawing.Point(28, 144);
+            this.label_checkboxscreenshots.Name = "label_checkboxscreenshots";
+            this.label_checkboxscreenshots.Size = new System.Drawing.Size(84, 20);
+            this.label_checkboxscreenshots.TabIndex = 25;
+            this.label_checkboxscreenshots.Text = "Screenshots";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(6, 16);
+            this.label9.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(112, 21);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(129, 20);
-            this.label9.TabIndex = 12;
-            this.label9.Text = "Minecraft folder path";
+            this.label9.Size = new System.Drawing.Size(119, 16);
+            this.label9.TabIndex = 36;
+            this.label9.Text = "Path to Minecraft folder";
             // 
-            // set_folderlocation
+            // label14
             // 
-            this.set_folderlocation.Location = new System.Drawing.Point(10, 45);
-            this.set_folderlocation.Name = "set_folderlocation";
-            this.set_folderlocation.Size = new System.Drawing.Size(313, 20);
-            this.set_folderlocation.TabIndex = 11;
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(6, 18);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(100, 20);
+            this.label14.TabIndex = 34;
+            this.label14.Text = "Minecraft folder";
             // 
-            // label7
+            // label_checkboxoptions
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Italic);
-            this.label7.Location = new System.Drawing.Point(82, 129);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(134, 16);
-            this.label7.TabIndex = 13;
-            this.label7.Text = "Contains in-game settings.";
+            this.label_checkboxoptions.AutoSize = true;
+            this.label_checkboxoptions.Font = new System.Drawing.Font("Arial Narrow", 12F);
+            this.label_checkboxoptions.Location = new System.Drawing.Point(28, 119);
+            this.label_checkboxoptions.Name = "label_checkboxoptions";
+            this.label_checkboxoptions.Size = new System.Drawing.Size(55, 20);
+            this.label_checkboxoptions.TabIndex = 24;
+            this.label_checkboxoptions.Text = "Options";
             // 
-            // label6
+            // label_checkboxlauncher
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Italic);
-            this.label6.Location = new System.Drawing.Point(141, 89);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(146, 16);
-            this.label6.TabIndex = 12;
-            this.label6.Text = "Contains profiles inforamtion.";
+            this.label_checkboxlauncher.AutoSize = true;
+            this.label_checkboxlauncher.Font = new System.Drawing.Font("Arial Narrow", 12F);
+            this.label_checkboxlauncher.Location = new System.Drawing.Point(28, 94);
+            this.label_checkboxlauncher.Name = "label_checkboxlauncher";
+            this.label_checkboxlauncher.Size = new System.Drawing.Size(111, 20);
+            this.label_checkboxlauncher.TabIndex = 23;
+            this.label_checkboxlauncher.Text = "Launcher profiles";
             // 
-            // label5
+            // label_checkboxsaves
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Italic);
-            this.label5.Location = new System.Drawing.Point(76, 149);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(157, 16);
-            this.label5.TabIndex = 11;
-            this.label5.Text = "Contains your Minecraft worlds.";
+            this.label_checkboxsaves.AutoSize = true;
+            this.label_checkboxsaves.Font = new System.Drawing.Font("Arial Narrow", 12F);
+            this.label_checkboxsaves.Location = new System.Drawing.Point(28, 69);
+            this.label_checkboxsaves.Name = "label_checkboxsaves";
+            this.label_checkboxsaves.Size = new System.Drawing.Size(47, 20);
+            this.label_checkboxsaves.TabIndex = 22;
+            this.label_checkboxsaves.Text = "Saves";
             // 
-            // label4
+            // label_checkboxresources
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Italic);
-            this.label4.Location = new System.Drawing.Point(112, 109);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(168, 16);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "\tContains all in-game screenshots.";
+            this.label_checkboxresources.AutoSize = true;
+            this.label_checkboxresources.Font = new System.Drawing.Font("Arial Narrow", 12F);
+            this.label_checkboxresources.Location = new System.Drawing.Point(28, 44);
+            this.label_checkboxresources.Name = "label_checkboxresources";
+            this.label_checkboxresources.Size = new System.Drawing.Size(107, 20);
+            this.label_checkboxresources.TabIndex = 21;
+            this.label_checkboxresources.Text = "Resource packs";
+            // 
+            // btn_saves
+            // 
+            this.btn_saves.Location = new System.Drawing.Point(288, 69);
+            this.btn_saves.Name = "btn_saves";
+            this.btn_saves.Size = new System.Drawing.Size(75, 23);
+            this.btn_saves.TabIndex = 20;
+            this.btn_saves.Text = "Settings";
+            this.btn_saves.UseVisualStyleBackColor = true;
+            this.btn_saves.Click += new System.EventHandler(this.btn_saves_Click);
+            // 
+            // btn_resourcepacks
+            // 
+            this.btn_resourcepacks.Location = new System.Drawing.Point(288, 43);
+            this.btn_resourcepacks.Name = "btn_resourcepacks";
+            this.btn_resourcepacks.Size = new System.Drawing.Size(75, 23);
+            this.btn_resourcepacks.TabIndex = 19;
+            this.btn_resourcepacks.Text = "Settings";
+            this.btn_resourcepacks.UseVisualStyleBackColor = true;
+            this.btn_resourcepacks.Click += new System.EventHandler(this.btn_resourcepacks_Click);
+            // 
+            // label_options
+            // 
+            this.label_options.AutoSize = true;
+            this.label_options.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Italic);
+            this.label_options.Location = new System.Drawing.Point(89, 122);
+            this.label_options.Name = "label_options";
+            this.label_options.Size = new System.Drawing.Size(132, 16);
+            this.label_options.TabIndex = 13;
+            this.label_options.Text = "Backups in-game settings.";
+            // 
+            // label_launcher
+            // 
+            this.label_launcher.AutoSize = true;
+            this.label_launcher.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Italic);
+            this.label_launcher.Location = new System.Drawing.Point(145, 97);
+            this.label_launcher.Name = "label_launcher";
+            this.label_launcher.Size = new System.Drawing.Size(144, 16);
+            this.label_launcher.TabIndex = 12;
+            this.label_launcher.Text = "Backups profiles inforamtion.";
+            // 
+            // label_saves
+            // 
+            this.label_saves.AutoSize = true;
+            this.label_saves.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Italic);
+            this.label_saves.Location = new System.Drawing.Point(89, 72);
+            this.label_saves.Name = "label_saves";
+            this.label_saves.Size = new System.Drawing.Size(155, 16);
+            this.label_saves.TabIndex = 11;
+            this.label_saves.Text = "Backups your Minecraft worlds.";
+            // 
+            // label_screenshots
+            // 
+            this.label_screenshots.AutoSize = true;
+            this.label_screenshots.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Italic);
+            this.label_screenshots.Location = new System.Drawing.Point(118, 147);
+            this.label_screenshots.Name = "label_screenshots";
+            this.label_screenshots.Size = new System.Drawing.Size(166, 16);
+            this.label_screenshots.TabIndex = 10;
+            this.label_screenshots.Text = "Backups all in-game screenshots.";
+            // 
+            // label_resource
+            // 
+            this.label_resource.AutoSize = true;
+            this.label_resource.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_resource.Location = new System.Drawing.Point(141, 46);
+            this.label_resource.Name = "label_resource";
+            this.label_resource.Size = new System.Drawing.Size(126, 16);
+            this.label_resource.TabIndex = 9;
+            this.label_resource.Text = "Backups resource packs.";
+            // 
+            // b_panel
+            // 
+            this.b_panel.Controls.Add(this.back_intervaltextbox);
+            this.b_panel.Controls.Add(this.label13);
+            this.b_panel.Controls.Add(this.button5);
+            this.b_panel.Controls.Add(this.label12);
+            this.b_panel.Controls.Add(this.button3);
+            this.b_panel.Controls.Add(this.label3);
+            this.b_panel.Controls.Add(this.label_startup);
+            this.b_panel.Controls.Add(this.label_checkboxstartup);
+            this.b_panel.Controls.Add(this.label_checkboxlogs);
+            this.b_panel.Controls.Add(this.label_logs);
+            this.b_panel.Controls.Add(this.scroll_interval);
+            this.b_panel.Controls.Add(this.back_startup);
+            this.b_panel.Controls.Add(this.label2);
+            this.b_panel.Controls.Add(this.label1);
+            this.b_panel.Controls.Add(this.back_enablelog);
+            this.b_panel.Controls.Add(this.label8);
+            this.b_panel.Location = new System.Drawing.Point(9, 217);
+            this.b_panel.Name = "b_panel";
+            this.b_panel.Size = new System.Drawing.Size(369, 204);
+            this.b_panel.TabIndex = 12;
+            this.b_panel.TabStop = false;
+            this.b_panel.Text = "Backcraft settings";
+            // 
+            // back_intervaltextbox
+            // 
+            this.back_intervaltextbox.Enabled = false;
+            this.back_intervaltextbox.Font = new System.Drawing.Font("Arial Narrow", 12F);
+            this.back_intervaltextbox.Location = new System.Drawing.Point(305, 153);
+            this.back_intervaltextbox.Name = "back_intervaltextbox";
+            this.back_intervaltextbox.Size = new System.Drawing.Size(43, 26);
+            this.back_intervaltextbox.TabIndex = 33;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(112, 119);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(174, 16);
+            this.label13.TabIndex = 32;
+            this.label13.Text = "Time between backups, in minutes.";
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(288, 91);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(75, 23);
+            this.button5.TabIndex = 31;
+            this.button5.Text = "Settings";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(73, 94);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(180, 16);
+            this.label12.TabIndex = 30;
+            this.label12.Text = "Locations where backups are saved.";
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(288, 65);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 26;
+            this.button3.Text = "Settings";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(142, 69);
+            this.label3.Location = new System.Drawing.Point(47, 68);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(128, 16);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "Contains resource packs.";
+            this.label3.Size = new System.Drawing.Size(197, 16);
+            this.label3.TabIndex = 29;
+            this.label3.Text = "Software used to compress the backups";
             // 
-            // groupBox3
+            // label_startup
             // 
-            this.groupBox3.Controls.Add(this.back_startup);
-            this.groupBox3.Controls.Add(this.checkBox1);
-            this.groupBox3.Controls.Add(this.button2);
-            this.groupBox3.Controls.Add(this.acc_default7zip);
-            this.groupBox3.Controls.Add(this.label2);
-            this.groupBox3.Controls.Add(this.back_backupfolderpath);
-            this.groupBox3.Controls.Add(this.back_search7zip);
-            this.groupBox3.Controls.Add(this.label1);
-            this.groupBox3.Controls.Add(this.back_7zippath);
-            this.groupBox3.Controls.Add(this.back_enablelog);
-            this.groupBox3.Controls.Add(this.back_enable);
-            this.groupBox3.Controls.Add(this.label8);
-            this.groupBox3.Controls.Add(this.radioButton4);
-            this.groupBox3.Controls.Add(this.radioButton3);
-            this.groupBox3.Controls.Add(this.radioButton2);
-            this.groupBox3.Controls.Add(this.radioButton1);
-            this.groupBox3.Location = new System.Drawing.Point(9, 220);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(338, 181);
-            this.groupBox3.TabIndex = 12;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Backcraft settings";
+            this.label_startup.AutoSize = true;
+            this.label_startup.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_startup.Location = new System.Drawing.Point(123, 43);
+            this.label_startup.Name = "label_startup";
+            this.label_startup.Size = new System.Drawing.Size(117, 16);
+            this.label_startup.TabIndex = 28;
+            this.label_startup.Text = "Set Backcraft to run at ";
             // 
-            // checkBox1
+            // label_checkboxstartup
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("Arial Narrow", 12F);
-            this.checkBox1.Location = new System.Drawing.Point(222, 95);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(97, 24);
-            this.checkBox1.TabIndex = 19;
-            this.checkBox1.Text = "Default path";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.label_checkboxstartup.AutoSize = true;
+            this.label_checkboxstartup.Font = new System.Drawing.Font("Arial Narrow", 12F);
+            this.label_checkboxstartup.Location = new System.Drawing.Point(28, 40);
+            this.label_checkboxstartup.Name = "label_checkboxstartup";
+            this.label_checkboxstartup.Size = new System.Drawing.Size(89, 20);
+            this.label_checkboxstartup.TabIndex = 27;
+            this.label_checkboxstartup.Text = "Run at startup";
             // 
-            // button2
+            // label_checkboxlogs
             // 
-            this.button2.Location = new System.Drawing.Point(134, 96);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(77, 23);
-            this.button2.TabIndex = 17;
-            this.button2.Text = "Search";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.label_checkboxlogs.AutoSize = true;
+            this.label_checkboxlogs.Font = new System.Drawing.Font("Arial Narrow", 12F);
+            this.label_checkboxlogs.Location = new System.Drawing.Point(28, 15);
+            this.label_checkboxlogs.Name = "label_checkboxlogs";
+            this.label_checkboxlogs.Size = new System.Drawing.Size(39, 20);
+            this.label_checkboxlogs.TabIndex = 26;
+            this.label_checkboxlogs.Text = "Logs";
             // 
-            // acc_default7zip
+            // label_logs
             // 
-            this.acc_default7zip.AutoSize = true;
-            this.acc_default7zip.Font = new System.Drawing.Font("Arial Narrow", 12F);
-            this.acc_default7zip.Location = new System.Drawing.Point(222, 37);
-            this.acc_default7zip.Name = "acc_default7zip";
-            this.acc_default7zip.Size = new System.Drawing.Size(97, 24);
-            this.acc_default7zip.TabIndex = 18;
-            this.acc_default7zip.Text = "Default path";
-            this.acc_default7zip.UseVisualStyleBackColor = true;
-            this.acc_default7zip.CheckedChanged += new System.EventHandler(this.acc_default7zip_CheckedChanged);
+            this.label_logs.AutoSize = true;
+            this.label_logs.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_logs.Location = new System.Drawing.Point(82, 18);
+            this.label_logs.Name = "label_logs";
+            this.label_logs.Size = new System.Drawing.Size(215, 16);
+            this.label_logs.TabIndex = 26;
+            this.label_logs.Text = "Useful to keep track of backups information.";
+            // 
+            // scroll_interval
+            // 
+            this.scroll_interval.Location = new System.Drawing.Point(6, 143);
+            this.scroll_interval.Maximum = 60;
+            this.scroll_interval.Minimum = 5;
+            this.scroll_interval.Name = "scroll_interval";
+            this.scroll_interval.Size = new System.Drawing.Size(283, 45);
+            this.scroll_interval.SmallChange = 5;
+            this.scroll_interval.TabIndex = 20;
+            this.scroll_interval.TickFrequency = 5;
+            this.scroll_interval.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.scroll_interval.Value = 5;
+            // 
+            // back_startup
+            // 
+            this.back_startup.AutoSize = true;
+            this.back_startup.Font = new System.Drawing.Font("Arial Narrow", 12F);
+            this.back_startup.Location = new System.Drawing.Point(10, 44);
+            this.back_startup.Name = "back_startup";
+            this.back_startup.Size = new System.Drawing.Size(15, 14);
+            this.back_startup.TabIndex = 18;
+            this.back_startup.UseVisualStyleBackColor = true;
+            this.back_startup.CheckedChanged += new System.EventHandler(this.back_startup_CheckedChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(6, 96);
+            this.label2.Location = new System.Drawing.Point(6, 91);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(99, 20);
+            this.label2.Size = new System.Drawing.Size(61, 20);
             this.label2.TabIndex = 16;
-            this.label2.Text = "Backups folder";
-            // 
-            // back_backupfolderpath
-            // 
-            this.back_backupfolderpath.Location = new System.Drawing.Point(10, 128);
-            this.back_backupfolderpath.Name = "back_backupfolderpath";
-            this.back_backupfolderpath.Size = new System.Drawing.Size(313, 20);
-            this.back_backupfolderpath.TabIndex = 15;
-            // 
-            // back_search7zip
-            // 
-            this.back_search7zip.Location = new System.Drawing.Point(134, 38);
-            this.back_search7zip.Name = "back_search7zip";
-            this.back_search7zip.Size = new System.Drawing.Size(77, 23);
-            this.back_search7zip.TabIndex = 17;
-            this.back_search7zip.Text = "Search";
-            this.back_search7zip.UseVisualStyleBackColor = true;
-            this.back_search7zip.Click += new System.EventHandler(this.back_search7zip_Click);
+            this.label2.Text = "Backups";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(6, 38);
+            this.label1.Location = new System.Drawing.Point(6, 65);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(101, 20);
+            this.label1.Size = new System.Drawing.Size(34, 20);
             this.label1.TabIndex = 16;
-            this.label1.Text = "7zip folder path";
-            // 
-            // back_7zippath
-            // 
-            this.back_7zippath.Location = new System.Drawing.Point(10, 70);
-            this.back_7zippath.Name = "back_7zippath";
-            this.back_7zippath.Size = new System.Drawing.Size(313, 20);
-            this.back_7zippath.TabIndex = 15;
+            this.label1.Text = "7Zip";
             // 
             // back_enablelog
             // 
             this.back_enablelog.AutoSize = true;
             this.back_enablelog.Font = new System.Drawing.Font("Arial Narrow", 12F);
-            this.back_enablelog.Location = new System.Drawing.Point(138, 15);
+            this.back_enablelog.Location = new System.Drawing.Point(10, 19);
             this.back_enablelog.Name = "back_enablelog";
-            this.back_enablelog.Size = new System.Drawing.Size(86, 24);
+            this.back_enablelog.Size = new System.Drawing.Size(15, 14);
             this.back_enablelog.TabIndex = 13;
-            this.back_enablelog.Text = "Save log ";
             this.back_enablelog.UseVisualStyleBackColor = true;
-            // 
-            // back_enable
-            // 
-            this.back_enable.AutoSize = true;
-            this.back_enable.Font = new System.Drawing.Font("Arial Narrow", 12F);
-            this.back_enable.Location = new System.Drawing.Point(10, 15);
-            this.back_enable.Name = "back_enable";
-            this.back_enable.Size = new System.Drawing.Size(128, 24);
-            this.back_enable.TabIndex = 12;
-            this.back_enable.Text = "Enable Backcraft";
-            this.back_enable.UseVisualStyleBackColor = true;
+            this.back_enablelog.CheckedChanged += new System.EventHandler(this.back_enablelog_CheckedChanged);
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(6, 151);
+            this.label8.Location = new System.Drawing.Point(6, 116);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(158, 20);
+            this.label8.Size = new System.Drawing.Size(100, 20);
             this.label8.TabIndex = 11;
-            this.label8.Text = "Backup interval (minutes)";
+            this.label8.Text = "Backup interval";
             // 
-            // radioButton4
+            // back_enable
             // 
-            this.radioButton4.AutoSize = true;
-            this.radioButton4.Location = new System.Drawing.Point(293, 154);
-            this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(37, 17);
-            this.radioButton4.TabIndex = 3;
-            this.radioButton4.TabStop = true;
-            this.radioButton4.Text = "60";
-            this.radioButton4.UseVisualStyleBackColor = true;
-            // 
-            // radioButton3
-            // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(250, 154);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(37, 17);
-            this.radioButton3.TabIndex = 2;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "30";
-            this.radioButton3.UseVisualStyleBackColor = true;
-            // 
-            // radioButton2
-            // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(207, 154);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(37, 17);
-            this.radioButton2.TabIndex = 1;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "10";
-            this.radioButton2.UseVisualStyleBackColor = true;
-            // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(170, 154);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(31, 17);
-            this.radioButton1.TabIndex = 0;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "5";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.back_enable.AutoSize = true;
+            this.back_enable.Font = new System.Drawing.Font("Arial Narrow", 12F);
+            this.back_enable.Location = new System.Drawing.Point(54, 9);
+            this.back_enable.Name = "back_enable";
+            this.back_enable.Size = new System.Drawing.Size(70, 24);
+            this.back_enable.TabIndex = 12;
+            this.back_enable.Text = "Enable";
+            this.back_enable.UseVisualStyleBackColor = true;
+            this.back_enable.CheckedChanged += new System.EventHandler(this.back_enable_CheckedChanged);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(179, 407);
+            this.button1.Location = new System.Drawing.Point(140, 427);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(105, 32);
             this.button1.TabIndex = 15;
@@ -429,7 +540,7 @@
             // 
             // back_save
             // 
-            this.back_save.Location = new System.Drawing.Point(68, 407);
+            this.back_save.Location = new System.Drawing.Point(24, 427);
             this.back_save.Name = "back_save";
             this.back_save.Size = new System.Drawing.Size(105, 32);
             this.back_save.TabIndex = 14;
@@ -440,7 +551,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 444);
+            this.label10.Location = new System.Drawing.Point(6, 462);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(114, 13);
             this.label10.TabIndex = 13;
@@ -449,7 +560,7 @@
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(309, 444);
+            this.linkLabel1.Location = new System.Drawing.Point(340, 462);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(38, 13);
             this.linkLabel1.TabIndex = 14;
@@ -464,7 +575,7 @@
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(28, 13);
             this.label11.TabIndex = 16;
-            this.label11.Text = "v2.0";
+            this.label11.Text = "v3.0";
             // 
             // notifyIcon1
             // 
@@ -473,51 +584,51 @@
             this.notifyIcon1.Visible = true;
             this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
             // 
-            // checkBox2
+            // label_settingsload
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Font = new System.Drawing.Font("Arial Narrow", 12F);
-            this.checkBox2.Location = new System.Drawing.Point(222, 15);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(97, 24);
-            this.checkBox2.TabIndex = 18;
-            this.checkBox2.Text = "Default path";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
+            this.label_settingsload.AutoSize = true;
+            this.label_settingsload.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Italic);
+            this.label_settingsload.Location = new System.Drawing.Point(294, 17);
+            this.label_settingsload.Name = "label_settingsload";
+            this.label_settingsload.Size = new System.Drawing.Size(74, 16);
+            this.label_settingsload.TabIndex = 17;
+            this.label_settingsload.Text = "Settings failed";
             // 
-            // back_startup
+            // button6
             // 
-            this.back_startup.AutoSize = true;
-            this.back_startup.Font = new System.Drawing.Font("Arial Narrow", 12F);
-            this.back_startup.Location = new System.Drawing.Point(222, 15);
-            this.back_startup.Name = "back_startup";
-            this.back_startup.Size = new System.Drawing.Size(110, 24);
-            this.back_startup.TabIndex = 18;
-            this.back_startup.Text = "Run at Startup";
-            this.back_startup.UseVisualStyleBackColor = true;
+            this.button6.Location = new System.Drawing.Point(255, 427);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(105, 32);
+            this.button6.TabIndex = 18;
+            this.button6.Text = "Delete settings";
+            this.button6.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(359, 466);
+            this.ClientSize = new System.Drawing.Size(389, 482);
+            this.Controls.Add(this.button6);
+            this.Controls.Add(this.label_settingsload);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.label10);
-            this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.b_panel);
+            this.Controls.Add(this.m_panel);
             this.Controls.Add(this.label);
             this.Controls.Add(this.back_save);
             this.Controls.Add(this.button1);
+            this.Controls.Add(this.back_enable);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Backcraft";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Resize += new System.EventHandler(this.Form1_Resize);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
+            this.m_panel.ResumeLayout(false);
+            this.m_panel.PerformLayout();
+            this.b_panel.ResumeLayout(false);
+            this.b_panel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.scroll_interval)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -531,39 +642,48 @@
         private System.Windows.Forms.CheckBox set_saves;
         private System.Windows.Forms.CheckBox set_launcher;
         private System.Windows.Forms.CheckBox set_options;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.RadioButton radioButton3;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.GroupBox m_panel;
+        private System.Windows.Forms.Label label_options;
+        private System.Windows.Forms.Label label_launcher;
+        private System.Windows.Forms.Label label_saves;
+        private System.Windows.Forms.Label label_screenshots;
+        private System.Windows.Forms.Label label_resource;
+        private System.Windows.Forms.GroupBox b_panel;
         private System.Windows.Forms.Button back_save;
         private System.Windows.Forms.CheckBox back_enablelog;
         private System.Windows.Forms.CheckBox back_enable;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.RadioButton radioButton4;
-        private System.Windows.Forms.Button sett_searchfolder;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox set_folderlocation;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.CheckBox acc_default7zip;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox back_backupfolderpath;
-        private System.Windows.Forms.Button back_search7zip;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox back_7zippath;
-        private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox back_startup;
+        private System.Windows.Forms.Button btn_saves;
+        private System.Windows.Forms.Button btn_resourcepacks;
+        private System.Windows.Forms.TrackBar scroll_interval;
+        private System.Windows.Forms.Label label_checkboxscreenshots;
+        private System.Windows.Forms.Label label_checkboxoptions;
+        private System.Windows.Forms.Label label_checkboxlauncher;
+        private System.Windows.Forms.Label label_checkboxsaves;
+        private System.Windows.Forms.Label label_checkboxresources;
+        private System.Windows.Forms.Label label_startup;
+        private System.Windows.Forms.Label label_checkboxstartup;
+        private System.Windows.Forms.Label label_checkboxlogs;
+        private System.Windows.Forms.Label label_logs;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox back_intervaltextbox;
+        private System.Windows.Forms.Button btn_minecraftfolder;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label_settingsload;
+        private System.Windows.Forms.Button button6;
     }
 }
 
