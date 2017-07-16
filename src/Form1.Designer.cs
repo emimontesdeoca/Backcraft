@@ -76,7 +76,6 @@
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.label11 = new System.Windows.Forms.Label();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.label_settingsload = new System.Windows.Forms.Label();
             this.button6 = new System.Windows.Forms.Button();
             this.m_panel.SuspendLayout();
             this.b_panel.SuspendLayout();
@@ -585,17 +584,6 @@
             this.notifyIcon1.Visible = true;
             this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
             // 
-            // label_settingsload
-            // 
-            this.label_settingsload.AutoSize = true;
-            this.label_settingsload.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Italic);
-            this.label_settingsload.ForeColor = System.Drawing.Color.Red;
-            this.label_settingsload.Location = new System.Drawing.Point(304, 13);
-            this.label_settingsload.Name = "label_settingsload";
-            this.label_settingsload.Size = new System.Drawing.Size(74, 16);
-            this.label_settingsload.TabIndex = 17;
-            this.label_settingsload.Text = "Settings failed";
-            // 
             // button6
             // 
             this.button6.Location = new System.Drawing.Point(255, 427);
@@ -612,7 +600,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(389, 482);
             this.Controls.Add(this.button6);
-            this.Controls.Add(this.label_settingsload);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.label10);
@@ -686,7 +673,6 @@
         private System.Windows.Forms.Button btn_minecraftfolder;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label label_settingsload;
         private System.Windows.Forms.Button button6;
     }
 }

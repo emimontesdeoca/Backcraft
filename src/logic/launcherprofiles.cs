@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace backcraft.logic
 {
-    class launcheroptions
+    class launcherprofiles
     {
         const string _txtpath = @"config\launcheroptions.txt";
 
@@ -17,17 +17,18 @@ namespace backcraft.logic
         public bool enabled { get; set; }
 
 
-        public launcheroptions(string name, string path, bool enabled)
+        public launcherprofiles(string name, string path, bool enabled)
         {
             this.name = name;
             this.path = path;
             this.enabled = enabled;
-            this.md5 = bs.md5.CreateMd5ForFolder(this.path);
+            this.md5 = bs.md5.checkMD5(this.path);
         }
 
         public void WriteToFile()
         {
             File.Delete(_txtpath);
+
             using (StreamWriter tw = new StreamWriter(_txtpath, true))
             {
                 string _enable = "enable=" + this.enabled.ToString();
@@ -39,6 +40,51 @@ namespace backcraft.logic
                 try
                 {
                     tw.WriteLine(fullstring.ToString());
+                }
+                catch (Exception)
+                {
+                }
+
+            }
+        }
+
+        public static void SetState(bool state)
+        {
+            string oldstate = "";
+
+            using (StreamReader rd = new StreamReader(_txtpath, true))
+            {
+                while (true)
+                {
+                    try
+                    {
+                        oldstate = rd.ReadLine().Trim();
+                    }
+                    catch (Exception)
+                    {
+                        break;
+                    }
+
+                }
+            }
+            string newstate = "";
+
+            switch (state)
+            {
+                case true:
+                    newstate = oldstate.Replace("False", "True");
+                    break;
+                case false:
+                    newstate = oldstate.Replace("True", "False");
+                    break;
+            }
+
+            File.Delete(_txtpath);
+            using (StreamWriter tw = new StreamWriter(_txtpath, true))
+            {
+                try
+                {
+                    tw.WriteLine(newstate);
                 }
                 catch (Exception)
                 {
@@ -60,7 +106,7 @@ namespace backcraft.logic
                         {
                             string state = rd.ReadLine().Trim();
                             state = state.Remove(0, 1);
-                            state = state.Split('&')[0];
+                            state = state.Split('&')[1];
                             state = state.Split('=')[1];
 
                             res = Convert.ToBoolean(state);

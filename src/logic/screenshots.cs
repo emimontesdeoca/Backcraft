@@ -46,6 +46,50 @@ namespace backcraft.logic
 
             }
         }
+        public static void SetState(bool state)
+        {
+            string oldstate = "";
+
+            using (StreamReader rd = new StreamReader(_txtpath, true))
+            {
+                while (true)
+                {
+                    try
+                    {
+                        oldstate = rd.ReadLine().Trim();
+                    }
+                    catch (Exception)
+                    {
+                        break;
+                    }
+
+                }
+            }
+            string newstate = "";
+
+            switch (state)
+            {
+                case true:
+                    newstate = oldstate.Replace("False", "True");
+                    break;
+                case false:
+                    newstate = oldstate.Replace("True", "False");
+                    break;
+            }
+
+            File.Delete(_txtpath);
+            using (StreamWriter tw = new StreamWriter(_txtpath, true))
+            {
+                try
+                {
+                    tw.WriteLine(newstate);
+                }
+                catch (Exception)
+                {
+                }
+
+            }
+        }
 
         public static bool GetScreenshotsState()
         {
@@ -60,7 +104,7 @@ namespace backcraft.logic
                         {
                             string state = rd.ReadLine().Trim();
                             state = state.Remove(0, 1);
-                            state = state.Split('&')[0];
+                            state = state.Split('&')[1];
                             state = state.Split('=')[1];
 
                             res = Convert.ToBoolean(state);

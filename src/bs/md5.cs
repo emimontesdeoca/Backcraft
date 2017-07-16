@@ -37,5 +37,18 @@ namespace backcraft.bs
 
             return BitConverter.ToString(md5.Hash).Replace("-", "").ToLower();
         }
+        public static string checkMD5(string filename)
+        {
+            using (var md5 = new MD5CryptoServiceProvider())
+            {
+                var buffer = md5.ComputeHash(File.ReadAllBytes(filename));
+                var sb = new StringBuilder();
+                for (int i = 0; i < buffer.Length; i++)
+                {
+                    sb.Append(buffer[i].ToString("x2"));
+                }
+                return sb.ToString();
+            }
+        }
     }
 }

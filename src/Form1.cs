@@ -17,8 +17,17 @@ namespace backcraft
     public partial class Form1 : Form
     {
         public CancellationTokenSource token = new CancellationTokenSource();
-        public static string _MinecraftPath { get; set; } = logic.minecraftpath.GetMinecraftPath();
+        public static string _MinecraftPath { get; set; }
         public static string _Backcraft7ZipPath { get; set; }
+        public bool _EnableBackcraftState { get; set; }
+        public bool _ResourcePackState { get; set; }
+        public bool _SavesState { get; set; }
+        public bool _LauncherOptionsSate { get; set; }
+        public bool _OptionsState { get; set; }
+        public bool _ScreenshotsState { get; set; }
+        public bool _LogsState { get; set; }
+        public bool _StartupState { get; set; }
+        public int _IntervalTime { get; set; }
 
         public Form1()
         {
@@ -41,6 +50,32 @@ namespace backcraft
 
             #endregion
 
+            #region LOAD STATES AND SET CHECKBOXES
+
+            _MinecraftPath = logic.minecraftpath.GetMinecraftPath();
+            _Backcraft7ZipPath = logic._7zippath.Get7ZipPath();
+            _EnableBackcraftState = logic.backcraft.GetBackcraftState();
+            _ResourcePackState = logic.resourcepackstate.GetResourcePackState();
+            _SavesState = logic.worldstate.GetWorldsState();
+            _LauncherOptionsSate = logic.launcherprofiles.GetLauncherOptionsState();
+            _OptionsState = logic.options.GetOptionsState();
+            _ScreenshotsState = logic.screenshots.GetScreenshotsState();
+            _LogsState = logic.logs.GetLogsState();
+            _StartupState = logic.startup.GetStartupState();
+            _IntervalTime = logic.interval.GetIntervalTime();
+
+            back_enable.Checked = _EnableBackcraftState;
+            set_resource.Checked = _ResourcePackState;
+            set_saves.Checked = _SavesState;
+            set_launcher.Checked = _LauncherOptionsSate;
+            set_options.Checked = _OptionsState;
+            set_screenshots.Checked = _ScreenshotsState;
+            back_enablelog.Checked = _LogsState;
+            back_startup.Checked = _StartupState;
+
+
+            #endregion
+
             #region LOAD CHECKBOXES
 
             #region ENABLE
@@ -60,7 +95,7 @@ namespace backcraft
 
             #region MINECRAFT 
 
-            LoadMinecraftCheckboxes();
+            //LoadMinecraftCheckboxes();
 
             if (set_resource.Checked)
             {
@@ -148,6 +183,13 @@ namespace backcraft
 
             #endregion
 
+            #region LOAD SCROLL AND TEXTBOX
+
+            scroll_interval.Value = _IntervalTime;
+            back_intervaltextbox.Text = _IntervalTime.ToString();
+
+            #endregion
+
             #region ICON TRAY SETTINGS
 
             notifyIcon1.BalloonTipTitle = "Backcraft minimized!";
@@ -155,107 +197,20 @@ namespace backcraft
 
             #endregion
 
-            try
-            {
+            //try
+            //{
+            //    WindowState = FormWindowState.Minimized;
+            //    ShowInTaskbar = false;
+            //    ShowIcon = true;
+            //    notifyIcon1.Visible = true;
+            //    notifyIcon1.ShowBalloonTip(50);
 
-                #region Minecraft settings 
-
-                /// Getting minecraft settings
-                try
-                {
-                    string[] b = new data.msettings().GetMinecraftSettingsData();
-
-                    /// Resource folder checkbox
-                    set_resource.Checked = Convert.ToBoolean(b[1]);
-                    /// Launcher options file checkbox
-                    set_launcher.Checked = Convert.ToBoolean(b[2]);
-                    /// Screenshots folder checkbox
-                    set_screenshots.Checked = Convert.ToBoolean(b[3]);
-                    /// Options file checkbox
-                    set_options.Checked = Convert.ToBoolean(b[4]);
-                    /// Saves folder checkbox
-                    set_saves.Checked = Convert.ToBoolean(b[5]);
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
-
-                #endregion
-
-                #region Backcraft settings
-
-                /// Getting backcraft settings
-                try
-                {
-                    string[] c = new data.bsettings().GetBackcraftSettingsData();
-                    /// Backcraft enabled checkbox
-                    back_enable.Checked = Convert.ToBoolean(c[0]);
-                    /// Save log enabled checkbox
-                    back_enablelog.Checked = Convert.ToBoolean(c[1]);
-                    /// 7zip path enabled checkbox
-                    //back_7zippath.Text = c[2];
-                    //if (c[2] == @"C:\Program Files\7-Zip\7z.exe")
-                    //{
-                    //    acc_default7zip.Checked = true;
-                    //}
-                    //else
-                    //{
-                    //    acc_default7zip.Checked = false;
-
-                    //}
-                    ///// 7zip path enabled checkbox
-                    //back_backupfolderpath.Text = c[3];
-                    //if (c[3] == @"backups\")
-                    //{
-                    //    checkBox1.Checked = true;
-                    //}
-                    //else
-                    //{
-                    //    checkBox1.Checked = false;
-
-                    //}
-
-                    /// Interval value
-                    //switch (Convert.ToInt32(c[4]))
-                    //{
-                    //    case 5:
-                    //        radioButton1.Checked = true;
-                    //        break;
-                    //    case 10:
-                    //        radioButton2.Checked = true;
-                    //        break;
-                    //    case 30:
-                    //        radioButton3.Checked = true;
-                    //        break;
-                    //    case 60:
-                    //        radioButton4.Checked = true;
-                    //        break;
-                    //}
-                    ///Startup
-
-                    back_startup.Checked = Convert.ToBoolean(c[5]);
-
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
-
-                #endregion
-
-                WindowState = FormWindowState.Minimized;
-                ShowInTaskbar = false;
-                ShowIcon = true;
-                notifyIcon1.Visible = true;
-                notifyIcon1.ShowBalloonTip(50);
-
-            }
-            catch (Exception)
-            {
-                ShowInTaskbar = true;
-                ShowIcon = false;
-            }
+            //}
+            //catch (Exception)
+            //{
+            //    ShowInTaskbar = true;
+            //    ShowIcon = false;
+            //}
 
 
 
@@ -269,15 +224,15 @@ namespace backcraft
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            int interval = Convert.ToInt32(new data.bsettings().GetBackcraftSettingsData()[4]);
+            //int interval = Convert.ToInt32(new data.bsettings().GetBackcraftSettingsData()[4]);
 
             CancellationToken cancel = new CancellationToken();
             cancel = token.Token;
 
-            if (!Convert.ToBoolean(new data.bsettings().GetBackcraftSettingsData()[0]))
-            {
-                token.Cancel();
-            }
+            //if (!Convert.ToBoolean(new data.bsettings().GetBackcraftSettingsData()[0]))
+            //{
+            //    token.Cancel();
+            //}
 
             //var x = AsyncBackcraft(interval);
         }
@@ -321,11 +276,7 @@ namespace backcraft
             }
         }
 
-
-
         #endregion
-
-
 
         #region SETTINGS
 
@@ -519,11 +470,6 @@ namespace backcraft
         {
             #region Make folder
 
-            /// Save log
-            if (back_enablelog.Checked)
-            {
-                new data.bsettings().WriteLog("", "", 0);
-            }
 
             /// Build folderpath string
             string folderpath = "backups\\Backcraft_" + DateTime.Now.ToShortDateString() + "_" + DateTime.Now.ToLongTimeString();
@@ -532,11 +478,6 @@ namespace backcraft
             /// Create path
             Directory.CreateDirectory(folderpath);
 
-            /// Save log
-            if (back_enablelog.Checked)
-            {
-                new data.bsettings().WriteLog(DateTime.Now.ToShortDateString() + " - " + DateTime.Now.ToLongTimeString(), "Folder created - " + folderpath, 1);
-            }
 
             /// Get Minecraft folder location
             string folderlocation = ""; /*set_folderlocation.Text.ToString();*/
@@ -553,11 +494,6 @@ namespace backcraft
                     /// Copy to the backup folder
                     bs.compression.Copy(folderlocation + "\\resourcepacks", folderpath + "\\resourcepacks");
 
-                    /// Save log
-                    if (back_enablelog.Checked)
-                    {
-                        new data.bsettings().WriteLog(DateTime.Now.ToShortDateString() + " - " + DateTime.Now.ToLongTimeString(), "Folder copied from: " + folderlocation + "\\resourcepacks" + " to " + folderpath + "\\resourcepacks", 1);
-                    }
                 }
                 /// If launcher file is checked, copy for the backup
                 if (set_launcher.Checked)
@@ -565,11 +501,6 @@ namespace backcraft
                     /// Copy to the backup folder
                     File.Copy(folderlocation + "\\launcher_profiles.json", folderpath + "\\launcher_profiles");
 
-                    /// Save log
-                    if (back_enablelog.Checked)
-                    {
-                        new data.bsettings().WriteLog(DateTime.Now.ToShortDateString() + " - " + DateTime.Now.ToLongTimeString(), "File copied from: " + folderlocation + "\\launcher_profiles.json" + " to " + folderpath + "\\launcher_profiles.json", 1);
-                    }
                 }
                 /// If screenshots folder is checked, copy for the backup
                 if (set_screenshots.Checked)
@@ -577,11 +508,7 @@ namespace backcraft
                     /// Copy to the backup folder
                     bs.compression.Copy(folderlocation + "\\screenshots", folderpath + "\\screenshots");
 
-                    /// Save log
-                    if (back_enablelog.Checked)
-                    {
-                        new data.bsettings().WriteLog(DateTime.Now.ToShortDateString() + " - " + DateTime.Now.ToLongTimeString(), "Folder copied from: " + folderlocation + "\\screenshots" + " to " + folderpath + "\\screenshots", 1);
-                    }
+
                 }
                 /// If options file is checked, copy for the backup
                 if (set_options.Checked)
@@ -589,11 +516,7 @@ namespace backcraft
                     /// Copy to the backup folder
                     File.Copy(folderlocation + "\\options.txt", folderpath + "\\options.txt");
 
-                    /// Save log
-                    if (back_enablelog.Checked)
-                    {
-                        new data.bsettings().WriteLog(DateTime.Now.ToShortDateString() + " - " + DateTime.Now.ToLongTimeString(), "File copied from: " + folderlocation + "\\options.txt" + " to " + folderpath + "\\options.txt", 1);
-                    }
+
                 }
                 /// If saves folder is checked, copy for the backup
                 if (set_saves.Checked)
@@ -601,11 +524,6 @@ namespace backcraft
                     /// Copy to the backup folder
                     bs.compression.Copy(folderlocation + "\\saves", folderpath + "\\saves");
 
-                    /// Save log
-                    if (back_enablelog.Checked)
-                    {
-                        new data.bsettings().WriteLog(DateTime.Now.ToShortDateString() + " - " + DateTime.Now.ToLongTimeString(), "Folder copied from: " + folderlocation + "\\saves" + " to " + folderpath + "\\saves", 1);
-                    }
                 }
             }
             catch (Exception)
@@ -626,12 +544,6 @@ namespace backcraft
                 /// Compress it with 7Zip
                 //bs.compression.CreateZipFile(back_7zippath.Text, back_backupfolderpath.Text + "\\" + fileName.Split('\\')[1], fullname);
                 //bs.compression.CreateZipFile(back_7zippath.Text, folderpath, fullname);
-
-                /// Save log
-                if (back_enablelog.Checked)
-                {
-                    new data.bsettings().WriteLog(DateTime.Now.ToShortDateString() + " - " + DateTime.Now.ToLongTimeString(), "Folder compressed in : " + folderpath + ".7z", 1);
-                }
             }
             catch (Exception)
             {
@@ -648,11 +560,7 @@ namespace backcraft
                 /// Delete recursively the folder created
                 Directory.Delete(folderpath, true);
 
-                /// Save log
-                if (back_enablelog.Checked)
-                {
-                    new data.bsettings().WriteLog(DateTime.Now.ToShortDateString() + " - " + DateTime.Now.ToLongTimeString(), "Folder deleted: " + folderpath, 1);
-                }
+
             }
             catch (Exception)
             {
@@ -717,45 +625,130 @@ namespace backcraft
         {
             try
             {
-                /// Getting the interval, this is ugly I know, dont killerino me
-                int _interval = 5;
+                ///Enable
 
-                //if (radioButton1.Checked)
-                //{
-                //    _interval = 5;
-                //}
-                //else if (radioButton2.Checked)
-                //{
-                //    _interval = 10;
-                //}
-                //else if (radioButton3.Checked)
-                //{
-                //    _interval = 30;
-                //}
-                //else if (radioButton4.Checked)
-                //{
-                //    _interval = 60;
-                //}
-
-                /// Save settings data
-                //new data.msettings().WriteSettings(set_folderlocation.Text.ToString(), set_resource.Checked, set_launcher.Checked, set_screenshots.Checked, set_options.Checked, set_saves.Checked);
-
-                /// Save backcraft data
-                //new data.bsettings().WriteSettings(back_enable.Checked, back_enablelog.Checked, back_7zippath.Text, back_backupfolderpath.Text, _interval, back_startup.Checked);
-
-
-                RegistryKey registryKey = Registry.CurrentUser.OpenSubKey
-("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
-
-                if (back_startup.Checked)
+                if (_EnableBackcraftState == back_enable.Checked)
                 {
-                    registryKey.SetValue("Backcraft", Application.ExecutablePath);
                 }
                 else
                 {
-                    registryKey.DeleteValue("Backcraft");
+                    new logic.backcraft(back_enable.Checked).WriteToFile();
                 }
 
+                /// Resource packs state
+
+                if (_ResourcePackState == set_resource.Checked)
+                {
+                }
+                else
+                {
+                    new logic.resourcepackstate(set_resource.Checked).WriteToFile();
+                }
+
+                /// saves state
+
+                if (_SavesState == set_saves.Checked)
+                {
+                }
+                else
+                {
+                    new logic.worldstate(set_saves.Checked).WriteToFile();
+                }
+
+                /// Launcher profiles state
+
+                if (_LauncherOptionsSate == set_launcher.Checked)
+                {
+                }
+                else
+                {
+                    if (File.Exists(@"config\launcheroptions.txt"))
+                    {
+                        logic.launcherprofiles.SetState(set_launcher.Checked);
+                    }
+                    else
+                    {
+                        new logic.launcherprofiles("launcher_profiles.json", _MinecraftPath + @"\launcher_profiles.json", set_launcher.Checked).WriteToFile();
+                    }
+
+                }
+
+                /// Optiones state
+
+                if (_OptionsState == set_options.Checked)
+                {
+                }
+                else
+                {
+                    if (File.Exists(@"config\options.txt"))
+                    {
+                        logic.options.SetState(set_options.Checked);
+                    }
+                    else
+                    {
+                        new logic.options("options.txt", _MinecraftPath + @"\options.txt", set_options.Checked).WriteToFile();
+                    }
+                }
+
+                /// Screenshots state
+
+                if (_ScreenshotsState == set_screenshots.Checked)
+                {
+                }
+                else
+                {
+                    if (File.Exists(@"config\screenshots.txt"))
+                    {
+                        logic.screenshots.SetState(set_screenshots.Checked);
+                    }
+                    else
+                    {
+                        new logic.screenshots("screenshots", _MinecraftPath + @"\screenshots", set_screenshots.Checked).WriteToFile();
+                    }
+                }
+
+                /// Logs state
+
+                if (_LogsState == back_enable.Checked)
+                {
+                }
+                else
+                {
+                    new logic.logs(back_enable.Checked).WriteToFile();
+                }
+
+                /// Startup state
+
+                if (_StartupState == back_startup.Checked)
+                {
+
+                }
+                else
+                {
+                    new logic.startup(back_startup.Checked).WriteToFile();
+
+                    RegistryKey registryKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+
+                    if (back_startup.Checked)
+                    {
+                        registryKey.SetValue("Backcraft", Application.ExecutablePath);
+                    }
+                    else
+                    {
+                        registryKey.DeleteValue("Backcraft");
+                    }
+                }
+
+
+                /// Interval state
+
+                if (_IntervalTime == scroll_interval.Value)
+                {
+                }
+                else
+                {
+                    new logic.interval(scroll_interval.Value);
+                }
 
                 /// Change text value for btn
                 back_save.Text = "Saved!";
