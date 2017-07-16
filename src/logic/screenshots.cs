@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace backcraft.logic
 {
-    class launcheroptions
+    class screenshots
     {
-        const string _txtpath = @"config\launcheroptions.txt";
+        const string _txtpath = @"config\screenshots.txt";
 
         public string name { get; set; }
         public string path { get; set; }
@@ -17,7 +17,7 @@ namespace backcraft.logic
         public bool enabled { get; set; }
 
 
-        public launcheroptions(string name, string path, bool enabled)
+        public screenshots(string name, string path, bool enabled)
         {
             this.name = name;
             this.path = path;
@@ -47,7 +47,7 @@ namespace backcraft.logic
             }
         }
 
-        public static bool GetLauncherOptionsState()
+        public static bool GetScreenshotsState()
         {
             bool res = false;
             try
@@ -78,7 +78,7 @@ namespace backcraft.logic
             }
             return res;
         }
-        public static string GetLauncherOptionsMD5()
+        public static string GetScreenshotsMD5()
         {
             string res = "";
             try

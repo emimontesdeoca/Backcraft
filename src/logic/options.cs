@@ -7,17 +7,16 @@ using System.Threading.Tasks;
 
 namespace backcraft.logic
 {
-    class launcheroptions
+    class options
     {
-        const string _txtpath = @"config\launcheroptions.txt";
-
+        const string _txtpath = @"config\options.txt";
         public string name { get; set; }
         public string path { get; set; }
         public string md5 { get; set; }
         public bool enabled { get; set; }
 
 
-        public launcheroptions(string name, string path, bool enabled)
+        public options(string name, string path, bool enabled)
         {
             this.name = name;
             this.path = path;
@@ -47,7 +46,7 @@ namespace backcraft.logic
             }
         }
 
-        public static bool GetLauncherOptionsState()
+        public static bool GetOptionsState()
         {
             bool res = false;
             try
@@ -78,7 +77,7 @@ namespace backcraft.logic
             }
             return res;
         }
-        public static string GetLauncherOptionsMD5()
+        public static string GetOptionsMD5()
         {
             string res = "";
             try
