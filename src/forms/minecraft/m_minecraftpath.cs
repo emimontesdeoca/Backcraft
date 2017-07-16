@@ -19,7 +19,7 @@ namespace backcraft.forms.minecraft
 
         private void m_minecraftpath_Load(object sender, EventArgs e)
         {
-            textbox_path.Text = logic.minecraftpath.GetMinecraftPath();
+            textbox_path.Text = logic.paths.GetPathFromFile("minecraft");
         }
 
         private void brn_search_Click(object sender, EventArgs e)
@@ -38,8 +38,7 @@ namespace backcraft.forms.minecraft
 
         private void btn_save_Click(object sender, EventArgs e)
         {
-            new logic.minecraftpath(textbox_path.Text.ToString()).WriteToFile();
-            Form1._MinecraftPath = textbox_path.Text.ToString();
+            new logic.paths("minecraft", textbox_path.Text.ToString()).WriteCFG();
             this.Close();
         }
 

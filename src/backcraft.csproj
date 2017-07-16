@@ -66,13 +66,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="logic\7zippath.cs" />
-    <Compile Include="logic\backcraft.cs" />
+    <Compile Include="logic\cfg.cs" />
     <Compile Include="logic\interval.cs" />
     <Compile Include="logic\launcherprofiles.cs" />
-    <Compile Include="logic\logs.cs" />
-    <Compile Include="logic\minecraftpath.cs" />
-    <Compile Include="logic\options.cs" />
+    <Compile Include="logic\paths.cs" />
     <Compile Include="logic\resourcepacks.cs" />
     <Compile Include="bs\compression.cs" />
     <Compile Include="bs\md5.cs" />
@@ -112,11 +109,7 @@
     <Compile Include="forms\minecraft\m_saves.Designer.cs">
       <DependentUpon>m_saves.cs</DependentUpon>
     </Compile>
-    <Compile Include="logic\resourcepackstate.cs" />
-    <Compile Include="logic\screenshots.cs" />
-    <Compile Include="logic\startup.cs" />
     <Compile Include="logic\worlds.cs" />
-    <Compile Include="logic\worldstate.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

@@ -22,12 +22,12 @@ namespace backcraft
         public bool _EnableBackcraftState { get; set; }
         public bool _ResourcePackState { get; set; }
         public bool _SavesState { get; set; }
-        public bool _LauncherOptionsSate { get; set; }
+        public bool _LauncherProfilesState { get; set; }
         public bool _OptionsState { get; set; }
         public bool _ScreenshotsState { get; set; }
         public bool _LogsState { get; set; }
         public bool _StartupState { get; set; }
-        public int _IntervalTime { get; set; }
+        public int _IntervalTime { get; set; } = 5;
 
         public Form1()
         {
@@ -52,22 +52,21 @@ namespace backcraft
 
             #region LOAD STATES AND SET CHECKBOXES
 
-            _MinecraftPath = logic.minecraftpath.GetMinecraftPath();
-            _Backcraft7ZipPath = logic._7zippath.Get7ZipPath();
-            _EnableBackcraftState = logic.backcraft.GetBackcraftState();
-            _ResourcePackState = logic.resourcepackstate.GetResourcePackState();
-            _SavesState = logic.worldstate.GetWorldsState();
-            _LauncherOptionsSate = logic.launcherprofiles.GetLauncherOptionsState();
-            _OptionsState = logic.options.GetOptionsState();
-            _ScreenshotsState = logic.screenshots.GetScreenshotsState();
-            _LogsState = logic.logs.GetLogsState();
-            _StartupState = logic.startup.GetStartupState();
-            _IntervalTime = logic.interval.GetIntervalTime();
+            _MinecraftPath = logic.paths.GetPathFromFile("minecraft");
+            _Backcraft7ZipPath = logic.paths.GetPathFromFile("backcraft");
+            _EnableBackcraftState = logic.cfg.GetStateFromFile("backcraft");
+            _ResourcePackState = logic.cfg.GetStateFromFile("resource_packs");
+            _SavesState = logic.cfg.GetStateFromFile("worlds");
+            _LauncherProfilesState = logic.cfg.GetStateFromFile("launcher_profiles");
+            _OptionsState = logic.cfg.GetStateFromFile("options");
+            _ScreenshotsState = logic.cfg.GetStateFromFile("screenshots");
+            _LogsState = logic.cfg.GetStateFromFile("logs");
+            _StartupState = logic.cfg.GetStateFromFile("startup");
 
             back_enable.Checked = _EnableBackcraftState;
             set_resource.Checked = _ResourcePackState;
             set_saves.Checked = _SavesState;
-            set_launcher.Checked = _LauncherOptionsSate;
+            set_launcher.Checked = _LauncherProfilesState;
             set_options.Checked = _OptionsState;
             set_screenshots.Checked = _ScreenshotsState;
             back_enablelog.Checked = _LogsState;
@@ -618,7 +617,7 @@ namespace backcraft
                 }
                 else
                 {
-                    new logic.backcraft(back_enable.Checked).WriteToFile();
+                    new logic.cfg("backcraft", back_enable.Checked).WriteCFG();
                 }
 
                 #endregion
@@ -630,7 +629,7 @@ namespace backcraft
                 }
                 else
                 {
-                    new logic.resourcepackstate(set_resource.Checked).WriteToFile();
+                    new logic.cfg("resource_packs", set_resource.Checked).WriteCFG();
                 }
 
                 #endregion
@@ -642,7 +641,7 @@ namespace backcraft
                 }
                 else
                 {
-                    new logic.worldstate(set_saves.Checked).WriteToFile();
+                    new logic.cfg("worlds", set_saves.Checked).WriteCFG();
                 }
 
                 #endregion
@@ -650,19 +649,12 @@ namespace backcraft
                 #region LAUNCHER PROFILES STATE
 
 
-                if (_LauncherOptionsSate == set_launcher.Checked)
+                if (_LauncherProfilesState == set_launcher.Checked)
                 {
                 }
                 else
                 {
-                    if (File.Exists(@"config\launcheroptions.txt"))
-                    {
-                        logic.launcherprofiles.SetState(set_launcher.Checked);
-                    }
-                    else
-                    {
-                        new logic.launcherprofiles("launcher_profiles.json", _MinecraftPath + @"\launcher_profiles.json", set_launcher.Checked).WriteToFile();
-                    }
+                    new logic.cfg("launcher_profiles", set_launcher.Checked).WriteCFG();
 
                 }
 
@@ -675,14 +667,7 @@ namespace backcraft
                 }
                 else
                 {
-                    if (File.Exists(@"config\options.txt"))
-                    {
-                        logic.options.SetState(set_options.Checked);
-                    }
-                    else
-                    {
-                        new logic.options("options.txt", _MinecraftPath + @"\options.txt", set_options.Checked).WriteToFile();
-                    }
+                    new logic.cfg("options", set_options.Checked).WriteCFG();
                 }
 
                 #endregion
@@ -694,28 +679,20 @@ namespace backcraft
                 }
                 else
                 {
-                    if (File.Exists(@"config\screenshots.txt"))
-                    {
-                        logic.screenshots.SetState(set_screenshots.Checked);
-                    }
-                    else
-                    {
-                        new logic.screenshots("screenshots", _MinecraftPath + @"\screenshots", set_screenshots.Checked).WriteToFile();
-                    }
+                    new logic.cfg("screenshots", set_options.Checked).WriteCFG();
                 }
 
                 #endregion
 
                 #region LOGS STATE
 
-                if (_LogsState == back_enable.Checked)
+                if (_LogsState == back_enablelog.Checked)
                 {
                 }
                 else
                 {
-                    new logic.logs(back_enable.Checked).WriteToFile();
+                    new logic.cfg("logs", back_enablelog.Checked).WriteCFG();
                 }
-
 
                 #endregion
 
@@ -723,12 +700,10 @@ namespace backcraft
 
                 if (_StartupState == back_startup.Checked)
                 {
-
                 }
                 else
                 {
-                    new logic.startup(back_startup.Checked).WriteToFile();
-
+                    new logic.cfg("startup", set_options.Checked);
                     RegistryKey registryKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
 
                     if (back_startup.Checked)
