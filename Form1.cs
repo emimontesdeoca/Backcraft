@@ -87,6 +87,9 @@ namespace backcraft
             back_enablelog.Checked = _LogsState;
             back_startup.Checked = _StartupState;
 
+            txtMinecraftPath.Text = logic.minecraftpath.GetMinecraftPath ();
+            txtPath7Zip.Text = logic._7zippath.Get7ZipPath ();
+
 
             #endregion
 
@@ -474,7 +477,6 @@ namespace backcraft
         {
             try
             {
-
                 #region 7-ZIP AND MINECRAFT PATHS
 
                 new logic._7zippath(txtPath7Zip.Text).WriteToFile();
