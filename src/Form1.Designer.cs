@@ -76,7 +76,7 @@
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.label11 = new System.Windows.Forms.Label();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.button6 = new System.Windows.Forms.Button();
+            this.btn_deletesettings = new System.Windows.Forms.Button();
             this.m_panel.SuspendLayout();
             this.b_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scroll_interval)).BeginInit();
@@ -584,22 +584,22 @@
             this.notifyIcon1.Visible = true;
             this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
             // 
-            // button6
+            // btn_deletesettings
             // 
-            this.button6.Location = new System.Drawing.Point(255, 427);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(105, 32);
-            this.button6.TabIndex = 18;
-            this.button6.Text = "Delete settings";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
+            this.btn_deletesettings.Location = new System.Drawing.Point(255, 427);
+            this.btn_deletesettings.Name = "btn_deletesettings";
+            this.btn_deletesettings.Size = new System.Drawing.Size(105, 32);
+            this.btn_deletesettings.TabIndex = 18;
+            this.btn_deletesettings.Text = "Delete settings";
+            this.btn_deletesettings.UseVisualStyleBackColor = true;
+            this.btn_deletesettings.Click += new System.EventHandler(this.btn_deletesettings_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(389, 482);
-            this.Controls.Add(this.button6);
+            this.Controls.Add(this.btn_deletesettings);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.label10);
@@ -673,7 +673,7 @@
         private System.Windows.Forms.Button btn_minecraftfolder;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button btn_deletesettings;
     }
 }
 

@@ -195,28 +195,23 @@ namespace backcraft
             notifyIcon1.BalloonTipTitle = "Backcraft minimized!";
             notifyIcon1.BalloonTipText = "Backcraft will be running in the background.";
 
-            #endregion
+            if (_EnableBackcraftState)
+            {
+                try
+                {
+                    WindowState = FormWindowState.Minimized;
+                    ShowInTaskbar = false;
+                    ShowIcon = true;
+                    notifyIcon1.Visible = true;
+                    notifyIcon1.ShowBalloonTip(50);
 
-            //try
-            //{
-            //    WindowState = FormWindowState.Minimized;
-            //    ShowInTaskbar = false;
-            //    ShowIcon = true;
-            //    notifyIcon1.Visible = true;
-            //    notifyIcon1.ShowBalloonTip(50);
-
-            //}
-            //catch (Exception)
-            //{
-            //    ShowInTaskbar = true;
-            //    ShowIcon = false;
-            //}
-
-
-
-            #region Forms settings
-
-
+                }
+                catch (Exception)
+                {
+                    ShowInTaskbar = true;
+                    ShowIcon = false;
+                }
+            }
 
             #endregion
 
@@ -224,15 +219,15 @@ namespace backcraft
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //int interval = Convert.ToInt32(new data.bsettings().GetBackcraftSettingsData()[4]);
+            int interval = _IntervalTime;
 
             CancellationToken cancel = new CancellationToken();
             cancel = token.Token;
 
-            //if (!Convert.ToBoolean(new data.bsettings().GetBackcraftSettingsData()[0]))
-            //{
-            //    token.Cancel();
-            //}
+            if (!_EnableBackcraftState)
+            {
+                token.Cancel();
+            }
 
             //var x = AsyncBackcraft(interval);
         }
@@ -252,27 +247,6 @@ namespace backcraft
             {
                 b_panel.Enabled = false;
                 m_panel.Enabled = false;
-            }
-        }
-
-        private void LoadMinecraftCheckboxes()
-        {
-
-            if (_MinecraftPath == "" || _MinecraftPath == null)
-            {
-                set_resource.Enabled = false;
-                set_saves.Enabled = false;
-                set_launcher.Enabled = false;
-                set_options.Enabled = false;
-                set_screenshots.Enabled = false;
-            }
-            else
-            {
-                set_resource.Enabled = true;
-                set_saves.Enabled = true;
-                set_launcher.Enabled = true;
-                set_options.Enabled = true;
-                set_screenshots.Enabled = true;
             }
         }
 
@@ -584,6 +558,17 @@ namespace backcraft
             }
         }
 
+        private void RestartApp()
+        {
+            try
+            {
+                Process.Start(Application.StartupPath + "\\backcraft.exe");
+                Process.GetCurrentProcess().Kill();
+            }
+            catch
+            { }
+        }
+
         #endregion
 
         #region SYSTEM TRAY AND WINDOWS SIZE
@@ -625,7 +610,8 @@ namespace backcraft
         {
             try
             {
-                ///Enable
+
+                #region ENABLE BACKCRAFT
 
                 if (_EnableBackcraftState == back_enable.Checked)
                 {
@@ -635,7 +621,9 @@ namespace backcraft
                     new logic.backcraft(back_enable.Checked).WriteToFile();
                 }
 
-                /// Resource packs state
+                #endregion
+
+                #region RESOURCE PACKS STATE
 
                 if (_ResourcePackState == set_resource.Checked)
                 {
@@ -645,7 +633,9 @@ namespace backcraft
                     new logic.resourcepackstate(set_resource.Checked).WriteToFile();
                 }
 
-                /// saves state
+                #endregion
+
+                #region WORLDS/SAVES STATE
 
                 if (_SavesState == set_saves.Checked)
                 {
@@ -655,7 +645,10 @@ namespace backcraft
                     new logic.worldstate(set_saves.Checked).WriteToFile();
                 }
 
-                /// Launcher profiles state
+                #endregion
+
+                #region LAUNCHER PROFILES STATE
+
 
                 if (_LauncherOptionsSate == set_launcher.Checked)
                 {
@@ -673,7 +666,9 @@ namespace backcraft
 
                 }
 
-                /// Optiones state
+                #endregion
+
+                #region OPTIONS STATE
 
                 if (_OptionsState == set_options.Checked)
                 {
@@ -690,7 +685,9 @@ namespace backcraft
                     }
                 }
 
-                /// Screenshots state
+                #endregion
+
+                #region SCREENSHOTS STATE
 
                 if (_ScreenshotsState == set_screenshots.Checked)
                 {
@@ -707,7 +704,9 @@ namespace backcraft
                     }
                 }
 
-                /// Logs state
+                #endregion
+
+                #region LOGS STATE
 
                 if (_LogsState == back_enable.Checked)
                 {
@@ -717,7 +716,10 @@ namespace backcraft
                     new logic.logs(back_enable.Checked).WriteToFile();
                 }
 
-                /// Startup state
+
+                #endregion
+
+                #region STARTUP STATE
 
                 if (_StartupState == back_startup.Checked)
                 {
@@ -739,27 +741,21 @@ namespace backcraft
                     }
                 }
 
+                #endregion
 
-                /// Interval state
+                #region INTERVAL STATE
 
                 if (_IntervalTime == scroll_interval.Value)
                 {
                 }
                 else
                 {
-                    new logic.interval(scroll_interval.Value);
+                    new logic.interval(scroll_interval.Value).WriteToFile();
                 }
 
-                /// Change text value for btn
-                back_save.Text = "Saved!";
+                #endregion
 
-                try
-                {
-                    Process.Start(Application.StartupPath + "\\backcraft.exe");
-                    Process.GetCurrentProcess().Kill();
-                }
-                catch
-                { }
+                RestartApp();
             }
             catch (Exception err)
             {
@@ -781,9 +777,10 @@ namespace backcraft
             }
         }
 
-        private void button6_Click(object sender, EventArgs e)
+        private void btn_deletesettings_Click(object sender, EventArgs e)
         {
-            /// DELETE SETTING BUTTON
+            Directory.Delete(@"config", true);
+            RestartApp();
         }
 
         #endregion
@@ -796,8 +793,8 @@ namespace backcraft
             System.Diagnostics.Process.Start("https://github.com/emimontesdeoca/backcraft");
         }
 
-        #endregion
 
+        #endregion
 
     }
 }

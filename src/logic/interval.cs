@@ -17,7 +17,6 @@ namespace backcraft.logic
         public interval(int time)
         {
             this.time = time;
-
         }
 
         public void WriteToFile()
@@ -25,10 +24,10 @@ namespace backcraft.logic
             File.Delete(_txtpath);
             using (StreamWriter tw = new StreamWriter(_txtpath, true))
             {
-                string _enable = "interval=" + this.time.ToString();
+                string _interval = "interval=" + this.time.ToString();
                 try
                 {
-                    tw.WriteLine(_enable.ToString());
+                    tw.WriteLine(_interval.ToString());
                 }
                 catch (Exception)
                 {
