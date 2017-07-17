@@ -67,9 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="logic\cfg.cs" />
-    <Compile Include="logic\interval.cs" />
     <Compile Include="logic\launcherprofiles.cs" />
-    <Compile Include="logic\paths.cs" />
     <Compile Include="logic\resourcepacks.cs" />
     <Compile Include="bs\compression.cs" />
     <Compile Include="bs\md5.cs" />

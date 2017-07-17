@@ -19,7 +19,7 @@ namespace backcraft.forms.backcraft
 
         private void b_7zip_Load(object sender, EventArgs e)
         {
-            textbox_path.Text = logic.paths.GetPathFromFile("7zip");
+            textbox_path.Text = logic.cfg.GetPathFromFile("7zip");
         }
 
         private void brn_search_Click(object sender, EventArgs e)
@@ -38,7 +38,7 @@ namespace backcraft.forms.backcraft
 
         private void btn_save_Click(object sender, EventArgs e)
         {
-            new logic.paths("7zip", textbox_path.Text.ToString()).WriteCFG();
+            new logic.cfg("7zip", textbox_path.Text.ToString()).WriteCFG();
             this.Close();
         }
 

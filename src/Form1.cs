@@ -52,16 +52,97 @@ namespace backcraft
 
             #region LOAD STATES AND SET CHECKBOXES
 
-            _MinecraftPath = logic.paths.GetPathFromFile("minecraft");
-            _Backcraft7ZipPath = logic.paths.GetPathFromFile("backcraft");
-            _EnableBackcraftState = logic.cfg.GetStateFromFile("backcraft");
-            _ResourcePackState = logic.cfg.GetStateFromFile("resource_packs");
-            _SavesState = logic.cfg.GetStateFromFile("worlds");
-            _LauncherProfilesState = logic.cfg.GetStateFromFile("launcher_profiles");
-            _OptionsState = logic.cfg.GetStateFromFile("options");
-            _ScreenshotsState = logic.cfg.GetStateFromFile("screenshots");
-            _LogsState = logic.cfg.GetStateFromFile("logs");
-            _StartupState = logic.cfg.GetStateFromFile("startup");
+            try
+            {
+                _MinecraftPath = logic.cfg.GetTypeFromFile("minecraft");
+            }
+            catch (Exception)
+            {
+                _MinecraftPath = "";
+            }
+            try
+            {
+                _Backcraft7ZipPath = logic.cfg.GetTypeFromFile("7zip");
+            }
+            catch (Exception)
+            {
+
+                _Backcraft7ZipPath = "";
+            }
+            try
+            {
+                _EnableBackcraftState = Convert.ToBoolean(logic.cfg.GetTypeFromFile("backcraft"));
+            }
+            catch (Exception)
+            {
+                _EnableBackcraftState = false;
+            }
+            try
+            {
+                _ResourcePackState = Convert.ToBoolean(logic.cfg.GetTypeFromFile("resource_packs"));
+            }
+            catch (Exception)
+            {
+                _ResourcePackState = false;
+            }
+            try
+            {
+                _SavesState = Convert.ToBoolean(logic.cfg.GetTypeFromFile("worlds"));
+            }
+            catch (Exception)
+            {
+                _SavesState = false;
+            }
+            try
+            {
+                _LauncherProfilesState = Convert.ToBoolean(logic.cfg.GetTypeFromFile("launcher_profiles"));
+            }
+            catch (Exception)
+            {
+                _LauncherProfilesState = false;
+            }
+            try
+            {
+                _OptionsState = Convert.ToBoolean(logic.cfg.GetTypeFromFile("options"));
+            }
+            catch (Exception)
+            {
+                _OptionsState = false;
+            }
+            try
+            {
+                _ScreenshotsState = Convert.ToBoolean(logic.cfg.GetTypeFromFile("screenshots"));
+            }
+            catch (Exception)
+            {
+                _ScreenshotsState = false;
+            }
+            try
+            {
+                _LogsState = Convert.ToBoolean(logic.cfg.GetTypeFromFile("logs"));
+            }
+            catch (Exception)
+            {
+                _LogsState = false;
+            }
+            try
+            {
+                _StartupState = Convert.ToBoolean(logic.cfg.GetTypeFromFile("startup"));
+            }
+            catch (Exception)
+            {
+                _StartupState = false;
+            }
+            try
+            {
+                _IntervalTime = Convert.ToInt32(logic.cfg.GetTypeFromFile("interval"));
+
+            }
+            catch (Exception)
+            {
+
+                _IntervalTime = 5;
+            }
 
             back_enable.Checked = _EnableBackcraftState;
             set_resource.Checked = _ResourcePackState;
@@ -617,7 +698,7 @@ namespace backcraft
                 }
                 else
                 {
-                    new logic.cfg("backcraft", back_enable.Checked).WriteCFG();
+                    new logic.cfg("backcraft", back_enable.Checked.ToString()).WriteCFG();
                 }
 
                 #endregion
@@ -629,7 +710,7 @@ namespace backcraft
                 }
                 else
                 {
-                    new logic.cfg("resource_packs", set_resource.Checked).WriteCFG();
+                    new logic.cfg("resource_packs", set_resource.Checked.ToString()).WriteCFG();
                 }
 
                 #endregion
@@ -641,7 +722,7 @@ namespace backcraft
                 }
                 else
                 {
-                    new logic.cfg("worlds", set_saves.Checked).WriteCFG();
+                    new logic.cfg("worlds", set_saves.Checked.ToString()).WriteCFG();
                 }
 
                 #endregion
@@ -654,7 +735,7 @@ namespace backcraft
                 }
                 else
                 {
-                    new logic.cfg("launcher_profiles", set_launcher.Checked).WriteCFG();
+                    new logic.cfg("launcher_profiles", set_launcher.Checked.ToString()).WriteCFG();
 
                 }
 
@@ -667,7 +748,7 @@ namespace backcraft
                 }
                 else
                 {
-                    new logic.cfg("options", set_options.Checked).WriteCFG();
+                    new logic.cfg("options", set_options.Checked.ToString()).WriteCFG();
                 }
 
                 #endregion
@@ -679,7 +760,7 @@ namespace backcraft
                 }
                 else
                 {
-                    new logic.cfg("screenshots", set_options.Checked).WriteCFG();
+                    new logic.cfg("screenshots", set_options.Checked.ToString()).WriteCFG();
                 }
 
                 #endregion
@@ -691,7 +772,7 @@ namespace backcraft
                 }
                 else
                 {
-                    new logic.cfg("logs", back_enablelog.Checked).WriteCFG();
+                    new logic.cfg("logs", back_enablelog.Checked.ToString()).WriteCFG();
                 }
 
                 #endregion
@@ -703,7 +784,7 @@ namespace backcraft
                 }
                 else
                 {
-                    new logic.cfg("startup", set_options.Checked);
+                    new logic.cfg("startup", set_options.Checked.ToString());
                     RegistryKey registryKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
 
                     if (back_startup.Checked)
@@ -725,7 +806,7 @@ namespace backcraft
                 }
                 else
                 {
-                    new logic.interval(scroll_interval.Value).WriteToFile();
+                    new logic.cfg("interval", scroll_interval.Value.ToString()).WriteCFG();
                 }
 
                 #endregion

@@ -9,15 +9,15 @@ namespace backcraft.logic
 {
     class cfg
     {
-        const string _txtstate = @"config\cfg.txt";
+        const string _txtcfg = @"config\cfg.txt";
 
         public string name { get; set; }
-        public bool enabled { get; set; }
+        public string value { get; set; }
 
-        public cfg(string name, bool enabled)
+        public cfg(string name, string value)
         {
             this.name = name;
-            this.enabled = enabled;
+            this.value = value;
         }
 
         public cfg() { }
@@ -25,11 +25,11 @@ namespace backcraft.logic
         public void WriteCFG()
         {
             List<string> ListToWrite = new List<string>();
-            string build = name + "=" + enabled.ToString();
+            string build = name + "=" + value.ToString();
 
             try
             {
-                using (StreamReader rd = new StreamReader(_txtstate, true))
+                using (StreamReader rd = new StreamReader(_txtcfg, true))
                 {
                     while (true)
                     {
@@ -61,13 +61,13 @@ namespace backcraft.logic
                     ListToWrite.Add(build);
                 }
             }
-            File.Delete(_txtstate);
+            File.Delete(_txtcfg);
             WriteCFGinFile(ListToWrite);
         }
 
         public void WriteCFGinFile(List<string> l)
         {
-            using (StreamWriter tw = new StreamWriter(_txtstate, true))
+            using (StreamWriter tw = new StreamWriter(_txtcfg, true))
             {
                 try
                 {
@@ -82,12 +82,12 @@ namespace backcraft.logic
             }
         }
 
-        public static bool GetStateFromFile(string name)
+        public static string GetPathFromFile(string name)
         {
-            bool res = false;
+            string res = "";
             try
             {
-                using (StreamReader rd = new StreamReader(_txtstate, true))
+                using (StreamReader rd = new StreamReader(_txtcfg, true))
                 {
                     while (true)
                     {
@@ -95,10 +95,46 @@ namespace backcraft.logic
                         {
                             string check = rd.ReadLine().Trim();
                             string _name = check.Split('=')[0];
-                            bool state = Convert.ToBoolean(check.Split('=')[1]);
+                            string _path = check.Split('=')[1];
                             if (_name == name)
                             {
-                                res = state;
+                                res = _path;
+                                break;
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+
+            return res;
+        }
+
+        public static dynamic GetTypeFromFile(string name)
+        {
+            var res = new {};
+            try
+            {
+                using (StreamReader rd = new StreamReader(_txtcfg, true))
+                {
+                    while (true)
+                    {
+                        try
+                        {
+                            string check = rd.ReadLine().Trim();
+                            string _name = check.Split('=')[0];
+
+                            if (_name == name)
+                            {
+                                /// returns wathever it is
+                                return check.Split('=')[1];
                             }
                         }
                         catch (Exception)
