@@ -11,8 +11,13 @@ namespace backcraft.configManager
     public class ConfigManager
     {
         /*
-            There will be issues if you intend to handle strings containing two adjacent 
-            quotes (""), because lists of strings will be like this in config:
+            Supports int, bool, string and lists of those types
+        */
+        
+        
+        /*
+            There will be issues if you intend to handle strings containing two consecutive 
+            quotes (""), because lists of strings will look like this in config:
        
             # listOfBackupPaths = {""D:\Backup"",""C:\Program Files\Backcraft\MCBackups\""}
       
