@@ -19,12 +19,6 @@ namespace backcraft.forms.backcraft
 
         private void b_backups_Load(object sender, EventArgs e)
         {
-
-
-        }
-
-        private void btn_load_Click(object sender, EventArgs e)
-        {
             gridview_backups.Enabled = false;
 
             var col1 = new DataGridViewTextBoxColumn();
@@ -43,6 +37,19 @@ namespace backcraft.forms.backcraft
 
             gridview_backups.RowHeadersVisible = false;
             col2.Width = 100;
+
+        }
+
+        private void btn_load_Click(object sender, EventArgs e)
+        {
+            gridview_backups.Rows.Clear();
+
+            List<string> l = logic.paths.GetPaths();
+
+            foreach (string s in l)
+            {
+                gridview_backups.Rows.Add(s);
+            }
 
             btn_add.Enabled = true;
             btn_search.Enabled = true;
@@ -67,7 +74,10 @@ namespace backcraft.forms.backcraft
 
         private void btn_save_Click(object sender, EventArgs e)
         {
-
+            foreach (DataGridViewRow r in gridview_backups.Rows)
+            {
+                new logic.paths(r.Cells[0].Value.ToString(), true);
+            }
             this.Close();
         }
 

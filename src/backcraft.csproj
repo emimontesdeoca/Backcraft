@@ -106,6 +106,7 @@
     <Compile Include="forms\minecraft\m_saves.Designer.cs">
       <DependentUpon>m_saves.cs</DependentUpon>
     </Compile>
+    <Compile Include="logic\paths.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

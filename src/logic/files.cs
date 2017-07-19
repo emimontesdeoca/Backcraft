@@ -11,8 +11,6 @@ namespace backcraft.logic
     {
         const string _txtfile = @"config/files.txt";
 
-
-
         public string name { get; set; }
         public string path { get; set; }
         public string MD5 { get; set; }
