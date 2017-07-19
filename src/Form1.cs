@@ -469,6 +469,7 @@ namespace backcraft
         private void btn_minecraftfolder_Click(object sender, EventArgs e)
         {
             new forms.minecraft.m_minecraftpath().ShowDialog();
+
         }
 
         private void btn_resourcepacks_Click(object sender, EventArgs e)
@@ -729,14 +730,22 @@ namespace backcraft
 
                 #region LAUNCHER PROFILES STATE
 
-
                 if (_LauncherProfilesState == set_launcher.Checked)
                 {
+                    new logic.files("launcher_profiles", _MinecraftPath + @"\\launcher_profiles.json", "f", true).WriteCFG();
                 }
                 else
                 {
                     new logic.cfg("launcher_profiles", set_launcher.Checked.ToString()).WriteCFG();
+                    try
+                    {
+                        new logic.files("launcher_profiles", _MinecraftPath + @"\\launcher_profiles.json", "f", false).WriteCFG();
 
+                    }
+                    catch (Exception)
+                    {
+
+                    }
                 }
 
                 #endregion
@@ -745,10 +754,19 @@ namespace backcraft
 
                 if (_OptionsState == set_options.Checked)
                 {
+                    new logic.files("options", _MinecraftPath + @"\\options.txt", "f", true).WriteCFG();
                 }
                 else
                 {
                     new logic.cfg("options", set_options.Checked.ToString()).WriteCFG();
+                    try
+                    {
+                        new logic.files("options", _MinecraftPath + @"\\optiones.txt", "f", false).WriteCFG();
+
+                    }
+                    catch (Exception)
+                    {
+                    }
                 }
 
                 #endregion
@@ -757,10 +775,20 @@ namespace backcraft
 
                 if (_ScreenshotsState == set_screenshots.Checked)
                 {
+                    new logic.files("screenshots", _MinecraftPath + @"\\screenshots", "d", true).WriteCFG();
                 }
                 else
                 {
                     new logic.cfg("screenshots", set_options.Checked.ToString()).WriteCFG();
+                    try
+                    {
+                        new logic.files("screenshots", _MinecraftPath + @"\\screenshots", "d", false).WriteCFG();
+
+                    }
+                    catch (Exception)
+                    {
+
+                    }
                 }
 
                 #endregion
@@ -811,7 +839,11 @@ namespace backcraft
 
                 #endregion
 
-                RestartApp();
+                #region FILES 
+
+                #endregion
+
+                //RestartApp();
             }
             catch (Exception err)
             {

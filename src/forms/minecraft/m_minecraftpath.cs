@@ -39,6 +39,7 @@ namespace backcraft.forms.minecraft
         private void btn_save_Click(object sender, EventArgs e)
         {
             new logic.cfg("minecraft", textbox_path.Text.ToString()).WriteCFG();
+            Form1._MinecraftPath = textbox_path.Text;
             this.Close();
         }
 

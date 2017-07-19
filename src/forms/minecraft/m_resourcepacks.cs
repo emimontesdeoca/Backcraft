@@ -52,7 +52,7 @@ namespace backcraft.forms.minecraft
             {
                 List<string> d = Directory.GetDirectories(_MinecraftResourcePacksPath).ToList();
 
-                List<logic.resourcepacks> list = new logic.resourcepacks().GetWorldsFromFile();
+                List<logic.files> files = logic.files.GetFiles();
 
                 foreach (string dir in d)
                 {
@@ -61,7 +61,7 @@ namespace backcraft.forms.minecraft
                     bool check = false;
                     try
                     {
-                        if (list.Single(x => x.name == name && x.path == path) != null)
+                        if (files.Single(x => x.name == name && x.path == path) != null)
                         {
                             check = true;
                         }
@@ -90,10 +90,10 @@ namespace backcraft.forms.minecraft
                 string name = r.Cells[0].Value.ToString();
                 string path = r.Cells[1].Value.ToString();
                 string check = r.Cells[2].Value.ToString();
-                new logic.resourcepacks(name, path).WriteResourcePackDirectories(Convert.ToBoolean(check));
-
+                //new logic.resourcepacks(name, path).WriteResourcePackDirectories(Convert.ToBoolean(check));
+                new logic.files(name, path, "d", Convert.ToBoolean(check)).WriteCFG();
             }
-            logic.resourcepacks.FinallyWriteFile();
+            //logic.resourcepacks.FinallyWriteFile();
 
             this.Close();
         }
