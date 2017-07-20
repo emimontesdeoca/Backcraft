@@ -1,2 +1,21 @@
 language: csharp
 solution: src/backcraft.sln
+
+env:
+  global:
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+   #   via the "travis encrypt" command using the project repo's public key
+   - secure: "lPy3ywe6aSeOAXQjIhKOCJQzhtzzHOTZDfOHnAcx2VcNFfbAWc9y9vy4x9S7+AvaR9UrUP/bZ99hY/XOVlixRNd6ej9NxU+bwR8/xb8QFLwTXz37ncZrswuP7Z0Iq0gJcj4HsEoetc+ttzgiFP7itn8z4yTFZ/nobz0uvT2naiVc+1GFbkQoZc38KRErFmj97B5Jzok80FvNNYm5rgpbnuUlq1pXfZUwA0zXbjYfElSjZHuk3VmxNQOxJAwIWU393FD4P9UQDsGL8IMmeBsuf+0ieOasg1+ZKZDf5DykrJj3VTEy/9SUEXGuNEffIwhg29K8I6H3rw+276FVxeGb/eryCxzJi9SdexSTBS8nvr6Lt3w2afrKWsWuHS4GGKQRaBZyyY5VT0/td2irDCL3V/OVVe4P0w0ezWb/LF5wR/nYY+WoJyILloJVKH7BfFulrdlDwJvYMqEr/uBOOQincWvCyMAToahj7RZD4/lzC+/ixe2mtLuYG65buQakc2Pb/QhnfZsZ+z944LVCj1o/uyCZUmQ6HMA5MTSrprwQ2NOPc9+VgBaiiafx33J2eFJGpw1sxjtHrFQ6IIk3Our7p21djMpwZiLc615PzVWz2iiRtUlhgT0peW3LtBYyar1m9miBxlGYxRhz2hcTHFA4BC7FxnUf9KjhwpdUEMoP398="
+
+before_install:
+      - echo -n | openssl s_client -connect scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
+
+addons:
+  coverity_scan:
+    project:
+      name: "emimontesdeoca/Backcraft"
+      description: "A backup tool for Minecraft."
+    notification_email: emontesdeoc@gmail.com
+    build_command_prepend: "msbuild /t:Clean"
+    build_command:   "msbuild /t:Rebuild"
+    branch_pattern: coverity_scan
