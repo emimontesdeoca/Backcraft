@@ -4,7 +4,7 @@
 
 <p align="center">
     <a href="https://travis-ci.com/emimontesdeoca/backcraft">
-        <img src="https://travis-ci.com/emimontesdeoca/backcraft.svg?token=5YhKmMD39Y1MraUZWAap&branch=master"
+        <img src="https://travis-ci.org/emimontesdeoca/Backcraft.svg?branch=master"
              alt="build status">
     </a>
     <a href="https://github.com/emimontesdeoca/backcraft/releases">
