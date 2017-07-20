@@ -18,4 +18,4 @@ addons:
     notification_email: emontesdeoc@gmail.com
     build_command_prepend: "msbuild /p:Configuration=Release src/backcraft.sln"
     build_command:   "msbuild /p:Configuration=Release src/backcraft.sln"
-    branch_pattern: coverity_scan
+    branch_pattern: master
