@@ -16,6 +16,6 @@ addons:
       name: "emimontesdeoca/Backcraft"
       description: "A backup tool for Minecraft."
     notification_email: emontesdeoc@gmail.com
-    build_command_prepend: "msbuild /p:Configuration=Release src/backcraft.sln"
-    build_command:   "msbuild /p:Configuration=Release src/backcraft.sln"
-    branch_pattern: master
+    build_command_prepend: "msbuild /t:Clean"
+    build_command:   "msbuild /t:Rebuild"
+    branch_pattern: coverity_scan
