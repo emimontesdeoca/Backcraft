@@ -732,14 +732,21 @@ namespace backcraft
 
                 if (_LauncherProfilesState == set_launcher.Checked)
                 {
-                    new logic.files("launcher_profiles", _MinecraftPath + @"\\launcher_profiles.json", "f", true).WriteCFG();
                 }
                 else
                 {
                     new logic.cfg("launcher_profiles", set_launcher.Checked.ToString()).WriteCFG();
                     try
                     {
-                        new logic.files("launcher_profiles", _MinecraftPath + @"\\launcher_profiles.json", "f", false).WriteCFG();
+                        if (set_launcher.Checked)
+                        {
+                            new logic.files("launcher_profiles", _MinecraftPath + @"\\launcher_profiles.json", "f").WriteCFG();
+                        }
+                        else
+                        {
+                            new logic.files().DeleteFromFile("launcher_profiles", _MinecraftPath + @"\\launcher_profiles.json");
+                        }
+
 
                     }
                     catch (Exception)
@@ -754,14 +761,23 @@ namespace backcraft
 
                 if (_OptionsState == set_options.Checked)
                 {
-                    new logic.files("options", _MinecraftPath + @"\\options.txt", "f", true).WriteCFG();
+                    //new logic.files("options", _MinecraftPath + @"\\options.txt", "f", true).WriteCFG();
                 }
                 else
                 {
                     new logic.cfg("options", set_options.Checked.ToString()).WriteCFG();
                     try
                     {
-                        new logic.files("options", _MinecraftPath + @"\\optiones.txt", "f", false).WriteCFG();
+                        if (set_options.Checked)
+                        {
+                            new logic.files("options", _MinecraftPath + @"\\options.txt", "f").WriteCFG();
+                        }
+                        else
+                        {
+                            new logic.files().DeleteFromFile("options", _MinecraftPath + @"\\options.txt");
+
+                        }
+
 
                     }
                     catch (Exception)
@@ -775,14 +791,23 @@ namespace backcraft
 
                 if (_ScreenshotsState == set_screenshots.Checked)
                 {
-                    new logic.files("screenshots", _MinecraftPath + @"\\screenshots", "d", true).WriteCFG();
+                    //new logic.files("screenshots", _MinecraftPath + @"\\screenshots", "d", true).WriteCFG();
                 }
                 else
                 {
-                    new logic.cfg("screenshots", set_options.Checked.ToString()).WriteCFG();
+                    new logic.cfg("screenshots", set_screenshots.Checked.ToString()).WriteCFG();
                     try
                     {
-                        new logic.files("screenshots", _MinecraftPath + @"\\screenshots", "d", false).WriteCFG();
+                        if (set_screenshots.Checked)
+                        {
+                            new logic.files("screenshots", _MinecraftPath + @"\\screenshots", "d").WriteCFG();
+                        }
+                        else
+                        {
+                            new logic.files().DeleteFromFile("screenshots", _MinecraftPath + @"\\screenshots");
+
+                        }
+
 
                     }
                     catch (Exception)

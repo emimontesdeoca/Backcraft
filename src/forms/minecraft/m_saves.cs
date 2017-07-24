@@ -13,7 +13,7 @@ namespace backcraft.forms.minecraft
 {
     public partial class m_saves : Form
     {
-        public string _MinecraftSavesPath { get; set; } = Form1._MinecraftPath + @"\saves";
+        public string _MinecraftSavesPath { get; set; } = Form1._MinecraftPath + @"\\saves";
 
         public m_saves()
         {
@@ -54,24 +54,36 @@ namespace backcraft.forms.minecraft
             {
                 List<string> d = Directory.GetDirectories(_MinecraftSavesPath).ToList();
 
-                List<logic.files> files = logic.files.GetFiles();
-
-                foreach (string dir in d)
+                try
                 {
-                    string name = dir.Split('\\').Last();
-                    string path = dir;
-                    bool check = false;
-                    try
+                    List<logic.files> files = logic.files.GetFiles();
+                    foreach (string dir in d)
                     {
-                        if (files.Single(x => x.name == name && x.path == path) != null)
+                        string name = dir.Split('\\').Last();
+                        string path = dir;
+                        bool check = false;
+                        try
                         {
-                            check = true;
+                            if (files.Single(x => x.name == name && x.path == path) != null)
+                            {
+                                check = true;
+                            }
                         }
+                        catch (Exception)
+                        {
+                        }
+                        gridview_worlds.Rows.Add(name, path, check);
                     }
-                    catch (Exception)
+                }
+                catch (Exception)
+                {
+                    foreach (string dir in d)
                     {
+                        string name = dir.Split('\\').Last();
+                        string path = dir;
+                        bool check = false;
+                        gridview_worlds.Rows.Add(name, path, check);
                     }
-                    gridview_worlds.Rows.Add(name, path, check);
                 }
 
                 gridview_worlds.Enabled = true;
@@ -79,7 +91,7 @@ namespace backcraft.forms.minecraft
             }
             catch (Exception)
             {
-                MessageBox.Show("No Minecraft path configured!", "Backcraft");
+                MessageBox.Show("Error getting the folders from the path! Check out that the Minecraft path is correct or if there are files inside the folder!", "Backcraft");
             }
 
         }
@@ -92,7 +104,21 @@ namespace backcraft.forms.minecraft
                 string name = r.Cells[0].Value.ToString();
                 string path = r.Cells[1].Value.ToString();
                 string check = r.Cells[2].Value.ToString();
-                new logic.files(name, path, "d", Convert.ToBoolean(check)).WriteCFG();
+                if (Convert.ToBoolean(check))
+                {
+                    new logic.files(name, path, "d").WriteCFG();
+                }
+                else
+                {
+                    try
+                    {
+                        new logic.files().DeleteFromFile(name, path);
+                    }
+                    catch (Exception)
+                    {
+                    }
+                }
+
             }
 
             this.Close();

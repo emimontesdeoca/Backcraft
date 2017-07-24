@@ -15,15 +15,13 @@ namespace backcraft.logic
         public string path { get; set; }
         public string MD5 { get; set; }
         public string type { get; set; }
-        public bool enabled { get; set; }
 
-        public files(string name, string path, string type, bool enabled)
+        public files(string name, string path, string type)
         {
             this.name = name;
             this.path = path;
 
             this.type = type;
-            this.enabled = enabled;
 
             if (type == "f")
             {
@@ -42,7 +40,7 @@ namespace backcraft.logic
         public void WriteCFG()
         {
             List<string> ListToWrite = new List<string>();
-            string build = this.name + "&" + this.type + "&" + this.enabled + "&" + this.path + "&" + this.MD5;
+            string build = this.name + "&" + this.type + "&" + this.path + "&" + this.MD5;
             try
             {
                 using (StreamReader rd = new StreamReader(_txtfile, true))
@@ -62,18 +60,12 @@ namespace backcraft.logic
                 var x = ListToWrite.Single(a => a.Contains(this.name) && a.Contains(this.path));
 
                 string cmd5 = x.Split('&')[4];
-                string fileenabled = x.Split('&')[2];
 
-                if (this.enabled == false)
-                {
-                    ListToWrite.Remove(x);
-                }
-                else if (this.MD5 != cmd5)
+                if (this.MD5 != cmd5)
                 {
                     ListToWrite.Remove(x);
                     ListToWrite.Add(build);
                 }
-
 
             }
             catch (Exception)
@@ -89,19 +81,54 @@ namespace backcraft.logic
 
         public void WriteToCFG(List<string> l)
         {
-            using (StreamWriter tw = new StreamWriter(_txtfile, true))
+            if (l.Count > 0)
+            {
+                using (StreamWriter tw = new StreamWriter(_txtfile, true))
+                {
+                    try
+                    {
+                        foreach (string s in l)
+                        {
+                            tw.WriteLine(s);
+                        }
+                    }
+                    catch (Exception)
+                    {
+                    }
+                }
+            }
+
+        }
+
+        public void DeleteFromFile(string name, string path)
+        {
+
+            List<string> l = new List<string>();
+            using (StreamReader tw = new StreamReader(_txtfile, true))
             {
                 try
                 {
-                    foreach (string s in l)
+                    while (true)
                     {
-                        tw.WriteLine(s);
+                        l.Add(tw.ReadLine().Trim());
                     }
                 }
                 catch (Exception)
                 {
                 }
             }
+
+            try
+            {
+                var x = l.Single(a => a.Contains(name) && a.Contains(path));
+                l.Remove(x);
+                File.Delete(_txtfile);
+                WriteToCFG(l);
+            }
+            catch (Exception)
+            {
+            }
+
         }
         public static List<files> GetFiles()
         {
@@ -120,9 +147,8 @@ namespace backcraft.logic
                         files f = new files();
                         f.name = split[0];
                         f.type = split[1];
-                        f.enabled = Convert.ToBoolean(split[2]);
-                        f.path = split[3];
-                        f.MD5 = split[4];
+                        f.path = split[2];
+                        f.MD5 = split[3];
 
                         files.Add(f);
                     }

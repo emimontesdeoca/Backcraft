@@ -10,6 +10,7 @@ namespace backcraft.logic
     class paths
     {
         const string _txtfile = @"config/paths.txt";
+
         public string path { get; set; }
         public bool enabled { get; set; }
         public paths(string path, bool enabled)
