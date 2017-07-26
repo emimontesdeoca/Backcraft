@@ -66,6 +66,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="logic\backup.cs" />
     <Compile Include="logic\cfg.cs" />
     <Compile Include="logic\files.cs" />
     <Compile Include="bs\compression.cs" />
