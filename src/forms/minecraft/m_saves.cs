@@ -13,7 +13,7 @@ namespace backcraft.forms.minecraft
 {
     public partial class m_saves : Form
     {
-        public string _MinecraftSavesPath { get; set; } = Form1._MinecraftPath + @"\\saves";
+        public string _MinecraftSavesPath { get; set; } = Form1._MinecraftPath + @"\saves";
 
         public m_saves()
         {

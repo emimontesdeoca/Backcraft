@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace backcraft.logic
 {
-    class files
+    public class files
     {
         const string _txtfile = @"config/files.txt";
 
@@ -81,6 +81,7 @@ namespace backcraft.logic
 
         public void WriteToCFG(List<string> l)
         {
+
             if (l.Count > 0)
             {
                 using (StreamWriter tw = new StreamWriter(_txtfile, true))
@@ -130,6 +131,7 @@ namespace backcraft.logic
             }
 
         }
+
         public static List<files> GetFiles()
         {
             List<files> files = new List<logic.files>();
@@ -161,6 +163,45 @@ namespace backcraft.logic
 
             return files;
 
+        }
+
+        public void UpdateFile(string currentName, string newMD5)
+        {
+
+            List<string> ListToWrite = new List<string>();
+
+            using (StreamReader rd = new StreamReader(_txtfile, true))
+            {
+
+                while (true)
+                {
+                    try
+                    {
+                        string line = rd.ReadLine();
+                        string[] split = line.Split('&');
+
+                        string name = split[0];
+                        string type = split[1];
+                        string path = split[2];
+                        string MD5 = split[3];
+
+                        if (name == currentName && MD5 != newMD5)
+                        {
+                            MD5 = newMD5;
+                        }
+
+                        string build = name + "&" + type + "&" + path + "&" + MD5;
+
+                        ListToWrite.Add(build);
+                    }
+                    catch (Exception)
+                    {
+                        break;
+                    }
+                }
+            }
+            File.Delete(_txtfile);
+            WriteToCFG(ListToWrite);
         }
 
     }

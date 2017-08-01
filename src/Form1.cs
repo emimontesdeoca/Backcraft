@@ -28,7 +28,7 @@ namespace backcraft
         public bool _LogsState { get; set; }
         public bool _StartupState { get; set; }
         public int _IntervalTime { get; set; } = 5;
-
+        public static bool[] states = new bool[6];
         public Form1()
         {
             InitializeComponent();
@@ -152,6 +152,16 @@ namespace backcraft
             set_screenshots.Checked = _ScreenshotsState;
             back_enablelog.Checked = _LogsState;
             back_startup.Checked = _StartupState;
+
+
+
+            states[0] = _ResourcePackState;
+            states[1] = _SavesState;
+            states[2] = _LauncherProfilesState;
+            states[3] = _OptionsState;
+            states[4] = _ScreenshotsState;
+            states[5] = _LogsState;
+
 
 
             #endregion
@@ -694,173 +704,122 @@ namespace backcraft
 
                 #region ENABLE BACKCRAFT
 
-                if (_EnableBackcraftState == back_enable.Checked)
-                {
-                }
-                else
-                {
-                    new logic.cfg("backcraft", back_enable.Checked.ToString()).WriteCFG();
-                }
+                new logic.cfg("backcraft", back_enable.Checked.ToString()).WriteCFG();
 
                 #endregion
 
                 #region RESOURCE PACKS STATE
 
-                if (_ResourcePackState == set_resource.Checked)
-                {
-                }
-                else
-                {
-                    new logic.cfg("resource_packs", set_resource.Checked.ToString()).WriteCFG();
-                }
+                new logic.cfg("resource_packs", set_resource.Checked.ToString()).WriteCFG();
+
 
                 #endregion
 
                 #region WORLDS/SAVES STATE
 
-                if (_SavesState == set_saves.Checked)
-                {
-                }
-                else
-                {
-                    new logic.cfg("worlds", set_saves.Checked.ToString()).WriteCFG();
-                }
+                new logic.cfg("worlds", set_saves.Checked.ToString()).WriteCFG();
+
 
                 #endregion
 
                 #region LAUNCHER PROFILES STATE
 
-                if (_LauncherProfilesState == set_launcher.Checked)
+
+                new logic.cfg("launcher_profiles", set_launcher.Checked.ToString()).WriteCFG();
+                try
                 {
-                }
-                else
-                {
-                    new logic.cfg("launcher_profiles", set_launcher.Checked.ToString()).WriteCFG();
-                    try
+                    if (set_launcher.Checked)
                     {
-                        if (set_launcher.Checked)
-                        {
-                            new logic.files("launcher_profiles", _MinecraftPath + @"\\launcher_profiles.json", "f").WriteCFG();
-                        }
-                        else
-                        {
-                            new logic.files().DeleteFromFile("launcher_profiles", _MinecraftPath + @"\\launcher_profiles.json");
-                        }
-
-
+                        new logic.files("launcher_profiles", _MinecraftPath + @"\launcher_profiles.json", "f").WriteCFG();
                     }
-                    catch (Exception)
+                    else
                     {
-
+                        new logic.files().DeleteFromFile("launcher_profiles", _MinecraftPath + @"\launcher_profiles.json");
                     }
                 }
+                catch (Exception)
+                {
+                }
+
 
                 #endregion
 
                 #region OPTIONS STATE
 
-                if (_OptionsState == set_options.Checked)
+                new logic.cfg("options", set_options.Checked.ToString()).WriteCFG();
+                try
                 {
-                    //new logic.files("options", _MinecraftPath + @"\\options.txt", "f", true).WriteCFG();
+                    if (set_options.Checked)
+                    {
+                        new logic.files("options", _MinecraftPath + @"\options.txt", "f").WriteCFG();
+                    }
+                    else
+                    {
+                        new logic.files().DeleteFromFile("options", _MinecraftPath + @"\options.txt");
+
+                    }
+
+
                 }
-                else
+                catch (Exception)
                 {
-                    new logic.cfg("options", set_options.Checked.ToString()).WriteCFG();
-                    try
-                    {
-                        if (set_options.Checked)
-                        {
-                            new logic.files("options", _MinecraftPath + @"\\options.txt", "f").WriteCFG();
-                        }
-                        else
-                        {
-                            new logic.files().DeleteFromFile("options", _MinecraftPath + @"\\options.txt");
-
-                        }
-
-
-                    }
-                    catch (Exception)
-                    {
-                    }
                 }
 
                 #endregion
 
                 #region SCREENSHOTS STATE
 
-                if (_ScreenshotsState == set_screenshots.Checked)
+
+                new logic.cfg("screenshots", set_screenshots.Checked.ToString()).WriteCFG();
+                try
                 {
-                    //new logic.files("screenshots", _MinecraftPath + @"\\screenshots", "d", true).WriteCFG();
-                }
-                else
-                {
-                    new logic.cfg("screenshots", set_screenshots.Checked.ToString()).WriteCFG();
-                    try
+                    if (set_screenshots.Checked)
                     {
-                        if (set_screenshots.Checked)
-                        {
-                            new logic.files("screenshots", _MinecraftPath + @"\\screenshots", "d").WriteCFG();
-                        }
-                        else
-                        {
-                            new logic.files().DeleteFromFile("screenshots", _MinecraftPath + @"\\screenshots");
-
-                        }
-
+                        new logic.files("screenshots", _MinecraftPath + @"\screenshots", "d").WriteCFG();
+                    }
+                    else
+                    {
+                        new logic.files().DeleteFromFile("screenshots", _MinecraftPath + @"\screenshots");
 
                     }
-                    catch (Exception)
-                    {
 
-                    }
+
                 }
+                catch (Exception)
+                {
+                    new logic.cfg("screenshots", false.ToString()).WriteCFG();
+                }
+
 
                 #endregion
 
                 #region LOGS STATE
 
-                if (_LogsState == back_enablelog.Checked)
-                {
-                }
-                else
-                {
-                    new logic.cfg("logs", back_enablelog.Checked.ToString()).WriteCFG();
-                }
+                new logic.cfg("logs", back_enablelog.Checked.ToString()).WriteCFG();
 
                 #endregion
 
                 #region STARTUP STATE
 
-                if (_StartupState == back_startup.Checked)
-                {
-                }
-                else
-                {
-                    new logic.cfg("startup", set_options.Checked.ToString());
-                    RegistryKey registryKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
 
-                    if (back_startup.Checked)
-                    {
-                        registryKey.SetValue("Backcraft", Application.ExecutablePath);
-                    }
-                    else
-                    {
-                        registryKey.DeleteValue("Backcraft");
-                    }
-                }
+                //new logic.cfg("startup", set_options.Checked.ToString());
+                //RegistryKey registryKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+
+                //if (back_startup.Checked)
+                //{
+                //    registryKey.SetValue("Backcraft", Application.ExecutablePath);
+                //}
+                //else
+                //{
+                //    registryKey.DeleteValue("Backcraft");
+                //}
+
 
                 #endregion
 
                 #region INTERVAL STATE
 
-                if (_IntervalTime == scroll_interval.Value)
-                {
-                }
-                else
-                {
-                    new logic.cfg("interval", scroll_interval.Value.ToString()).WriteCFG();
-                }
+                new logic.cfg("interval", scroll_interval.Value.ToString()).WriteCFG();
 
                 #endregion
 
@@ -883,7 +842,8 @@ namespace backcraft
             /// BACKUP NOW BUTTON
             try
             {
-                var a = Backcraft();
+                //var a = Backcraft();
+                logic.backup.MakeBackup(states);
             }
             catch (Exception)
             {
