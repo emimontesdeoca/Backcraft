@@ -12,12 +12,13 @@ namespace backcraft.logic
         const string _txtfile = @"config/paths.txt";
 
         public string path { get; set; }
-        public bool enabled { get; set; }
-        public paths(string path, bool enabled)
+
+        public paths(string path)
         {
             this.path = path;
-            this.enabled = enabled;
         }
+
+        public paths() { }
 
         public void WriteCFg()
         {
@@ -30,28 +31,21 @@ namespace backcraft.logic
                 {
                     while (true)
                     {
-                        ListToWrite.Add(rd.ReadLine().Trim());
+                        string obj = rd.ReadLine().Trim();
+
+                        ListToWrite.Add(obj);
                     }
                 }
-            }
-            catch (Exception)
-            {
-            }
-
-            try
-            {
-                var x = ListToWrite.Single(a => a.Contains(this.path));
-
-                if (this.enabled == false)
-                {
-                    ListToWrite.Remove(x);
-                }
 
             }
             catch (Exception)
             {
+                /// Means there isnt a path file so just add it BABE
                 ListToWrite.Add(this.path);
             }
+            File.Delete(_txtfile);
+            WriteToCFG(ListToWrite);
+
         }
 
         public void WriteToCFG(List<string> l)
@@ -61,7 +55,7 @@ namespace backcraft.logic
             {
                 try
                 {
-                    foreach (string s in l)
+                    foreach (string s in l.Distinct())
                     {
                         tw.WriteLine(s);
                     }
@@ -69,6 +63,37 @@ namespace backcraft.logic
                 catch (Exception)
                 {
                 }
+            }
+
+        }
+
+        public void DeleteFromFile(string path)
+        {
+
+            List<string> l = new List<string>();
+            using (StreamReader tw = new StreamReader(_txtfile, true))
+            {
+                try
+                {
+                    while (true)
+                    {
+                        l.Add(tw.ReadLine().Trim());
+                    }
+                }
+                catch (Exception)
+                {
+                }
+            }
+
+            try
+            {
+                var x = l.Single(a => a.Contains(path));
+                l.Remove(x);
+                File.Delete(_txtfile);
+                WriteToCFG(l);
+            }
+            catch (Exception)
+            {
             }
 
         }

@@ -44,11 +44,17 @@ namespace backcraft.forms.backcraft
         {
             gridview_backups.Rows.Clear();
 
-            List<string> l = logic.paths.GetPaths();
-
-            foreach (string s in l)
+            try
             {
-                gridview_backups.Rows.Add(s);
+                List<string> l = logic.paths.GetPaths();
+
+                foreach (string s in l)
+                {
+                    gridview_backups.Rows.Add(s, "Delete");
+                }
+            }
+            catch (Exception)
+            {
             }
 
             btn_add.Enabled = true;
@@ -56,6 +62,7 @@ namespace backcraft.forms.backcraft
             btn_save.Enabled = true;
             gridview_backups.Enabled = true;
             textbox_path.Enabled = true;
+
         }
 
         private void btn_search_Click(object sender, EventArgs e)
@@ -76,7 +83,7 @@ namespace backcraft.forms.backcraft
         {
             foreach (DataGridViewRow r in gridview_backups.Rows)
             {
-                new logic.paths(r.Cells[0].Value.ToString(), true);
+                new logic.paths(r.Cells[0].Value.ToString()).WriteCFg();
             }
             this.Close();
         }
@@ -91,6 +98,8 @@ namespace backcraft.forms.backcraft
             if (gridview_backups.Columns[e.ColumnIndex].Name == "delete")
             {
                 gridview_backups.Rows.RemoveAt(e.RowIndex);
+
+                new logic.paths().DeleteFromFile(gridview_backups.Rows[e.RowIndex].Cells[0].Value.ToString());
             }
         }
     }
