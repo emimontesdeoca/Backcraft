@@ -319,7 +319,7 @@ namespace backcraft
                 token.Cancel();
             }
 
-            //var x = AsyncBackcraft(interval);
+            var x = AsyncBackcraft(interval);
         }
 
         #region BACKCRAFT
@@ -533,106 +533,7 @@ namespace backcraft
 
         private async Task Backcraft()
         {
-            #region Make folder
-
-
-            /// Build folderpath string
-            string folderpath = "backups\\Backcraft_" + DateTime.Now.ToShortDateString() + "_" + DateTime.Now.ToLongTimeString();
-            folderpath = folderpath.Replace('/', '-').Replace(':', '-');
-
-            /// Create path
-            Directory.CreateDirectory(folderpath);
-
-
-            /// Get Minecraft folder location
-            string folderlocation = ""; /*set_folderlocation.Text.ToString();*/
-
-            #endregion
-
-            #region Copy files 
-
-            try
-            {
-                /// If resource folder is checked, copy for the backup
-                if (set_resource.Checked)
-                {
-                    /// Copy to the backup folder
-                    bs.compression.Copy(folderlocation + "\\resourcepacks", folderpath + "\\resourcepacks");
-
-                }
-                /// If launcher file is checked, copy for the backup
-                if (set_launcher.Checked)
-                {
-                    /// Copy to the backup folder
-                    File.Copy(folderlocation + "\\launcher_profiles.json", folderpath + "\\launcher_profiles");
-
-                }
-                /// If screenshots folder is checked, copy for the backup
-                if (set_screenshots.Checked)
-                {
-                    /// Copy to the backup folder
-                    bs.compression.Copy(folderlocation + "\\screenshots", folderpath + "\\screenshots");
-
-
-                }
-                /// If options file is checked, copy for the backup
-                if (set_options.Checked)
-                {
-                    /// Copy to the backup folder
-                    File.Copy(folderlocation + "\\options.txt", folderpath + "\\options.txt");
-
-
-                }
-                /// If saves folder is checked, copy for the backup
-                if (set_saves.Checked)
-                {
-                    /// Copy to the backup folder
-                    bs.compression.Copy(folderlocation + "\\saves", folderpath + "\\saves");
-
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("There was a problem copying some files!", "Backcraft");
-            }
-
-            #endregion
-
-            #region Compression
-
-            try
-            {
-                string fileName = folderpath;
-                FileInfo f = new FileInfo(fileName);
-                string fullname = f.FullName;
-
-                /// Compress it with 7Zip
-                //bs.compression.CreateZipFile(back_7zippath.Text, back_backupfolderpath.Text + "\\" + fileName.Split('\\')[1], fullname);
-                //bs.compression.CreateZipFile(back_7zippath.Text, folderpath, fullname);
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("There was a problem compressing the folder!", "Backcraft");
-            }
-
-
-            #endregion
-
-            #region Delete folder
-
-            try
-            {
-                /// Delete recursively the folder created
-                Directory.Delete(folderpath, true);
-
-
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("There was a problem deleting the folder!", "Backcraft");
-            }
-
-            #endregion
+            logic.backup.MakeBackup(states);
         }
 
         private bool CheckIfMinecraftIsRunning()
@@ -827,7 +728,7 @@ namespace backcraft
 
                 #endregion
 
-                //RestartApp();
+                RestartApp();
             }
             catch (Exception err)
             {

@@ -23,15 +23,15 @@ namespace backcraft.logic
 
             this.type = type;
 
-            if (type == "f")
-            {
-                MD5 = bs.md5.checkMD5(path);
+            //if (type == "f")
+            //{
+            //    MD5 = bs.md5.checkMD5(path);
 
-            }
-            else
-            {
-                MD5 = bs.md5.CreateMd5ForFolder(path);
-            }
+            //}
+            //else
+            //{
+            //    MD5 = bs.md5.CreateMd5ForFolder(path);
+            //}
 
         }
 

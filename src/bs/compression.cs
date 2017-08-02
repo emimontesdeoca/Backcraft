@@ -5,6 +5,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO.Compression;
+
+
 
 namespace backcraft.bs
 {
@@ -41,13 +44,15 @@ namespace backcraft.bs
         public static void CreateZipFile(string programpath, string prefferedPath, string fileDirPath)
         {
             ProcessStartInfo p = new ProcessStartInfo();
-            p.FileName = programpath;
+            p.FileName = programpath + @"\7zG.exe";
             p.Arguments = "a \"" + prefferedPath + "\" \"" + fileDirPath + "\\*";
             p.WindowStyle = ProcessWindowStyle.Hidden;
             Process x = Process.Start(p);
             x.WaitForExit();
             return;
         }
+
+
     }
 }
 

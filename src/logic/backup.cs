@@ -77,21 +77,23 @@ namespace backcraft.logic
                 string type = f.type;
 
                 /// Check again for MD5
-                string NewMd5 = "";
+                string NewMd5 = "newMD5";
 
+                /// Start copy
                 switch (type)
                 {
+                    /// if File
                     case "f":
                         NewMd5 = bs.md5.checkMD5(path);
 
                         if (CurrentMd5 != NewMd5)
                         {
                             /// Changes in the files, copy stuff to folder
-                            if (name.Contains(".json"))
+                            if (name.Contains("launcher_profiles"))
                             {
                                 File.Copy(path, @"backups\\" + name + ".json");
                             }
-                            else if (name.Contains(".txt"))
+                            else if (name.Contains("options"))
                             {
                                 File.Copy(path, @"backups\\" + name + ".txt");
                             }
@@ -99,7 +101,7 @@ namespace backcraft.logic
                             new logic.files().UpdateFile(name, NewMd5);
                         }
                         break;
-
+                    ///If Directory
                     case "d":
                         NewMd5 = bs.md5.CreateMd5ForFolder(path);
 
@@ -113,13 +115,55 @@ namespace backcraft.logic
                         break;
                 }
             }
+
+            if (!IsDirectoryEmpty(@"backups"))
+            {
+
+                /// Build folderpath string
+                string folderpath = "Backcraft_" + DateTime.Now.ToShortDateString() + "_" + DateTime.Now.ToLongTimeString();
+                folderpath = folderpath.Replace('/', '-').Replace(':', '-');
+
+                /// Compress
+                string path7zip = logic.cfg.GetTypeFromFile("7zip");
+
+                try
+                {
+                    string fileName = "backups";
+                    FileInfo a = new FileInfo(fileName);
+                    string fullname = a.FullName;
+
+                    /// Compress it with 7Zip
+                    //bs.compression.CreateZipFile(back_7zippath.Text, back_backupfolderpath.Text + "\\" + fileName.Split('\\')[1], fullname);
+                    bs.compression.CreateZipFile(path7zip, folderpath, fullname);
+
+                    /// Delete folder and create it again
+                    Directory.Delete("backups", true);
+                    Directory.CreateDirectory("backups");
+
+                    /// Copy the zip to all the destinations
+                    List<string> paths = logic.paths.GetPaths();
+                    foreach (string s in paths)
+                    {
+                        string destpath = s + "\\" + folderpath + ".7z";
+
+                        File.Copy(folderpath + ".7z", destpath);
+                    }
+
+                    /// Delete zip
+                    File.Delete(folderpath + ".7z");
+                }
+                catch (Exception)
+                {
+
+                }
+
+
+            }
         }
 
-        public static void CompressFile(string path, string md5)
+        public static bool IsDirectoryEmpty(string path)
         {
-
-
-
+            return !Directory.EnumerateFileSystemEntries(path).Any();
         }
     }
 }
