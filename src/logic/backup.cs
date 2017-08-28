@@ -93,29 +93,31 @@ namespace backcraft.logic
                     case "f":
                         NewMd5 = bs.md5.checkMD5(path);
 
-                        if (CurrentMd5 != NewMd5)
-                        {
-                            /// Changes in the files, copy stuff to folder
-                            if (name.Contains("launcher_profiles"))
-                            {
-                                File.Copy(path, @"backups\\" + name + ".json");
-                            }
-                            else if (name.Contains("options"))
-                            {
-                                File.Copy(path, @"backups\\" + name + ".txt");
-                            }
 
-                            new logic.files().UpdateFile(name, NewMd5);
+                        /// Changes in the files, copy stuff to folder
+                        if (name.Contains("launcher_profiles"))
+                        {
+                            File.Copy(path, @"backups\\" + name + ".json");
                         }
+                        else if (name.Contains("options"))
+                        {
+                            File.Copy(path, @"backups\\" + name + ".txt");
+                        }
+
+                        new logic.files().UpdateFile(name, NewMd5);
+
                         break;
                     ///If Directory
                     case "d":
-                        NewMd5 = bs.md5.CreateMd5ForFolder(path);
 
-                        if (CurrentMd5 != NewMd5)
+
+                        /// Changes in the files, copy stuff to folder
+
+                        string newname = @"backups\\" + name;
+                        bs.compression.Copy(path, newname);
+                        NewMd5 = bs.md5.CreateMd5ForFolder(newname);
+                        if (NewMd5 != CurrentMd5)
                         {
-                            /// Changes in the files, copy stuff to folder
-                            bs.compression.Copy(path, @"backups\\" + name);
                             new logic.files().UpdateFile(name, NewMd5);
                         }
 
