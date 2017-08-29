@@ -85,6 +85,7 @@ namespace backcraft.logic
                 /// if it is equal, delete the copied folder and do nothing
                 /// if it is not equal, do stuff
                 /// this will make the backup work even if minecraft is open and working
+
                 string newname = "";
                 /// Start copy
                 switch (type)
@@ -128,8 +129,6 @@ namespace backcraft.logic
                         break;
                     ///If Directory
                     case "d":
-
-
                         /// Changes in the files, copy stuff to folder
 
                         newname = @"backups\\" + name;

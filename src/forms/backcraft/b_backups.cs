@@ -98,8 +98,14 @@ namespace backcraft.forms.backcraft
             if (gridview_backups.Columns[e.ColumnIndex].Name == "delete")
             {
                 gridview_backups.Rows.RemoveAt(e.RowIndex);
+                try
+                {
+                    new logic.paths().DeleteFromFile(gridview_backups.Rows[e.RowIndex].Cells[0].Value.ToString());
 
-                new logic.paths().DeleteFromFile(gridview_backups.Rows[e.RowIndex].Cells[0].Value.ToString());
+                }
+                catch (Exception)
+                {
+                }
             }
         }
     }
