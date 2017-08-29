@@ -85,26 +85,45 @@ namespace backcraft.logic
                 /// if it is equal, delete the copied folder and do nothing
                 /// if it is not equal, do stuff
                 /// this will make the backup work even if minecraft is open and working
-
+                string newname = "";
                 /// Start copy
                 switch (type)
                 {
                     /// if File
                     case "f":
-                        NewMd5 = bs.md5.checkMD5(path);
-
 
                         /// Changes in the files, copy stuff to folder
                         if (name.Contains("launcher_profiles"))
                         {
-                            File.Copy(path, @"backups\\" + name + ".json");
+                            newname = @"backups\\" + name + ".json";
+                            File.Copy(path, newname);
+                            NewMd5 = bs.md5.CreateMd5ForFolder(newname);
+
+                            if (NewMd5 != CurrentMd5)
+                            {
+                                new logic.files().UpdateFile(name, NewMd5);
+                            }
+                            else
+                            {
+                                Directory.Delete(newname, true);
+                            }
                         }
                         else if (name.Contains("options"))
                         {
-                            File.Copy(path, @"backups\\" + name + ".txt");
-                        }
+                            newname = @"backups\\" + name + ".txt";
 
-                        new logic.files().UpdateFile(name, NewMd5);
+                            File.Copy(path, newname);
+                            NewMd5 = bs.md5.CreateMd5ForFolder(newname);
+
+                            if (NewMd5 != CurrentMd5)
+                            {
+                                new logic.files().UpdateFile(name, NewMd5);
+                            }
+                            else
+                            {
+                                Directory.Delete(newname, true);
+                            }
+                        }
 
                         break;
                     ///If Directory
@@ -113,12 +132,16 @@ namespace backcraft.logic
 
                         /// Changes in the files, copy stuff to folder
 
-                        string newname = @"backups\\" + name;
+                        newname = @"backups\\" + name;
                         bs.compression.Copy(path, newname);
                         NewMd5 = bs.md5.CreateMd5ForFolder(newname);
                         if (NewMd5 != CurrentMd5)
                         {
                             new logic.files().UpdateFile(name, NewMd5);
+                        }
+                        else
+                        {
+                            Directory.Delete(newname, true);
                         }
 
                         break;
