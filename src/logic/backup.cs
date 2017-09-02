@@ -60,7 +60,6 @@ namespace backcraft.logic
                     }
                 }
             }
-
             Backup(FilesToBackup);
         }
 
@@ -78,13 +77,6 @@ namespace backcraft.logic
 
                 /// Check again for MD5
                 string NewMd5 = "newMD5";
-
-                /// TODO
-                /// Since there is a problem while Minecraft is running Bcraft have to check
-                /// if copying the folder changes the md5, if it does not then copy it and comapre
-                /// if it is equal, delete the copied folder and do nothing
-                /// if it is not equal, do stuff
-                /// this will make the backup work even if minecraft is open and working
 
                 string newname = "";
                 /// Start copy
@@ -127,10 +119,10 @@ namespace backcraft.logic
                         }
 
                         break;
+
                     ///If Directory
                     case "d":
                         /// Changes in the files, copy stuff to folder
-
                         newname = @"backups\\" + name;
                         bs.compression.Copy(path, newname);
                         NewMd5 = bs.md5.CreateMd5ForFolder(newname);
