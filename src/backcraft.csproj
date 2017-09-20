@@ -108,6 +108,7 @@
       <DependentUpon>m_saves.cs</DependentUpon>
     </Compile>
     <Compile Include="logic\paths.cs" />
+    <Compile Include="logs\log.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

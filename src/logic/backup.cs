@@ -60,7 +60,16 @@ namespace backcraft.logic
                     }
                 }
             }
-            Backup(FilesToBackup);
+
+            try
+            {
+                new logs.log().WriteLog(0, "Starting backup at " + DateTime.Now);
+                Backup(FilesToBackup);
+            }
+            catch (Exception)
+            {
+                new logs.log().WriteLog(3, "Error while doing backup");
+            }
         }
 
 
@@ -84,49 +93,59 @@ namespace backcraft.logic
                 {
                     /// if File
                     case "f":
-
                         /// Changes in the files, copy stuff to folder
                         if (name.Contains("launcher_profiles"))
                         {
                             newname = @"backups\\" + name + ".json";
-                            File.Copy(path, newname);
-                            NewMd5 = bs.md5.checkMD5(newname);
-
-                            if (NewMd5 != CurrentMd5)
-                            {
-                                new logic.files().UpdateFile(name, NewMd5);
-                            }
-                            else
-                            {
-                                try
-                                {
-                                    File.Delete(newname);
-                                }
-                                catch (Exception)
-                                {
-                                }
-                            }
                         }
                         else if (name.Contains("options"))
                         {
                             newname = @"backups\\" + name + ".txt";
+                        }
 
+                        try
+                        {
                             File.Copy(path, newname);
-                            NewMd5 = bs.md5.checkMD5(newname);
+                            new logs.log().WriteLog(0, "File copy from " + path);
+                        }
+                        catch (Exception)
+                        {
+                            new logs.log().WriteLog(2, "File copy from " + newname);
+                        }
 
-                            if (NewMd5 != CurrentMd5)
+                        try
+                        {
+                            NewMd5 = bs.md5.checkMD5(newname);
+                            new logs.log().WriteLog(0, "Check MD5 for " + newname);
+                        }
+                        catch (Exception)
+                        {
+                            new logs.log().WriteLog(2, "Check MD5 for " + newname);
+                        }
+
+                        if (NewMd5 != CurrentMd5)
+                        {
+                            try
                             {
                                 new logic.files().UpdateFile(name, NewMd5);
+                                new logs.log().WriteLog(0, "Change MD5 for " + newname);
                             }
-                            else
+                            catch (Exception)
                             {
-                                try
-                                {
-                                    Directory.Delete(newname);
-                                }
-                                catch (Exception)
-                                {
-                                }
+                                new logs.log().WriteLog(2, "Change MD5 for " + newname);
+                            }
+                        }
+                        else
+                        {
+                            new logs.log().WriteLog(0, "File without changes");
+                            try
+                            {
+                                File.Delete(newname);
+                                new logs.log().WriteLog(0, "Delete file " + newname);
+                            }
+                            catch (Exception)
+                            {
+                                new logs.log().WriteLog(2, "Delete file  " + newname);
                             }
                         }
 
@@ -136,25 +155,51 @@ namespace backcraft.logic
                     case "d":
                         /// Changes in the files, copy stuff to folder
                         newname = @"backups\\" + name;
-                        bs.compression.Copy(path, newname);
-                        NewMd5 = bs.md5.CreateMd5ForFolder(newname);
-                        if (NewMd5 != CurrentMd5)
+                        try
                         {
-                            new logic.files().UpdateFile(name, NewMd5);
+                            bs.compression.Copy(path, newname);
+                            new logs.log().WriteLog(0, "Folder copy from " + path);
                         }
-                        else
+                        catch (Exception)
+                        {
+                            new logs.log().WriteLog(2, "Folder copy from " + newname);
+                        }
+
+                        try
+                        {
+                            NewMd5 = bs.md5.CreateMd5ForFolder(newname);
+                            new logs.log().WriteLog(0, "Check MD5 for " + newname);
+                        }
+                        catch (Exception)
+                        {
+                            new logs.log().WriteLog(2, "Check MD5 for " + newname);
+                        }
+
+                        if (NewMd5 != CurrentMd5)
                         {
                             try
                             {
-                                Directory.Delete(newname, true);
+                                new logic.files().UpdateFile(name, NewMd5);
+                                new logs.log().WriteLog(0, "Change MD5 for " + newname);
                             }
                             catch (Exception)
                             {
-
+                                new logs.log().WriteLog(2, "Change MD5 for " + newname);
                             }
-
                         }
-
+                        else
+                        {
+                            new logs.log().WriteLog(0, "Folder without changes");
+                            try
+                            {
+                                Directory.Delete(newname);
+                                new logs.log().WriteLog(0, "Delete file " + newname);
+                            }
+                            catch (Exception)
+                            {
+                                new logs.log().WriteLog(2, "Delete file  " + newname);
+                            }
+                        }
                         break;
                 }
             }
@@ -167,30 +212,92 @@ namespace backcraft.logic
                 folderpath = folderpath.Replace('/', '-').Replace(':', '-').Replace(' ', '-');
 
                 /// Compress
-                string path7zip = logic.cfg.GetTypeFromFile("7zip");
+                string path7zip = "";
+                try
+                {
+                    path7zip = logic.cfg.GetTypeFromFile("7zip");
+                }
+                catch (Exception)
+                {
+                    new logs.log().WriteLog(3, "No 7zip location detected!");
+                }
 
                 try
                 {
                     string fullname = new FileInfo("backups").FullName;
 
                     /// Compress it with 7Zip
-                    bs.compression.CreateZipFile(path7zip, folderpath, fullname);
+                    try
+                    {
+                        bs.compression.CreateZipFile(path7zip, folderpath, fullname);
+                        new logs.log().WriteLog(0, "Compressing " + fullname);
 
-                    /// Delete folder and create it again
-                    Directory.Delete("backups", true);
-                    Directory.CreateDirectory("backups");
+                    }
+                    catch (Exception)
+                    {
+                        new logs.log().WriteLog(2, "Compressing " + fullname);
+
+                    }
+
+                    /// Delete folder 
+                    try
+                    {
+                        Directory.Delete("backups", true);
+                        new logs.log().WriteLog(0, "Delete backups folder ");
+                    }
+                    catch (Exception)
+                    {
+                        new logs.log().WriteLog(2, "Delete backups folder ");
+                    }
+                    /// Create it again
+                    try
+                    {
+                        Directory.CreateDirectory("backups");
+                        new logs.log().WriteLog(0, "Create backups folder ");
+                    }
+                    catch (Exception)
+                    {
+                        new logs.log().WriteLog(2, "Create backups folder ");
+                    }
 
                     /// Copy the zip to all the destinations
-                    List<string> paths = logic.paths.GetPaths();
-                    foreach (string s in paths)
+                    try
                     {
-                        string destpath = s + "\\" + folderpath + ".7z";
+                        List<string> paths = logic.paths.GetPaths();
+                        new logs.log().WriteLog(0, "Folder paths");
 
-                        File.Copy(folderpath + ".7z", destpath);
+                        foreach (string s in paths)
+                        {
+                            string destpath = s + "\\" + folderpath + ".7z";
+                            try
+                            {
+                                File.Copy(folderpath + ".7z", destpath);
+                                new logs.log().WriteLog(0, "Copy 7zip to " + destpath);
+                            }
+                            catch (Exception)
+                            {
+                                new logs.log().WriteLog(3, "Copy 7zip to " + destpath);
+                            }
+
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        new logs.log().WriteLog(2, "Folder paths");
                     }
 
                     /// Delete zip
-                    File.Delete(folderpath + ".7z");
+                    try
+                    {
+                        File.Delete(folderpath + ".7z");
+                        new logs.log().WriteLog(0, "Delete " + folderpath + ".7zip");
+                    }
+                    catch (Exception)
+                    {
+                        new logs.log().WriteLog(2, "Delete " + folderpath + ".7zip");
+
+                    }
+
                 }
                 catch (Exception)
                 {
