@@ -90,7 +90,7 @@ namespace backcraft.logic
                         {
                             newname = @"backups\\" + name + ".json";
                             File.Copy(path, newname);
-                            NewMd5 = bs.md5.CreateMd5ForFolder(newname);
+                            NewMd5 = bs.md5.checkMD5(newname);
 
                             if (NewMd5 != CurrentMd5)
                             {
@@ -98,7 +98,13 @@ namespace backcraft.logic
                             }
                             else
                             {
-                                Directory.Delete(newname, true);
+                                try
+                                {
+                                    File.Delete(newname);
+                                }
+                                catch (Exception)
+                                {
+                                }
                             }
                         }
                         else if (name.Contains("options"))
@@ -106,7 +112,7 @@ namespace backcraft.logic
                             newname = @"backups\\" + name + ".txt";
 
                             File.Copy(path, newname);
-                            NewMd5 = bs.md5.CreateMd5ForFolder(newname);
+                            NewMd5 = bs.md5.checkMD5(newname);
 
                             if (NewMd5 != CurrentMd5)
                             {
@@ -114,7 +120,13 @@ namespace backcraft.logic
                             }
                             else
                             {
-                                Directory.Delete(newname, true);
+                                try
+                                {
+                                    Directory.Delete(newname);
+                                }
+                                catch (Exception)
+                                {
+                                }
                             }
                         }
 
@@ -132,7 +144,15 @@ namespace backcraft.logic
                         }
                         else
                         {
-                            Directory.Delete(newname, true);
+                            try
+                            {
+                                Directory.Delete(newname, true);
+                            }
+                            catch (Exception)
+                            {
+
+                            }
+
                         }
 
                         break;
@@ -144,19 +164,16 @@ namespace backcraft.logic
 
                 /// Build folderpath string
                 string folderpath = "Backcraft_" + DateTime.Now.ToShortDateString() + "_" + DateTime.Now.ToLongTimeString();
-                folderpath = folderpath.Replace('/', '-').Replace(':', '-');
+                folderpath = folderpath.Replace('/', '-').Replace(':', '-').Replace(' ', '-');
 
                 /// Compress
                 string path7zip = logic.cfg.GetTypeFromFile("7zip");
 
                 try
                 {
-                    string fileName = "backups";
-                    FileInfo a = new FileInfo(fileName);
-                    string fullname = a.FullName;
+                    string fullname = new FileInfo("backups").FullName;
 
                     /// Compress it with 7Zip
-                    //bs.compression.CreateZipFile(back_7zippath.Text, back_backupfolderpath.Text + "\\" + fileName.Split('\\')[1], fullname);
                     bs.compression.CreateZipFile(path7zip, folderpath, fullname);
 
                     /// Delete folder and create it again
