@@ -16,6 +16,7 @@ namespace backcraft
 {
     public partial class Form1 : Form
     {
+        public static bool _LogsState { get; set; }
         public CancellationTokenSource token = new CancellationTokenSource();
         public static string _MinecraftPath { get; set; }
         public static string _Backcraft7ZipPath { get; set; }
@@ -25,15 +26,50 @@ namespace backcraft
         public bool _LauncherProfilesState { get; set; }
         public bool _OptionsState { get; set; }
         public bool _ScreenshotsState { get; set; }
-        public bool _LogsState { get; set; }
         public bool _StartupState { get; set; }
         public int _IntervalTime { get; set; } = 5;
         public static bool[] states = new bool[6];
         public Form1()
         {
+            InitializeComponent();
+
+            /// Get logs value, necessary for fist launch
+            try
+            {
+                _LogsState = Convert.ToBoolean(logic.cfg.GetTypeFromFile("logs"));
+            }
+            catch (Exception)
+            {
+                _LogsState = false;
+            }
+
             new logs.log().WriteLog(4, "");
             new logs.log().WriteLog(0, "Backcraft starts loading");
-            InitializeComponent();
+
+            #region FORM TEXT
+
+            if (Environment.Is64BitOperatingSystem)
+            {
+                this.Text += " - 64 bits -";
+                if (File.Exists(@"config\cfg.txt"))
+                {
+                    new logs.log().WriteLog(0, "Detected 64 bits OS");
+                    this.Text += " Settings loaded";
+                    new logs.log().WriteLog(0, "Settings found");
+                }
+                else
+                {
+                    this.Text += " Settings not found";
+                    new logs.log().WriteLog(0, "Settings not found");
+                }
+            }
+            else
+            {
+                this.Text += " - 32 bits -";
+                new logs.log().WriteLog(0, "Detected 32 bits OS");
+            }
+
+            #endregion
 
             #region FOLDER CREATION
 
@@ -136,16 +172,6 @@ namespace backcraft
             {
                 _ScreenshotsState = false;
                 new logs.log().WriteLog(2, "Loaded Screenshots state: " + _ScreenshotsState);
-            }
-            try
-            {
-                _LogsState = Convert.ToBoolean(logic.cfg.GetTypeFromFile("logs"));
-                new logs.log().WriteLog(0, "Loaded Logs state: " + _LogsState);
-            }
-            catch (Exception)
-            {
-                _LogsState = false;
-                new logs.log().WriteLog(2, "Loaded Logs state: " + _LogsState);
             }
             try
             {

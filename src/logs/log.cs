@@ -12,7 +12,10 @@ namespace backcraft.logs
         /// <summary>
         /// Empty constructor
         /// </summary>
-        public log() { }
+        public log()
+        {
+
+        }
 
         /// <summary>
         /// Log function
@@ -21,45 +24,47 @@ namespace backcraft.logs
         /// <param name="message">Text to show</param>
         public void WriteLog(int level, string message)
         {
-
-            string txt = DateTime.UtcNow.ToString("dd-MM-yyyy HH:mm:ss.fff", CultureInfo.InvariantCulture);
-
-            switch (level)
+            if (Form1._LogsState)
             {
-                case 0:
-                    txt += " - [INFO] - ";
-                    break;
-                case 1:
-                    txt += " - [WARNING] - ";
-                    break;
-                case 2:
-                    txt += " - [ERROR] - ";
-                    break;
-                case 3:
-                    txt += " - [FATAL] - ";
-                    break;
-                case 4:
-                    txt += " - [BACKCRAFT STARTING] ";
-                    break;
-                case 5:
-                    txt += " - [BACKCRAFT EXITING] ";
-                    break;
-                case 6:
-                    txt += " - [STARTING NEW BACKUP] ";
-                    break;
-                case 7:
-                    txt += " - [FINISHED BACKUP] ";
-                    break;
-            }
+                string txt = DateTime.UtcNow.ToString("dd-MM-yyyy HH:mm:ss.fff", CultureInfo.InvariantCulture);
 
-            txt += message;
-            if (level == 4 || level == 5 || level == 6 || level == 7)
-            {
-                System.IO.File.AppendAllText("logs.txt", txt + Environment.NewLine);
-            }
-            else
-            {
-                System.IO.File.AppendAllText("logs.txt", txt + "." + Environment.NewLine);
+                switch (level)
+                {
+                    case 0:
+                        txt += " - [INFO] - ";
+                        break;
+                    case 1:
+                        txt += " - [WARNING] - ";
+                        break;
+                    case 2:
+                        txt += " - [ERROR] - ";
+                        break;
+                    case 3:
+                        txt += " - [FATAL] - ";
+                        break;
+                    case 4:
+                        txt += " - [BACKCRAFT STARTING] ";
+                        break;
+                    case 5:
+                        txt += " - [BACKCRAFT EXITING] ";
+                        break;
+                    case 6:
+                        txt += " - [STARTING NEW BACKUP] ";
+                        break;
+                    case 7:
+                        txt += " - [FINISHED BACKUP] ";
+                        break;
+                }
+
+                txt += message;
+                if (level == 4 || level == 5 || level == 6 || level == 7)
+                {
+                    System.IO.File.AppendAllText("logs.txt", txt + Environment.NewLine);
+                }
+                else
+                {
+                    System.IO.File.AppendAllText("logs.txt", txt + "." + Environment.NewLine);
+                }
             }
         }
 

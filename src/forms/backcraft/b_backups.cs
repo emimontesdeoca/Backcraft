@@ -81,10 +81,26 @@ namespace backcraft.forms.backcraft
 
         private void btn_save_Click(object sender, EventArgs e)
         {
-            foreach (DataGridViewRow r in gridview_backups.Rows)
+            try
             {
-                new logic.paths(r.Cells[0].Value.ToString()).WriteCFg();
+                foreach (DataGridViewRow r in gridview_backups.Rows)
+                {
+                    try
+                    {
+                        new logic.paths(r.Cells[0].Value.ToString()).WriteCFg();
+                        new logs.log().WriteLog(0, "Saved destination path: " + r.Cells[0].Value.ToString());
+                    }
+                    catch (Exception)
+                    {
+                        new logs.log().WriteLog(2, "Saved destination path: " + r.Cells[0].Value.ToString());
+                    }
+                }
             }
+            catch (Exception)
+            {
+                new logs.log().WriteLog(2, "Destination path save");
+            }
+
             this.Close();
         }
 

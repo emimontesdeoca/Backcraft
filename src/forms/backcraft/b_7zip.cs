@@ -38,7 +38,16 @@ namespace backcraft.forms.backcraft
 
         private void btn_save_Click(object sender, EventArgs e)
         {
-            new logic.cfg("7zip", textbox_path.Text.ToString()).WriteCFG();
+            try
+            {
+                new logic.cfg("7zip", textbox_path.Text.ToString()).WriteCFG();
+                new logs.log().WriteLog(0, "Saved 7zip path: " + textbox_path.Text.ToString());
+            }
+            catch (Exception)
+            {
+                new logs.log().WriteLog(2, "Saved 7zip path: " + textbox_path.Text.ToString());
+            }
+
             this.Close();
         }
 
