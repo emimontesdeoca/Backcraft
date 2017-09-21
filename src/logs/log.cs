@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,7 +21,8 @@ namespace backcraft.logs
         /// <param name="message">Text to show</param>
         public void WriteLog(int level, string message)
         {
-            string txt = DateTime.Now.ToString();
+
+            string txt = DateTime.UtcNow.ToString("dd-MM-yyyy HH:mm:ss.fff", CultureInfo.InvariantCulture);
 
             switch (level)
             {

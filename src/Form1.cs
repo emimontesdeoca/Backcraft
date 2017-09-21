@@ -110,22 +110,22 @@ namespace backcraft
             try
             {
                 _LauncherProfilesState = Convert.ToBoolean(logic.cfg.GetTypeFromFile("launcher_profiles"));
-                new logs.log().WriteLog(0, "Loaded launcher profiles state: " + _LauncherProfilesState);
+                new logs.log().WriteLog(0, "Loaded Launcher profiles state: " + _LauncherProfilesState);
             }
             catch (Exception)
             {
                 _LauncherProfilesState = false;
-                new logs.log().WriteLog(2, "Loaded launcher profiles state: " + _LauncherProfilesState);
+                new logs.log().WriteLog(2, "Loaded Launcher profiles state: " + _LauncherProfilesState);
             }
             try
             {
                 _OptionsState = Convert.ToBoolean(logic.cfg.GetTypeFromFile("options"));
-                new logs.log().WriteLog(0, "Loaded options state: " + _OptionsState);
+                new logs.log().WriteLog(0, "Loaded Options state: " + _OptionsState);
             }
             catch (Exception)
             {
                 _OptionsState = false;
-                new logs.log().WriteLog(2, "Loaded options state: " + _OptionsState);
+                new logs.log().WriteLog(2, "Loaded Options state: " + _OptionsState);
             }
             try
             {
@@ -140,12 +140,12 @@ namespace backcraft
             try
             {
                 _LogsState = Convert.ToBoolean(logic.cfg.GetTypeFromFile("logs"));
-                new logs.log().WriteLog(0, "Loaded LOgs state: " + _LogsState);
+                new logs.log().WriteLog(0, "Loaded Logs state: " + _LogsState);
             }
             catch (Exception)
             {
                 _LogsState = false;
-                new logs.log().WriteLog(2, "Loaded LOgs state: " + _LogsState);
+                new logs.log().WriteLog(2, "Loaded Logs state: " + _LogsState);
             }
             try
             {
@@ -326,6 +326,11 @@ namespace backcraft
                     ShowIcon = false;
                     new logs.log().WriteLog(0, "Backcraft started maximized");
                 }
+            }
+            else
+            {
+                new logs.log().WriteLog(0, "Backcraft disabled");
+                new logs.log().WriteLog(0, "Backcraft started maximized");
             }
 
             #endregion
@@ -554,7 +559,7 @@ namespace backcraft
                 }
                 else
                 {
-                    new logs.log().WriteLog(0, "Minecraft is not running, waiting 5 minutes.");
+                    new logs.log().WriteLog(1, "Minecraft is not running, waiting 5 minutes.");
                     await Task.Delay(TimeSpan.FromMinutes(5), token.Token);
                 }
 
@@ -592,13 +597,13 @@ namespace backcraft
         {
             try
             {
-                new logs.log().WriteLog(0, "Restarting Backcraft...");
+                new logs.log().WriteLog(0, "Restarting Backcraft..");
                 Process.Start(Application.StartupPath + "\\backcraft.exe");
                 Process.GetCurrentProcess().Kill();
             }
             catch
             {
-                new logs.log().WriteLog(3, "Restarting Backcraft...");
+                new logs.log().WriteLog(3, "Restarting Backcraft..");
             }
         }
 
@@ -800,17 +805,26 @@ namespace backcraft
                 #region STARTUP STATE
 
 
-                //new logic.cfg("startup", set_options.Checked.ToString());
-                //RegistryKey registryKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+                try
+                {
+                    new logic.cfg("startup", back_enablelog.Checked.ToString()).WriteCFG();
+                    new logs.log().WriteLog(0, "Saved startup state: " + back_startup.Checked.ToString());
 
-                //if (back_startup.Checked)
-                //{
-                //    registryKey.SetValue("Backcraft", Application.ExecutablePath);
-                //}
-                //else
-                //{
-                //    registryKey.DeleteValue("Backcraft");
-                //}
+                    //RegistryKey registryKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+
+                    //if (back_startup.Checked)
+                    //{
+                    //    registryKey.SetValue("Backcraft", Application.ExecutablePath);
+                    //}
+                    //else
+                    //{
+                    //    registryKey.DeleteValue("Backcraft");
+                    //}
+                }
+                catch (Exception)
+                {
+                    new logs.log().WriteLog(2, "Saved startup state: " + back_startup.Checked.ToString());
+                }
 
 
                 #endregion
@@ -829,7 +843,7 @@ namespace backcraft
 
                 #endregion
 
-                new logs.log().WriteLog(0, "All files saved, restarting Backcraft...");
+                new logs.log().WriteLog(0, "All files saved, restarting Backcraft..");
                 RestartApp();
             }
             catch (Exception err)
