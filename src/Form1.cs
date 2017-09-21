@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Threading;
 using Microsoft.Win32;
+using System.Net;
 
 namespace backcraft
 {
@@ -29,11 +30,14 @@ namespace backcraft
         public bool _StartupState { get; set; }
         public int _IntervalTime { get; set; } = 5;
         public static bool[] states = new bool[6];
+        private string currentVersion = "2.5";
 
         public Form1()
         {
             InitializeComponent();
             MaximizeBox = false;
+
+            #region GET LOGS VALUE AT START
 
             /// Get logs value, necessary for fist launch
             try
@@ -44,6 +48,29 @@ namespace backcraft
             {
                 _LogsState = false;
             }
+
+            #endregion
+
+            #region CHECK FOR UPDATES
+
+            WebClient client = new WebClient();
+            String downloadedString = client.DownloadString("https://raw.githubusercontent.com/emimontesdeoca/Backcraft/master/VERSION.md");
+            string a = downloadedString.Split(':')[1].Replace("\n", String.Empty);
+
+            if (a != currentVersion)
+            {
+                string t1 = "There is a new release for Backcraft.";
+                string t2 = "Your current version is: " + currentVersion + ".";
+                string t3 = "The latest version is: " + a + ".";
+                string t4 = "Click yes to open the releases pages.";
+                if (MessageBox.Show(t1 + Environment.NewLine + Environment.NewLine + t2 + Environment.NewLine + t3 + Environment.NewLine + Environment.NewLine + t4, "New release!", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
+                {
+                    System.Diagnostics.Process.Start(" https://github.com/emimontesdeoca/Backcraft/releases ");
+                }
+
+            }
+
+            #endregion
 
             new logs.log().WriteLog(4, "");
             new logs.log().WriteLog(0, "Backcraft starts loading");
