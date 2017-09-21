@@ -53,6 +53,9 @@
             this.label_screenshots = new System.Windows.Forms.Label();
             this.label_resource = new System.Windows.Forms.Label();
             this.b_panel = new System.Windows.Forms.GroupBox();
+            this.label_updater2 = new System.Windows.Forms.Label();
+            this.label_updater = new System.Windows.Forms.Label();
+            this.back_checkupdate = new System.Windows.Forms.CheckBox();
             this.back_intervaltextbox = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
@@ -75,11 +78,11 @@
             this.label10 = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.btn_deletesettings = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.makeBackupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btn_deletesettings = new System.Windows.Forms.Button();
             this.label_version = new System.Windows.Forms.Label();
             this.m_panel.SuspendLayout();
             this.b_panel.SuspendLayout();
@@ -333,6 +336,9 @@
             // 
             // b_panel
             // 
+            this.b_panel.Controls.Add(this.label_updater2);
+            this.b_panel.Controls.Add(this.label_updater);
+            this.b_panel.Controls.Add(this.back_checkupdate);
             this.b_panel.Controls.Add(this.back_intervaltextbox);
             this.b_panel.Controls.Add(this.label13);
             this.b_panel.Controls.Add(this.button5);
@@ -351,10 +357,40 @@
             this.b_panel.Controls.Add(this.label8);
             this.b_panel.Location = new System.Drawing.Point(9, 217);
             this.b_panel.Name = "b_panel";
-            this.b_panel.Size = new System.Drawing.Size(369, 204);
+            this.b_panel.Size = new System.Drawing.Size(369, 222);
             this.b_panel.TabIndex = 12;
             this.b_panel.TabStop = false;
             this.b_panel.Text = "Backcraft settings";
+            // 
+            // label_updater2
+            // 
+            this.label_updater2.AutoSize = true;
+            this.label_updater2.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_updater2.Location = new System.Drawing.Point(189, 193);
+            this.label_updater2.Name = "label_updater2";
+            this.label_updater2.Size = new System.Drawing.Size(155, 16);
+            this.label_updater2.TabIndex = 36;
+            this.label_updater2.Text = "Check for new releases at start";
+            // 
+            // label_updater
+            // 
+            this.label_updater.AutoSize = true;
+            this.label_updater.Font = new System.Drawing.Font("Arial Narrow", 12F);
+            this.label_updater.Location = new System.Drawing.Point(28, 190);
+            this.label_updater.Name = "label_updater";
+            this.label_updater.Size = new System.Drawing.Size(155, 20);
+            this.label_updater.TabIndex = 35;
+            this.label_updater.Text = "Check updates at launch";
+            // 
+            // back_checkupdate
+            // 
+            this.back_checkupdate.AutoSize = true;
+            this.back_checkupdate.Font = new System.Drawing.Font("Arial Narrow", 12F);
+            this.back_checkupdate.Location = new System.Drawing.Point(10, 194);
+            this.back_checkupdate.Name = "back_checkupdate";
+            this.back_checkupdate.Size = new System.Drawing.Size(15, 14);
+            this.back_checkupdate.TabIndex = 34;
+            this.back_checkupdate.UseVisualStyleBackColor = true;
             // 
             // back_intervaltextbox
             // 
@@ -535,7 +571,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(140, 427);
+            this.button1.Location = new System.Drawing.Point(141, 443);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(105, 32);
             this.button1.TabIndex = 15;
@@ -545,7 +581,7 @@
             // 
             // back_save
             // 
-            this.back_save.Location = new System.Drawing.Point(24, 427);
+            this.back_save.Location = new System.Drawing.Point(25, 443);
             this.back_save.Name = "back_save";
             this.back_save.Size = new System.Drawing.Size(105, 32);
             this.back_save.TabIndex = 14;
@@ -556,7 +592,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 464);
+            this.label10.Location = new System.Drawing.Point(7, 480);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(114, 13);
             this.label10.TabIndex = 13;
@@ -565,7 +601,7 @@
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(340, 464);
+            this.linkLabel1.Location = new System.Drawing.Point(341, 480);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(38, 13);
             this.linkLabel1.TabIndex = 14;
@@ -580,16 +616,6 @@
             this.notifyIcon1.Text = "Backcraft";
             this.notifyIcon1.Visible = true;
             this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
-            // 
-            // btn_deletesettings
-            // 
-            this.btn_deletesettings.Location = new System.Drawing.Point(255, 427);
-            this.btn_deletesettings.Name = "btn_deletesettings";
-            this.btn_deletesettings.Size = new System.Drawing.Size(105, 32);
-            this.btn_deletesettings.TabIndex = 18;
-            this.btn_deletesettings.Text = "Delete settings";
-            this.btn_deletesettings.UseVisualStyleBackColor = true;
-            this.btn_deletesettings.Click += new System.EventHandler(this.btn_deletesettings_Click);
             // 
             // contextMenuStrip1
             // 
@@ -621,6 +647,16 @@
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
+            // btn_deletesettings
+            // 
+            this.btn_deletesettings.Location = new System.Drawing.Point(256, 443);
+            this.btn_deletesettings.Name = "btn_deletesettings";
+            this.btn_deletesettings.Size = new System.Drawing.Size(105, 32);
+            this.btn_deletesettings.TabIndex = 18;
+            this.btn_deletesettings.Text = "Delete settings";
+            this.btn_deletesettings.UseVisualStyleBackColor = true;
+            this.btn_deletesettings.Click += new System.EventHandler(this.btn_deletesettings_Click);
+            // 
             // label_version
             // 
             this.label_version.AutoSize = true;
@@ -634,7 +670,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(389, 486);
+            this.ClientSize = new System.Drawing.Size(389, 503);
             this.Controls.Add(this.btn_deletesettings);
             this.Controls.Add(this.label_version);
             this.Controls.Add(this.linkLabel1);
@@ -717,6 +753,9 @@
         private System.Windows.Forms.ToolStripMenuItem makeBackupToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.Label label_version;
+        private System.Windows.Forms.Label label_updater2;
+        private System.Windows.Forms.Label label_updater;
+        private System.Windows.Forms.CheckBox back_checkupdate;
     }
 }
 

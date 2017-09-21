@@ -18,6 +18,7 @@ namespace backcraft
     public partial class Form1 : Form
     {
         public static bool _LogsState { get; set; }
+        public static bool _EnableCheckUpdates { get; set; }
         public CancellationTokenSource token = new CancellationTokenSource();
         public static string _MinecraftPath { get; set; }
         public static string _Backcraft7ZipPath { get; set; }
@@ -35,6 +36,7 @@ namespace backcraft
         public Form1()
         {
             InitializeComponent();
+
             MaximizeBox = false;
             label_version.Text = "v" + currentVersion;
 
@@ -56,33 +58,46 @@ namespace backcraft
 
             #region CHECK FOR UPDATES
 
+            try
+            {
+                _EnableCheckUpdates = Convert.ToBoolean(logic.cfg.GetTypeFromFile("updater"));
+            }
+            catch (Exception)
+            {
+                _EnableCheckUpdates = false;
+            }
+
             new logs.log().WriteLog(8, "Checking for new releases");
 
-            string updaterVersion = updater.updater.checkForUpdates(currentVersion);
-            if (Convert.ToDouble(updaterVersion) > Convert.ToDouble(currentVersion))
+            if (_EnableCheckUpdates)
             {
-                new logs.log().WriteLog(8, "New release found");
-
-                string t1 = "There is a new release for Backcraft.";
-                string t2 = "Your current version is: " + currentVersion + ".";
-                string t3 = "The latest version is: " + updaterVersion + ".";
-                string t4 = "Do you want to update?";
-
-                string total = t1 + Environment.NewLine + Environment.NewLine + Environment.NewLine + t2
-                    + Environment.NewLine + t3 + Environment.NewLine + Environment.NewLine + t4;
-
-                DialogResult dialogResult = MessageBox.Show(total, "New version found", MessageBoxButtons.YesNo);
-                if (dialogResult == DialogResult.Yes)
+                string updaterVersion = updater.updater.checkForUpdates(currentVersion);
+                if (Convert.ToDouble(updaterVersion) > Convert.ToDouble(currentVersion))
                 {
-                    new logs.log().WriteLog(8, "Downloading new version.");
-                    updater.updater.downloadUpdate(currentVersion, updaterVersion);
-                    new logs.log().WriteLog(8, "Finished download and rename");
-                    RestartApp();
+                    new logs.log().WriteLog(8, "New release found");
+
+                    string t1 = "There is a new release for Backcraft.";
+                    string t2 = "Your current version is: " + currentVersion + ".";
+                    string t3 = "The latest version is: " + updaterVersion + ".";
+                    string t4 = "Do you want to update?";
+
+                    string total = t1 + Environment.NewLine + Environment.NewLine + t2
+                        + Environment.NewLine + t3 + Environment.NewLine + Environment.NewLine + t4;
+
+                    DialogResult dialogResult = MessageBox.Show(total, "New version found", MessageBoxButtons.YesNo);
+
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        new logs.log().WriteLog(8, "Downloading new version.");
+                        updater.updater.downloadUpdate(currentVersion, updaterVersion);
+                        new logs.log().WriteLog(8, "Finished download and rename");
+                        RestartApp();
+                    }
                 }
-            }
-            else
-            {
-                new logs.log().WriteLog(8, "Latest release already");
+                else
+                {
+                    new logs.log().WriteLog(8, "Latest release already");
+                }
             }
 
             #endregion
@@ -237,7 +252,16 @@ namespace backcraft
                 _IntervalTime = 5;
                 new logs.log().WriteLog(2, "Loaded Interval value: " + _IntervalTime);
             }
-
+            try
+            {
+                _EnableCheckUpdates = Convert.ToBoolean(logic.cfg.GetTypeFromFile("updater"));
+                new logs.log().WriteLog(0, "Loaded Updater state: " + _EnableCheckUpdates);
+            }
+            catch (Exception)
+            {
+                _EnableCheckUpdates = false;
+                new logs.log().WriteLog(2, "Loaded Updater state: " + _EnableCheckUpdates);
+            }
 
             /// Assign values to checkboxes
             back_enable.Checked = _EnableBackcraftState;
@@ -248,6 +272,7 @@ namespace backcraft
             set_screenshots.Checked = _ScreenshotsState;
             back_enablelog.Checked = _LogsState;
             back_startup.Checked = _StartupState;
+            back_checkupdate.Checked = _EnableCheckUpdates;
 
             /// Assign values to array
             states[0] = _ResourcePackState;
@@ -361,7 +386,16 @@ namespace backcraft
                 label_checkboxstartup.Enabled = false;
                 label_startup.Enabled = false;
             }
-
+            if (back_checkupdate.Checked)
+            {
+                label_updater.Enabled = true;
+                label_updater2.Enabled = true;
+            }
+            else
+            {
+                label_updater.Enabled = false;
+                label_updater2.Enabled = false;
+            }
             #endregion
 
             #endregion
@@ -893,11 +927,25 @@ namespace backcraft
                 try
                 {
                     new logic.cfg("logs", back_enablelog.Checked.ToString()).WriteCFG();
-                    new logs.log().WriteLog(0, "Saved logs state: " + back_enablelog.Checked.ToString());
+                    new logs.log().WriteLog(0, "Saved Logs state: " + back_enablelog.Checked.ToString());
                 }
                 catch (Exception)
                 {
-                    new logs.log().WriteLog(2, "Saved screenshots state: " + back_enablelog.Checked.ToString());
+                    new logs.log().WriteLog(2, "Saved Logs state: " + back_enablelog.Checked.ToString());
+                }
+
+                #endregion
+
+                #region CHECK UPDATES
+
+                try
+                {
+                    new logic.cfg("updater", back_checkupdate.Checked.ToString()).WriteCFG();
+                    new logs.log().WriteLog(0, "Saved Check updates state: " + back_checkupdate.Checked.ToString());
+                }
+                catch (Exception)
+                {
+                    new logs.log().WriteLog(2, "Saved Check state: " + back_enablelog.Checked.ToString());
                 }
 
                 #endregion
