@@ -30,12 +30,13 @@ namespace backcraft
         public bool _StartupState { get; set; }
         public int _IntervalTime { get; set; } = 5;
         public static bool[] states = new bool[6];
-        private string currentVersion = "2.5";
+        private string currentVersion = "3.0";
 
         public Form1()
         {
             InitializeComponent();
             MaximizeBox = false;
+            label_version.Text = "v" + currentVersion;
 
             #region GET LOGS VALUE AT START
 
@@ -51,28 +52,41 @@ namespace backcraft
 
             #endregion
 
+            new logs.log().WriteLog(4, "");
+
             #region CHECK FOR UPDATES
 
-            WebClient client = new WebClient();
-            String downloadedString = client.DownloadString("https://raw.githubusercontent.com/emimontesdeoca/Backcraft/master/VERSION.md");
-            string a = downloadedString.Split(':')[1].Replace("\n", String.Empty);
+            new logs.log().WriteLog(8, "Checking for new releases");
 
-            if (a != currentVersion)
+            string updaterVersion = updater.updater.checkForUpdates(currentVersion);
+            if (Convert.ToDouble(updaterVersion) > Convert.ToDouble(currentVersion))
             {
+                new logs.log().WriteLog(8, "New release found");
+
                 string t1 = "There is a new release for Backcraft.";
                 string t2 = "Your current version is: " + currentVersion + ".";
-                string t3 = "The latest version is: " + a + ".";
-                string t4 = "Click yes to open the releases pages.";
-                if (MessageBox.Show(t1 + Environment.NewLine + Environment.NewLine + t2 + Environment.NewLine + t3 + Environment.NewLine + Environment.NewLine + t4, "New release!", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
-                {
-                    System.Diagnostics.Process.Start(" https://github.com/emimontesdeoca/Backcraft/releases ");
-                }
+                string t3 = "The latest version is: " + updaterVersion + ".";
+                string t4 = "Do you want to update?";
 
+                string total = t1 + Environment.NewLine + Environment.NewLine + Environment.NewLine + t2
+                    + Environment.NewLine + t3 + Environment.NewLine + Environment.NewLine + t4;
+
+                DialogResult dialogResult = MessageBox.Show(total, "New version found", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    new logs.log().WriteLog(8, "Downloading new version.");
+                    updater.updater.downloadUpdate(currentVersion, updaterVersion);
+                    new logs.log().WriteLog(8, "Finished download and rename");
+                    RestartApp();
+                }
+            }
+            else
+            {
+                new logs.log().WriteLog(8, "Latest release already");
             }
 
             #endregion
 
-            new logs.log().WriteLog(4, "");
             new logs.log().WriteLog(0, "Backcraft starts loading");
 
             #region FORM TEXT
@@ -90,6 +104,7 @@ namespace backcraft
                 {
                     this.Text += " Settings not found";
                     new logs.log().WriteLog(0, "Settings not found");
+                    MessageBox.Show("Settings file not found");
                 }
             }
             else

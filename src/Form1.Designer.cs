@@ -74,13 +74,13 @@
             this.back_save = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.label11 = new System.Windows.Forms.Label();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.btn_deletesettings = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.makeBackupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label_version = new System.Windows.Forms.Label();
             this.m_panel.SuspendLayout();
             this.b_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scroll_interval)).BeginInit();
@@ -421,9 +421,9 @@
             this.label_startup.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_startup.Location = new System.Drawing.Point(123, 43);
             this.label_startup.Name = "label_startup";
-            this.label_startup.Size = new System.Drawing.Size(117, 16);
+            this.label_startup.Size = new System.Drawing.Size(138, 16);
             this.label_startup.TabIndex = 28;
-            this.label_startup.Text = "Set Backcraft to run at ";
+            this.label_startup.Text = "Set Backcraft to run at start";
             // 
             // label_checkboxstartup
             // 
@@ -556,7 +556,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 462);
+            this.label10.Location = new System.Drawing.Point(6, 464);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(114, 13);
             this.label10.TabIndex = 13;
@@ -565,22 +565,13 @@
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(340, 462);
+            this.linkLabel1.Location = new System.Drawing.Point(340, 464);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(38, 13);
             this.linkLabel1.TabIndex = 14;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Github";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(228, 19);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(28, 13);
-            this.label11.TabIndex = 16;
-            this.label11.Text = "v3.0";
             // 
             // notifyIcon1
             // 
@@ -607,36 +598,45 @@
             this.makeBackupToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 92);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(146, 70);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // makeBackupToolStripMenuItem
             // 
             this.makeBackupToolStripMenuItem.Name = "makeBackupToolStripMenuItem";
-            this.makeBackupToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.makeBackupToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.makeBackupToolStripMenuItem.Text = "Make backup";
             this.makeBackupToolStripMenuItem.Click += new System.EventHandler(this.makeBackupToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // label_version
+            // 
+            this.label_version.AutoSize = true;
+            this.label_version.Location = new System.Drawing.Point(228, 19);
+            this.label_version.Name = "label_version";
+            this.label_version.Size = new System.Drawing.Size(28, 13);
+            this.label_version.TabIndex = 16;
+            this.label_version.Text = "v3.0";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(389, 482);
+            this.ClientSize = new System.Drawing.Size(389, 486);
             this.Controls.Add(this.btn_deletesettings);
-            this.Controls.Add(this.label11);
+            this.Controls.Add(this.label_version);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.b_panel);
@@ -685,7 +685,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.Label label2;
@@ -717,6 +716,7 @@
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem makeBackupToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.Label label_version;
     }
 }
 

@@ -54,6 +54,9 @@ namespace backcraft.logs
                     case 7:
                         txt += " - [FINISHED BACKUP] ";
                         break;
+                    case 8:
+                        txt += " - [UPDATER] - ";
+                        break;
                 }
 
                 txt += message;

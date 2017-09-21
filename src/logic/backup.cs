@@ -11,7 +11,20 @@ namespace backcraft.logic
     {
         public static void MakeBackup(bool[] states)
         {
-            List<files> FilesToBackup = logic.files.GetFiles();
+            List<files> FilesToBackup;
+            try
+            {
+                FilesToBackup = logic.files.GetFiles();
+                if (FilesToBackup.Count == 0)
+                {
+                    new logs.log().WriteLog(3, "There are no files in files.txt");
+                }
+            }
+            catch (Exception)
+            {
+                new logs.log().WriteLog(3, "Files.txt not found");
+                return;
+            }
 
             bool resourcepack = states[0];
             bool saves = states[1];
@@ -75,6 +88,21 @@ namespace backcraft.logic
 
         public static void Backup(List<files> F)
         {
+            List<string> paths;
+            try
+            {
+                paths = logic.paths.GetPaths();
+
+                if (paths.Count == 0)
+                {
+                    new logs.log().WriteLog(3, "There are no paths in paths.txt");
+                }
+            }
+            catch (Exception)
+            {
+                new logs.log().WriteLog(3, "Paths.txt not found");
+                return;
+            }
 
             foreach (logic.files f in F)
             {
@@ -148,7 +176,6 @@ namespace backcraft.logic
                                 new logs.log().WriteLog(2, "Delete file  " + newname);
                             }
                         }
-
                         break;
 
                     ///If Directory
@@ -214,13 +241,15 @@ namespace backcraft.logic
 
                 /// Compress
                 string path7zip = "";
+
                 try
                 {
                     path7zip = logic.cfg.GetTypeFromFile("7zip");
                 }
                 catch (Exception)
                 {
-                    new logs.log().WriteLog(3, "No 7zip location detected!");
+                    new logs.log().WriteLog(3, "No 7zip location detected");
+                    return;
                 }
 
                 try
@@ -239,7 +268,6 @@ namespace backcraft.logic
                         new logs.log().WriteLog(2, "Compressing " + fullname);
 
                     }
-
                     /// Delete folder 
                     try
                     {
@@ -260,11 +288,9 @@ namespace backcraft.logic
                     {
                         new logs.log().WriteLog(2, "Create backups folder ");
                     }
-
                     /// Copy the zip to all the destinations
                     try
                     {
-                        List<string> paths = logic.paths.GetPaths();
                         new logs.log().WriteLog(0, "Folder paths");
 
                         foreach (string s in paths)
@@ -286,7 +312,6 @@ namespace backcraft.logic
                     {
                         new logs.log().WriteLog(2, "Folder paths");
                     }
-
                     /// Delete zip
                     try
                     {
@@ -296,9 +321,7 @@ namespace backcraft.logic
                     catch (Exception)
                     {
                         new logs.log().WriteLog(2, "Delete " + folderpath + ".7zip");
-
                     }
-
                 }
                 catch (Exception)
                 {
