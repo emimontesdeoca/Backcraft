@@ -31,6 +31,8 @@ namespace backcraft
         public static bool[] states = new bool[6];
         public Form1()
         {
+            new logs.log().WriteLog(4, "");
+            new logs.log().WriteLog(0, "Backcraft starts loading");
             InitializeComponent();
 
             #region FOLDER CREATION
@@ -38,6 +40,7 @@ namespace backcraft
             /// Create data folder if not created for user settings
             if (!Directory.Exists("config"))
             {
+                new logs.log().WriteLog(0, "Create config folder");
                 Directory.CreateDirectory("config");
 
             }
@@ -45,6 +48,7 @@ namespace backcraft
             /// Create backup folder if not created for backups
             if (!Directory.Exists("backups"))
             {
+                new logs.log().WriteLog(0, "Create config folder");
                 Directory.CreateDirectory("backups");
             }
 
@@ -55,95 +59,117 @@ namespace backcraft
             try
             {
                 _MinecraftPath = logic.cfg.GetTypeFromFile("minecraft");
+                new logs.log().WriteLog(0, "Loaded Mineraft path: " + _MinecraftPath);
             }
             catch (Exception)
             {
                 _MinecraftPath = "";
+                new logs.log().WriteLog(2, "Loaded Mineraft path: " + _MinecraftPath);
             }
             try
             {
                 _Backcraft7ZipPath = logic.cfg.GetTypeFromFile("7zip");
+                new logs.log().WriteLog(0, "Loaded 7zip path: " + _MinecraftPath);
             }
             catch (Exception)
             {
 
                 _Backcraft7ZipPath = "";
+                new logs.log().WriteLog(2, "Loaded 7zip path: " + _MinecraftPath);
             }
             try
             {
                 _EnableBackcraftState = Convert.ToBoolean(logic.cfg.GetTypeFromFile("backcraft"));
+                new logs.log().WriteLog(0, "Loaded Backcraft state: " + _EnableBackcraftState);
             }
             catch (Exception)
             {
                 _EnableBackcraftState = false;
+                new logs.log().WriteLog(2, "Loaded Backcraft state: " + _EnableBackcraftState);
             }
             try
             {
                 _ResourcePackState = Convert.ToBoolean(logic.cfg.GetTypeFromFile("resource_packs"));
+                new logs.log().WriteLog(0, "Loaded Resource pack state: " + _ResourcePackState);
             }
             catch (Exception)
             {
                 _ResourcePackState = false;
+                new logs.log().WriteLog(2, "Loaded Resource pack state: " + _ResourcePackState);
             }
             try
             {
                 _SavesState = Convert.ToBoolean(logic.cfg.GetTypeFromFile("worlds"));
+                new logs.log().WriteLog(0, "Loaded Mineraft saves path: " + _SavesState);
             }
             catch (Exception)
             {
                 _SavesState = false;
+                new logs.log().WriteLog(2, "Loaded Mineraft saves path: " + _SavesState);
             }
             try
             {
                 _LauncherProfilesState = Convert.ToBoolean(logic.cfg.GetTypeFromFile("launcher_profiles"));
+                new logs.log().WriteLog(0, "Loaded launcher profiles state: " + _LauncherProfilesState);
             }
             catch (Exception)
             {
                 _LauncherProfilesState = false;
+                new logs.log().WriteLog(2, "Loaded launcher profiles state: " + _LauncherProfilesState);
             }
             try
             {
                 _OptionsState = Convert.ToBoolean(logic.cfg.GetTypeFromFile("options"));
+                new logs.log().WriteLog(0, "Loaded options state: " + _OptionsState);
             }
             catch (Exception)
             {
                 _OptionsState = false;
+                new logs.log().WriteLog(2, "Loaded options state: " + _OptionsState);
             }
             try
             {
                 _ScreenshotsState = Convert.ToBoolean(logic.cfg.GetTypeFromFile("screenshots"));
+                new logs.log().WriteLog(0, "Loaded Screenshots state: " + _ScreenshotsState);
             }
             catch (Exception)
             {
                 _ScreenshotsState = false;
+                new logs.log().WriteLog(2, "Loaded Screenshots state: " + _ScreenshotsState);
             }
             try
             {
                 _LogsState = Convert.ToBoolean(logic.cfg.GetTypeFromFile("logs"));
+                new logs.log().WriteLog(0, "Loaded LOgs state: " + _LogsState);
             }
             catch (Exception)
             {
                 _LogsState = false;
+                new logs.log().WriteLog(2, "Loaded LOgs state: " + _LogsState);
             }
             try
             {
                 _StartupState = Convert.ToBoolean(logic.cfg.GetTypeFromFile("startup"));
+                new logs.log().WriteLog(0, "Loaded Startup state: " + _StartupState);
             }
             catch (Exception)
             {
                 _StartupState = false;
+                new logs.log().WriteLog(2, "Loaded Startup state: " + _StartupState);
             }
             try
             {
                 _IntervalTime = Convert.ToInt32(logic.cfg.GetTypeFromFile("interval"));
-
+                new logs.log().WriteLog(0, "Loaded Interval value: " + _IntervalTime);
             }
             catch (Exception)
             {
-
                 _IntervalTime = 5;
+                new logs.log().WriteLog(2, "Loaded Interval value: " + _IntervalTime);
             }
 
+
+            /// Assign values to checkboxes
             back_enable.Checked = _EnableBackcraftState;
             set_resource.Checked = _ResourcePackState;
             set_saves.Checked = _SavesState;
@@ -153,16 +179,13 @@ namespace backcraft
             back_enablelog.Checked = _LogsState;
             back_startup.Checked = _StartupState;
 
-
-
+            /// Assign values to array
             states[0] = _ResourcePackState;
             states[1] = _SavesState;
             states[2] = _LauncherProfilesState;
             states[3] = _OptionsState;
             states[4] = _ScreenshotsState;
             states[5] = _LogsState;
-
-
 
             #endregion
 
@@ -287,6 +310,7 @@ namespace backcraft
 
             if (_EnableBackcraftState)
             {
+                new logs.log().WriteLog(0, "Backcraft enabled");
                 try
                 {
                     WindowState = FormWindowState.Minimized;
@@ -294,12 +318,13 @@ namespace backcraft
                     ShowIcon = true;
                     notifyIcon1.Visible = true;
                     notifyIcon1.ShowBalloonTip(50);
-
+                    new logs.log().WriteLog(0, "Backcraft started minimized");
                 }
                 catch (Exception)
                 {
                     ShowInTaskbar = true;
                     ShowIcon = false;
+                    new logs.log().WriteLog(0, "Backcraft started maximized");
                 }
             }
 
@@ -320,6 +345,8 @@ namespace backcraft
             }
 
             var x = AsyncBackcraft(interval);
+            new logs.log().WriteLog(0, "Backcraft finished loading");
+
         }
 
         #region BACKCRAFT
@@ -513,10 +540,12 @@ namespace backcraft
             {
                 if (CheckIfMinecraftIsRunning())
                 {
+                    new logs.log().WriteLog(0, "Minecraft is running, proceed to backup.");
                     await Backcraft();
                     try
                     {
                         await Task.Delay(TimeSpan.FromMinutes(interval), token.Token);
+                        new logs.log().WriteLog(0, "Finished backup, next backup will be in: " + interval);
                     }
                     catch (TaskCanceledException)
                     {
@@ -525,6 +554,7 @@ namespace backcraft
                 }
                 else
                 {
+                    new logs.log().WriteLog(0, "Minecraft is not running, waiting 5 minutes.");
                     await Task.Delay(TimeSpan.FromMinutes(5), token.Token);
                 }
 
@@ -533,7 +563,15 @@ namespace backcraft
 
         private async Task Backcraft()
         {
-            logic.backup.MakeBackup(states);
+            try
+            {
+                new logs.log().WriteLog(6, "");
+                logic.backup.MakeBackup(states);
+                new logs.log().WriteLog(7, "");
+            }
+            catch (Exception)
+            {
+            }
         }
 
         private bool CheckIfMinecraftIsRunning()
@@ -554,11 +592,14 @@ namespace backcraft
         {
             try
             {
+                new logs.log().WriteLog(0, "Restarting Backcraft...");
                 Process.Start(Application.StartupPath + "\\backcraft.exe");
                 Process.GetCurrentProcess().Kill();
             }
             catch
-            { }
+            {
+                new logs.log().WriteLog(3, "Restarting Backcraft...");
+            }
         }
 
         #endregion
@@ -605,20 +646,44 @@ namespace backcraft
 
                 #region ENABLE BACKCRAFT
 
-                new logic.cfg("backcraft", back_enable.Checked.ToString()).WriteCFG();
+                try
+                {
+                    new logic.cfg("backcraft", back_enable.Checked.ToString()).WriteCFG();
+                    new logs.log().WriteLog(0, "Saved Backcraft state: " + back_enable.Checked.ToString());
+                }
+                catch (Exception)
+                {
+                    new logs.log().WriteLog(2, "Saved Backcraft state: " + back_enable.Checked.ToString());
+                }
 
                 #endregion
 
                 #region RESOURCE PACKS STATE
 
-                new logic.cfg("resource_packs", set_resource.Checked.ToString()).WriteCFG();
+                try
+                {
+                    new logic.cfg("resource_packs", set_resource.Checked.ToString()).WriteCFG();
+                    new logs.log().WriteLog(0, "Saved resource packs state: " + set_resource.Checked.ToString());
+                }
+                catch (Exception)
+                {
+                    new logs.log().WriteLog(2, "Saved resource packs state: " + set_resource.Checked.ToString());
+                }
 
 
                 #endregion
 
                 #region WORLDS/SAVES STATE
 
-                new logic.cfg("worlds", set_saves.Checked.ToString()).WriteCFG();
+                try
+                {
+                    new logic.cfg("worlds", set_saves.Checked.ToString()).WriteCFG();
+                    new logs.log().WriteLog(0, "Saved worlds state: " + set_saves.Checked.ToString());
+                }
+                catch (Exception)
+                {
+                    new logs.log().WriteLog(2, "Saved worlds state: " + set_saves.Checked.ToString());
+                }
 
 
                 #endregion
@@ -626,20 +691,30 @@ namespace backcraft
                 #region LAUNCHER PROFILES STATE
 
 
-                new logic.cfg("launcher_profiles", set_launcher.Checked.ToString()).WriteCFG();
                 try
                 {
-                    if (set_launcher.Checked)
+                    new logic.cfg("launcher_profiles", set_launcher.Checked.ToString()).WriteCFG();
+                    new logs.log().WriteLog(0, "Saved launcher profiles state: " + set_launcher.Checked.ToString());
+                    try
                     {
-                        new logic.files("launcher_profiles", _MinecraftPath + @"\launcher_profiles.json", "f").WriteCFG();
+                        if (set_launcher.Checked)
+                        {
+                            new logic.files("launcher_profiles", _MinecraftPath + @"\launcher_profiles.json", "f").WriteCFG();
+                        }
+                        else
+                        {
+                            new logic.files().DeleteFromFile("launcher_profiles", _MinecraftPath + @"\launcher_profiles.json");
+                            new logs.log().WriteLog(0, "Deleted launcher profiles state: " + set_launcher.Checked.ToString());
+
+                        }
                     }
-                    else
+                    catch (Exception)
                     {
-                        new logic.files().DeleteFromFile("launcher_profiles", _MinecraftPath + @"\launcher_profiles.json");
                     }
                 }
                 catch (Exception)
                 {
+                    new logs.log().WriteLog(2, "Saved launcher profiles state: " + set_launcher.Checked.ToString());
                 }
 
 
@@ -647,23 +722,31 @@ namespace backcraft
 
                 #region OPTIONS STATE
 
-                new logic.cfg("options", set_options.Checked.ToString()).WriteCFG();
                 try
                 {
-                    if (set_options.Checked)
+                    new logic.cfg("options", set_options.Checked.ToString()).WriteCFG();
+                    new logs.log().WriteLog(0, "Saved options state: " + set_options.Checked.ToString());
+                    try
                     {
-                        new logic.files("options", _MinecraftPath + @"\options.txt", "f").WriteCFG();
+                        if (set_options.Checked)
+                        {
+                            new logic.files("options", _MinecraftPath + @"\options.txt", "f").WriteCFG();
+                        }
+                        else
+                        {
+                            new logic.files().DeleteFromFile("options", _MinecraftPath + @"\options.txt");
+                            new logs.log().WriteLog(0, "Deleted options state: " + set_options.Checked.ToString());
+                        }
+
+
                     }
-                    else
+                    catch (Exception)
                     {
-                        new logic.files().DeleteFromFile("options", _MinecraftPath + @"\options.txt");
-
                     }
-
-
                 }
                 catch (Exception)
                 {
+                    new logs.log().WriteLog(2, "Saved options state: " + set_options.Checked.ToString());
                 }
 
                 #endregion
@@ -671,24 +754,30 @@ namespace backcraft
                 #region SCREENSHOTS STATE
 
 
-                new logic.cfg("screenshots", set_screenshots.Checked.ToString()).WriteCFG();
                 try
                 {
-                    if (set_screenshots.Checked)
+                    new logic.cfg("screenshots", set_screenshots.Checked.ToString()).WriteCFG();
+                    new logs.log().WriteLog(0, "Saved screenshots state: " + set_screenshots.Checked.ToString());
+                    try
                     {
-                        new logic.files("screenshots", _MinecraftPath + @"\screenshots", "d").WriteCFG();
+                        if (set_screenshots.Checked)
+                        {
+                            new logic.files("screenshots", _MinecraftPath + @"\screenshots", "d").WriteCFG();
+                        }
+                        else
+                        {
+                            new logic.files().DeleteFromFile("screenshots", _MinecraftPath + @"\screenshots");
+                            new logs.log().WriteLog(0, "Delete screenshots state: " + set_screenshots.Checked.ToString());
+                        }
                     }
-                    else
+                    catch (Exception)
                     {
-                        new logic.files().DeleteFromFile("screenshots", _MinecraftPath + @"\screenshots");
-
+                        new logic.cfg("screenshots", false.ToString()).WriteCFG();
                     }
-
-
                 }
                 catch (Exception)
                 {
-                    new logic.cfg("screenshots", false.ToString()).WriteCFG();
+                    new logs.log().WriteLog(2, "Saved screenshots state: " + set_screenshots.Checked.ToString());
                 }
 
 
@@ -696,7 +785,15 @@ namespace backcraft
 
                 #region LOGS STATE
 
-                new logic.cfg("logs", back_enablelog.Checked.ToString()).WriteCFG();
+                try
+                {
+                    new logic.cfg("logs", back_enablelog.Checked.ToString()).WriteCFG();
+                    new logs.log().WriteLog(0, "Saved logs state: " + back_enablelog.Checked.ToString());
+                }
+                catch (Exception)
+                {
+                    new logs.log().WriteLog(2, "Saved screenshots state: " + back_enablelog.Checked.ToString());
+                }
 
                 #endregion
 
@@ -720,14 +817,19 @@ namespace backcraft
 
                 #region INTERVAL STATE
 
-                new logic.cfg("interval", scroll_interval.Value.ToString()).WriteCFG();
+                try
+                {
+                    new logic.cfg("interval", scroll_interval.Value.ToString()).WriteCFG();
+                    new logs.log().WriteLog(0, "Saved interval value: " + scroll_interval.Value.ToString());
+                }
+                catch (Exception)
+                {
+                    new logs.log().WriteLog(2, "Saved interval value: " + scroll_interval.Value.ToString());
+                }
 
                 #endregion
 
-                #region FILES 
-
-                #endregion
-
+                new logs.log().WriteLog(0, "All files saved, restarting Backcraft...");
                 RestartApp();
             }
             catch (Exception err)
@@ -735,6 +837,7 @@ namespace backcraft
                 string a = err.ToString();
                 /// Change text value for btn
                 back_save.Text = "Error!";
+                new logs.log().WriteLog(3, "Error in saving");
             }
         }
 
@@ -743,18 +846,37 @@ namespace backcraft
             /// BACKUP NOW BUTTON
             try
             {
+                new logs.log().WriteLog(0, "Manual backup");
                 //var a = Backcraft();
                 logic.backup.MakeBackup(states);
             }
             catch (Exception)
             {
+                new logs.log().WriteLog(3, "Manual backup");
             }
         }
 
         private void btn_deletesettings_Click(object sender, EventArgs e)
         {
-            Directory.Delete(@"config", true);
-            RestartApp();
+            try
+            {
+                new logs.log().WriteLog(0, "Delete config");
+                Directory.Delete(@"config", true);
+            }
+            catch (Exception)
+            {
+                new logs.log().WriteLog(2, "Delete config");
+            }
+
+            try
+            {
+                new logs.log().WriteLog(0, "Restarting Backcraft");
+                RestartApp();
+            }
+            catch (Exception)
+            {
+                new logs.log().WriteLog(3, "Restarting Backcraft");
+            }
         }
 
         #endregion
@@ -767,6 +889,14 @@ namespace backcraft
             System.Diagnostics.Process.Start("https://github.com/emimontesdeoca/backcraft");
         }
 
+        #endregion
+
+        #region CLOSING
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            new logs.log().WriteLog(5, "");
+        }
 
         #endregion
 
