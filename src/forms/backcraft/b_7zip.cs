@@ -15,6 +15,7 @@ namespace backcraft.forms.backcraft
         public b_7zip()
         {
             InitializeComponent();
+            MaximizeBox = false;
         }
 
         private void b_7zip_Load(object sender, EventArgs e)

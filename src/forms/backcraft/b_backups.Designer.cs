@@ -32,13 +32,13 @@
             this.btn_cancel = new System.Windows.Forms.Button();
             this.btn_save = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.gridview_backups = new System.Windows.Forms.DataGridView();
+            this.btn_search = new System.Windows.Forms.Button();
             this.btn_load = new System.Windows.Forms.Button();
             this.btn_add = new System.Windows.Forms.Button();
             this.textbox_path = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.btn_search = new System.Windows.Forms.Button();
-            this.gridview_backups = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridview_backups)).BeginInit();
             this.SuspendLayout();
@@ -79,6 +79,27 @@
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Backup destination paths";
+            // 
+            // gridview_backups
+            // 
+            this.gridview_backups.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridview_backups.Enabled = false;
+            this.gridview_backups.Location = new System.Drawing.Point(10, 91);
+            this.gridview_backups.Name = "gridview_backups";
+            this.gridview_backups.Size = new System.Drawing.Size(386, 184);
+            this.gridview_backups.TabIndex = 7;
+            this.gridview_backups.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridview_backups_CellClick);
+            // 
+            // btn_search
+            // 
+            this.btn_search.Enabled = false;
+            this.btn_search.Location = new System.Drawing.Point(230, 62);
+            this.btn_search.Name = "btn_search";
+            this.btn_search.Size = new System.Drawing.Size(82, 23);
+            this.btn_search.TabIndex = 6;
+            this.btn_search.Text = "Search";
+            this.btn_search.UseVisualStyleBackColor = true;
+            this.btn_search.Click += new System.EventHandler(this.btn_search_Click);
             // 
             // btn_load
             // 
@@ -130,27 +151,6 @@
             this.label1.Text = "Add the destination path where you want to store the backups, you have more than " +
     "one destination.";
             // 
-            // btn_search
-            // 
-            this.btn_search.Enabled = false;
-            this.btn_search.Location = new System.Drawing.Point(230, 62);
-            this.btn_search.Name = "btn_search";
-            this.btn_search.Size = new System.Drawing.Size(82, 23);
-            this.btn_search.TabIndex = 6;
-            this.btn_search.Text = "Search";
-            this.btn_search.UseVisualStyleBackColor = true;
-            this.btn_search.Click += new System.EventHandler(this.btn_search_Click);
-            // 
-            // gridview_backups
-            // 
-            this.gridview_backups.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridview_backups.Enabled = false;
-            this.gridview_backups.Location = new System.Drawing.Point(10, 91);
-            this.gridview_backups.Name = "gridview_backups";
-            this.gridview_backups.Size = new System.Drawing.Size(386, 184);
-            this.gridview_backups.TabIndex = 7;
-            this.gridview_backups.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridview_backups_CellClick);
-            // 
             // b_backups
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -162,6 +162,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "b_backups";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Backcraft";
             this.Load += new System.EventHandler(this.b_backups_Load);
             this.groupBox1.ResumeLayout(false);

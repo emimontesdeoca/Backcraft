@@ -29,9 +29,11 @@ namespace backcraft
         public bool _StartupState { get; set; }
         public int _IntervalTime { get; set; } = 5;
         public static bool[] states = new bool[6];
+
         public Form1()
         {
             InitializeComponent();
+            MaximizeBox = false;
 
             /// Get logs value, necessary for fist launch
             try
@@ -343,7 +345,9 @@ namespace backcraft
                     ShowInTaskbar = false;
                     ShowIcon = true;
                     notifyIcon1.Visible = true;
+                    notifyIcon1.Text = "Backcraft";
                     notifyIcon1.ShowBalloonTip(50);
+
                     new logs.log().WriteLog(0, "Backcraft started minimized");
                 }
                 catch (Exception)
@@ -358,10 +362,38 @@ namespace backcraft
                 new logs.log().WriteLog(0, "Backcraft disabled");
                 new logs.log().WriteLog(0, "Backcraft started maximized");
             }
-
-            #endregion
-
         }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Normal;
+            ShowInTaskbar = true;
+            ShowIcon = false;
+            notifyIcon1.Visible = false;
+        }
+
+        private void makeBackupToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                new logs.log().WriteLog(0, "Manual backup from tray icon");
+                new logs.log().WriteLog(6, "");
+                logic.backup.MakeBackup(states);
+                new logs.log().WriteLog(7, "");
+            }
+            catch (Exception)
+            {
+                new logs.log().WriteLog(3, "Manual backup from tray icon");
+            }
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new logs.log().WriteLog(5, "");
+            Close();
+        }
+
+        #endregion
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -939,6 +971,7 @@ namespace backcraft
         }
 
         #endregion
+
 
     }
 }

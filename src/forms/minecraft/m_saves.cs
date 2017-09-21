@@ -18,6 +18,7 @@ namespace backcraft.forms.minecraft
         public m_saves()
         {
             InitializeComponent();
+            MaximizeBox = false;
         }
 
         private void m_saves_Load(object sender, EventArgs e)

@@ -132,6 +132,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "b_7zip";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Backcraft";
             this.Load += new System.EventHandler(this.b_7zip_Load);
             this.groupBox1.ResumeLayout(false);

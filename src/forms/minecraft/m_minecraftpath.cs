@@ -15,6 +15,7 @@ namespace backcraft.forms.minecraft
         public m_minecraftpath()
         {
             InitializeComponent();
+            MaximizeBox = false;
         }
 
         private void m_minecraftpath_Load(object sender, EventArgs e)

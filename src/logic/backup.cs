@@ -96,11 +96,11 @@ namespace backcraft.logic
                         /// Changes in the files, copy stuff to folder
                         if (name.Contains("launcher_profiles"))
                         {
-                            newname = @"backups\\" + name + ".json";
+                            newname = @"backups\" + name + ".json";
                         }
                         else if (name.Contains("options"))
                         {
-                            newname = @"backups\\" + name + ".txt";
+                            newname = @"backups\" + name + ".txt";
                         }
 
                         try
@@ -154,7 +154,7 @@ namespace backcraft.logic
                     ///If Directory
                     case "d":
                         /// Changes in the files, copy stuff to folder
-                        newname = @"backups\\" + name;
+                        newname = @"backups\" + name;
                         try
                         {
                             bs.compression.Copy(path, newname);
@@ -192,11 +192,12 @@ namespace backcraft.logic
                             new logs.log().WriteLog(0, "Folder without changes");
                             try
                             {
-                                Directory.Delete(newname);
+                                Directory.Delete(newname, true);
                                 new logs.log().WriteLog(0, "Delete file " + newname);
                             }
-                            catch (Exception)
+                            catch (Exception a)
                             {
+                                string e = a.ToString();
                                 new logs.log().WriteLog(2, "Delete file  " + newname);
                             }
                         }

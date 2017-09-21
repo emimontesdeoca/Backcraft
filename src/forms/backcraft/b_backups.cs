@@ -15,6 +15,7 @@ namespace backcraft.forms.backcraft
         public b_backups()
         {
             InitializeComponent();
+            MaximizeBox = false;
         }
 
         private void b_backups_Load(object sender, EventArgs e)

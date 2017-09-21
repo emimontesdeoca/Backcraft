@@ -17,6 +17,7 @@ namespace backcraft.forms.minecraft
         public m_resourcepacks()
         {
             InitializeComponent();
+            MaximizeBox = false;
         }
 
         private void m_resourcepacks_Load(object sender, EventArgs e)

@@ -32,9 +32,9 @@
             this.btn_cancel = new System.Windows.Forms.Button();
             this.btn_save = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.gridview_resourcepacks = new System.Windows.Forms.DataGridView();
             this.btn_loadresourcepakcs = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.gridview_resourcepacks = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridview_resourcepacks)).BeginInit();
             this.SuspendLayout();
@@ -72,6 +72,14 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Resource packs";
             // 
+            // gridview_resourcepacks
+            // 
+            this.gridview_resourcepacks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridview_resourcepacks.Location = new System.Drawing.Point(6, 48);
+            this.gridview_resourcepacks.Name = "gridview_resourcepacks";
+            this.gridview_resourcepacks.Size = new System.Drawing.Size(386, 209);
+            this.gridview_resourcepacks.TabIndex = 2;
+            // 
             // btn_loadresourcepakcs
             // 
             this.btn_loadresourcepakcs.Location = new System.Drawing.Point(317, 16);
@@ -93,14 +101,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Select which resource pack you want to backup.";
             // 
-            // gridview_resourcepacks
-            // 
-            this.gridview_resourcepacks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridview_resourcepacks.Location = new System.Drawing.Point(6, 48);
-            this.gridview_resourcepacks.Name = "gridview_resourcepacks";
-            this.gridview_resourcepacks.Size = new System.Drawing.Size(386, 209);
-            this.gridview_resourcepacks.TabIndex = 2;
-            // 
             // m_resourcepacks
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -112,6 +112,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "m_resourcepacks";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Backcraft";
             this.Load += new System.EventHandler(this.m_resourcepacks_Load);
             this.groupBox1.ResumeLayout(false);

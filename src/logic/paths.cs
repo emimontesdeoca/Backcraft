@@ -95,12 +95,10 @@ namespace backcraft.logic
             catch (Exception)
             {
             }
-
         }
 
         public static List<string> GetPaths()
         {
-
             List<string> list = new List<string>();
 
             using (StreamReader rd = new StreamReader(_txtfile, true))
