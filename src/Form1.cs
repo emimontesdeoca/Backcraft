@@ -31,7 +31,7 @@ namespace backcraft
         public bool _StartupState { get; set; }
         public int _IntervalTime { get; set; } = 5;
         public static bool[] states = new bool[6];
-        private string currentVersion = "3.0";
+        private const string currentVersion = "3.0";
 
         public Form1()
         {
