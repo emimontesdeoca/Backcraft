@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,31 +40,12 @@ namespace backcraft.forms.backcraft
             gridview_backups.RowHeadersVisible = false;
             col2.Width = 100;
 
+            LoadSavePathList();
         }
 
         private void btn_load_Click(object sender, EventArgs e)
         {
-            gridview_backups.Rows.Clear();
-
-            try
-            {
-                List<string> l = logic.paths.GetPaths();
-
-                foreach (string s in l)
-                {
-                    gridview_backups.Rows.Add(s, "Delete");
-                }
-            }
-            catch (Exception)
-            {
-            }
-
-            btn_add.Enabled = true;
-            btn_search.Enabled = true;
-            btn_save.Enabled = true;
-            gridview_backups.Enabled = true;
-            textbox_path.Enabled = true;
-
+            LoadSavePathList();
         }
 
         private void btn_search_Click(object sender, EventArgs e)
@@ -77,7 +59,17 @@ namespace backcraft.forms.backcraft
 
         private void btn_add_Click(object sender, EventArgs e)
         {
-            gridview_backups.Rows.Add(textbox_path.Text.ToString(), "Delete");
+            if (textbox_path.Text != string.Empty)
+            {   // Add path if exists.
+                if (Directory.Exists(textbox_path.Text))
+                {
+                    gridview_backups.Rows.Add(textbox_path.Text.ToString(), "Delete");
+                }
+                else
+                {
+                    MessageBox.Show("Path does not exist!", "Error");
+                }
+            }
         }
 
         private void btn_save_Click(object sender, EventArgs e)
@@ -114,15 +106,50 @@ namespace backcraft.forms.backcraft
         {
             if (gridview_backups.Columns[e.ColumnIndex].Name == "delete")
             {
-                gridview_backups.Rows.RemoveAt(e.RowIndex);
                 try
                 {
                     new logic.paths().DeleteFromFile(gridview_backups.Rows[e.RowIndex].Cells[0].Value.ToString());
-
+                    gridview_backups.Rows.RemoveAt(e.RowIndex);
                 }
                 catch (Exception)
                 {
                 }
+            }
+        }
+
+        private void LoadSavePathList()
+        {
+            gridview_backups.Rows.Clear();
+
+            try
+            {
+                List<string> l = logic.paths.GetPaths();
+
+                foreach (string s in l)
+                {
+                    gridview_backups.Rows.Add(s, "Delete");
+                }
+            }
+            catch (Exception)
+            {
+            }
+
+
+            btn_search.Enabled = true;
+            btn_save.Enabled = true;
+            gridview_backups.Enabled = true;
+            textbox_path.Enabled = true;
+        }
+
+        private void textbox_path_TextChanged(object sender, EventArgs e)
+        {
+            if (textbox_path.Text != string.Empty)
+            {
+                btn_add.Enabled = true;
+            }
+            else
+            {
+                btn_add.Enabled = false;
             }
         }
     }
