@@ -129,6 +129,7 @@
             this.textbox_path.Name = "textbox_path";
             this.textbox_path.Size = new System.Drawing.Size(173, 20);
             this.textbox_path.TabIndex = 3;
+            this.textbox_path.TextChanged += new System.EventHandler(this.textbox_path_TextChanged);
             // 
             // label2
             // 
