@@ -136,6 +136,12 @@ namespace backcraft.logic
         {
             List<files> files = new List<logic.files>();
 
+            //If file doese not exist, create empty file and close writer
+            if (!File.Exists(_txtfile))
+            {
+                File.Create(_txtfile).Dispose();
+            }
+
             using (StreamReader rd = new StreamReader(_txtfile, true))
             {
 

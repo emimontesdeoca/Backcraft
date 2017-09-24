@@ -45,9 +45,49 @@ namespace backcraft.forms.minecraft
 
             gridview_worlds.RowHeadersVisible = false;
             col3.Width = 50;
+
+            LoadWorldList();
         }
 
         private void btn_loadworlds_Click(object sender, EventArgs e)
+        {
+            LoadWorldList();
+        }
+
+        private void btn_save_Click(object sender, EventArgs e)
+        {
+
+            foreach (DataGridViewRow r in gridview_worlds.Rows)
+            {
+                string name = r.Cells[0].Value.ToString();
+                string path = r.Cells[1].Value.ToString();
+                string check = r.Cells[2].Value.ToString();
+                if (Convert.ToBoolean(check))
+                {
+                    new logic.files(name, path, "d").WriteCFG();
+                }
+                else
+                {
+                    try
+                    {
+                        new logic.files().DeleteFromFile(name, path);
+                    }
+                    catch (Exception)
+                    {
+                    }
+                }
+
+            }
+
+            this.Close();
+        }
+
+        private void btn_cancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void LoadWorldList()
         {
             gridview_worlds.Rows.Clear();
 
@@ -94,42 +134,7 @@ namespace backcraft.forms.minecraft
             {
                 MessageBox.Show("Error getting the folders from the path! Check out that the Minecraft path is correct or if there are files inside the folder!", "Backcraft");
             }
-
         }
-
-        private void btn_save_Click(object sender, EventArgs e)
-        {
-
-            foreach (DataGridViewRow r in gridview_worlds.Rows)
-            {
-                string name = r.Cells[0].Value.ToString();
-                string path = r.Cells[1].Value.ToString();
-                string check = r.Cells[2].Value.ToString();
-                if (Convert.ToBoolean(check))
-                {
-                    new logic.files(name, path, "d").WriteCFG();
-                }
-                else
-                {
-                    try
-                    {
-                        new logic.files().DeleteFromFile(name, path);
-                    }
-                    catch (Exception)
-                    {
-                    }
-                }
-
-            }
-
-            this.Close();
-        }
-
-        private void btn_cancel_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
 
     }
 }
