@@ -66,6 +66,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="forms\about\about.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\about\about.Designer.cs">
+      <DependentUpon>about.cs</DependentUpon>
+    </Compile>
     <Compile Include="logic\backup.cs" />
     <Compile Include="logic\cfg.cs" />
     <Compile Include="logic\files.cs" />
@@ -157,6 +163,13 @@
   <ItemGroup>
     <Content Include="assets\icon.ico" />
     <Content Include="icon.ico" />
+    <None Include="Resources\info.png" />
+    <None Include="Resources\updates.png" />
+    <None Include="Resources\bug.png" />
+    <None Include="Resources\settings.png" />
+    <None Include="Resources\logo.png" />
+    <None Include="Resources\twitter.png" />
+    <None Include="Resources\github.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">

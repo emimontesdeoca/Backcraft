@@ -31,7 +31,7 @@ namespace backcraft
         public bool _StartupState { get; set; }
         public int _IntervalTime { get; set; } = 5;
         public static bool[] states = new bool[6];
-        private const string currentVersion = "3.0";
+        private const string currentVersion = "3.1";
 
         public Form1()
         {
@@ -39,6 +39,35 @@ namespace backcraft
 
             MaximizeBox = false;
             label_version.Text = "v" + currentVersion;
+
+            object o = Properties.Resources.ResourceManager.GetObject("settings");
+            btn_minecraftfolder.Image = (Image)o;
+            btn_minecraftfolder.ImageAlign = ContentAlignment.MiddleCenter;
+
+            btn_resourcepacks.Image = (Image)o;
+            btn_resourcepacks.ImageAlign = ContentAlignment.MiddleCenter;
+
+            btn_saves.Image = (Image)o;
+            btn_saves.ImageAlign = ContentAlignment.MiddleCenter;
+
+            button3.Image = (Image)o;
+            button3.ImageAlign = ContentAlignment.MiddleCenter;
+
+            button5.Image = (Image)o;
+            button5.ImageAlign = ContentAlignment.MiddleCenter;
+
+            object report = Properties.Resources.ResourceManager.GetObject("bug");
+            btn_report.Image = (Image)report;
+            btn_report.ImageAlign = ContentAlignment.MiddleCenter;
+
+            object info = Properties.Resources.ResourceManager.GetObject("info");
+            btn_info.Image = (Image)info;
+            btn_info.ImageAlign = ContentAlignment.MiddleCenter;
+
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
+
+
 
             #region GET LOGS VALUE AT START
 
@@ -108,18 +137,20 @@ namespace backcraft
 
             if (Environment.Is64BitOperatingSystem)
             {
-                this.Text += " - 64 bits -";
+                this.Text += " - 64 bits ";
                 if (File.Exists(@"config\cfg.txt"))
                 {
                     new logs.log().WriteLog(0, "Detected 64 bits OS");
-                    this.Text += " Settings loaded";
+                    label_settings.Text = " Settings loaded";
+                    label_settings.ForeColor = System.Drawing.Color.Green;
                     new logs.log().WriteLog(0, "Settings found");
                 }
                 else
                 {
-                    this.Text += " Settings not found";
+                    label_settings.Text = " Settings not found";
+                    label_settings.ForeColor = System.Drawing.Color.Red;
                     new logs.log().WriteLog(0, "Settings not found");
-                    MessageBox.Show("Settings file not found");
+                    //MessageBox.Show("Settings file not found");
                 }
             }
             else
@@ -1048,7 +1079,7 @@ namespace backcraft
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             /// Link to github repo
-            System.Diagnostics.Process.Start("https://github.com/emimontesdeoca/backcraft");
+
         }
 
         #endregion
@@ -1060,8 +1091,23 @@ namespace backcraft
             new logs.log().WriteLog(5, "");
         }
 
+
         #endregion
 
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/emimontesdeoca/backcraft");
+        }
 
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://twitter.com/emimontesdeocaa");
+        }
+
+        private void btn_report_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/emimontesdeoca/Backcraft/issues/new");
+
+        }
     }
 }

@@ -76,7 +76,6 @@
             this.button1 = new System.Windows.Forms.Button();
             this.back_save = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -84,10 +83,22 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btn_deletesettings = new System.Windows.Forms.Button();
             this.label_version = new System.Windows.Forms.Label();
+            this.label_settings = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.btn_report = new System.Windows.Forms.Button();
+            this.btn_info = new System.Windows.Forms.Button();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.m_panel.SuspendLayout();
             this.b_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scroll_interval)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label
@@ -179,18 +190,17 @@
             this.m_panel.Controls.Add(this.set_launcher);
             this.m_panel.Location = new System.Drawing.Point(9, 39);
             this.m_panel.Name = "m_panel";
-            this.m_panel.Size = new System.Drawing.Size(369, 172);
+            this.m_panel.Size = new System.Drawing.Size(334, 172);
             this.m_panel.TabIndex = 11;
             this.m_panel.TabStop = false;
-            this.m_panel.Text = "Backup settings";
+            this.m_panel.Text = "Backup";
             // 
             // btn_minecraftfolder
             // 
-            this.btn_minecraftfolder.Location = new System.Drawing.Point(288, 18);
+            this.btn_minecraftfolder.Location = new System.Drawing.Point(295, 21);
             this.btn_minecraftfolder.Name = "btn_minecraftfolder";
-            this.btn_minecraftfolder.Size = new System.Drawing.Size(75, 23);
+            this.btn_minecraftfolder.Size = new System.Drawing.Size(28, 23);
             this.btn_minecraftfolder.TabIndex = 35;
-            this.btn_minecraftfolder.Text = "Settings";
             this.btn_minecraftfolder.UseVisualStyleBackColor = true;
             this.btn_minecraftfolder.Click += new System.EventHandler(this.btn_minecraftfolder_Click);
             // 
@@ -266,21 +276,19 @@
             // 
             // btn_saves
             // 
-            this.btn_saves.Location = new System.Drawing.Point(288, 69);
+            this.btn_saves.Location = new System.Drawing.Point(295, 72);
             this.btn_saves.Name = "btn_saves";
-            this.btn_saves.Size = new System.Drawing.Size(75, 23);
+            this.btn_saves.Size = new System.Drawing.Size(28, 23);
             this.btn_saves.TabIndex = 20;
-            this.btn_saves.Text = "Settings";
             this.btn_saves.UseVisualStyleBackColor = true;
             this.btn_saves.Click += new System.EventHandler(this.btn_saves_Click);
             // 
             // btn_resourcepacks
             // 
-            this.btn_resourcepacks.Location = new System.Drawing.Point(288, 43);
+            this.btn_resourcepacks.Location = new System.Drawing.Point(295, 46);
             this.btn_resourcepacks.Name = "btn_resourcepacks";
-            this.btn_resourcepacks.Size = new System.Drawing.Size(75, 23);
+            this.btn_resourcepacks.Size = new System.Drawing.Size(28, 23);
             this.btn_resourcepacks.TabIndex = 19;
-            this.btn_resourcepacks.Text = "Settings";
             this.btn_resourcepacks.UseVisualStyleBackColor = true;
             this.btn_resourcepacks.Click += new System.EventHandler(this.btn_resourcepacks_Click);
             // 
@@ -357,10 +365,10 @@
             this.b_panel.Controls.Add(this.label8);
             this.b_panel.Location = new System.Drawing.Point(9, 217);
             this.b_panel.Name = "b_panel";
-            this.b_panel.Size = new System.Drawing.Size(369, 222);
+            this.b_panel.Size = new System.Drawing.Size(334, 222);
             this.b_panel.TabIndex = 12;
             this.b_panel.TabStop = false;
-            this.b_panel.Text = "Backcraft settings";
+            this.b_panel.Text = "Settings";
             // 
             // label_updater2
             // 
@@ -368,9 +376,9 @@
             this.label_updater2.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_updater2.Location = new System.Drawing.Point(189, 193);
             this.label_updater2.Name = "label_updater2";
-            this.label_updater2.Size = new System.Drawing.Size(155, 16);
+            this.label_updater2.Size = new System.Drawing.Size(119, 16);
             this.label_updater2.TabIndex = 36;
-            this.label_updater2.Text = "Check for new releases at start";
+            this.label_updater2.Text = "Check for new releases";
             // 
             // label_updater
             // 
@@ -396,9 +404,9 @@
             // 
             this.back_intervaltextbox.Enabled = false;
             this.back_intervaltextbox.Font = new System.Drawing.Font("Arial Narrow", 12F);
-            this.back_intervaltextbox.Location = new System.Drawing.Point(305, 153);
+            this.back_intervaltextbox.Location = new System.Drawing.Point(295, 152);
             this.back_intervaltextbox.Name = "back_intervaltextbox";
-            this.back_intervaltextbox.Size = new System.Drawing.Size(43, 26);
+            this.back_intervaltextbox.Size = new System.Drawing.Size(28, 26);
             this.back_intervaltextbox.TabIndex = 33;
             // 
             // label13
@@ -413,11 +421,10 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(288, 91);
+            this.button5.Location = new System.Drawing.Point(295, 91);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
+            this.button5.Size = new System.Drawing.Size(28, 23);
             this.button5.TabIndex = 31;
-            this.button5.Text = "Settings";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
@@ -433,11 +440,10 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(288, 65);
+            this.button3.Location = new System.Drawing.Point(295, 65);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.Size = new System.Drawing.Size(28, 23);
             this.button3.TabIndex = 26;
-            this.button3.Text = "Settings";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
@@ -497,7 +503,7 @@
             this.scroll_interval.Maximum = 60;
             this.scroll_interval.Minimum = 5;
             this.scroll_interval.Name = "scroll_interval";
-            this.scroll_interval.Size = new System.Drawing.Size(283, 45);
+            this.scroll_interval.Size = new System.Drawing.Size(278, 45);
             this.scroll_interval.SmallChange = 5;
             this.scroll_interval.TabIndex = 20;
             this.scroll_interval.TickFrequency = 5;
@@ -571,9 +577,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(141, 443);
+            this.button1.Location = new System.Drawing.Point(131, 445);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(105, 32);
+            this.button1.Size = new System.Drawing.Size(90, 32);
             this.button1.TabIndex = 15;
             this.button1.Text = "Backup now";
             this.button1.UseVisualStyleBackColor = true;
@@ -581,9 +587,9 @@
             // 
             // back_save
             // 
-            this.back_save.Location = new System.Drawing.Point(25, 443);
+            this.back_save.Location = new System.Drawing.Point(35, 445);
             this.back_save.Name = "back_save";
-            this.back_save.Size = new System.Drawing.Size(105, 32);
+            this.back_save.Size = new System.Drawing.Size(90, 32);
             this.back_save.TabIndex = 14;
             this.back_save.Text = "Save settings";
             this.back_save.UseVisualStyleBackColor = true;
@@ -592,22 +598,12 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(7, 480);
+            this.label10.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(6, 490);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(114, 13);
+            this.label10.Size = new System.Drawing.Size(133, 15);
             this.label10.TabIndex = 13;
             this.label10.Text = "Emiliano Montesdeoca";
-            // 
-            // linkLabel1
-            // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(341, 480);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(38, 13);
-            this.linkLabel1.TabIndex = 14;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Github";
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // notifyIcon1
             // 
@@ -649,9 +645,9 @@
             // 
             // btn_deletesettings
             // 
-            this.btn_deletesettings.Location = new System.Drawing.Point(256, 443);
+            this.btn_deletesettings.Location = new System.Drawing.Point(227, 445);
             this.btn_deletesettings.Name = "btn_deletesettings";
-            this.btn_deletesettings.Size = new System.Drawing.Size(105, 32);
+            this.btn_deletesettings.Size = new System.Drawing.Size(90, 32);
             this.btn_deletesettings.TabIndex = 18;
             this.btn_deletesettings.Text = "Delete settings";
             this.btn_deletesettings.UseVisualStyleBackColor = true;
@@ -666,14 +662,106 @@
             this.label_version.TabIndex = 16;
             this.label_version.Text = "v3.0";
             // 
+            // label_settings
+            // 
+            this.label_settings.AutoSize = true;
+            this.label_settings.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_settings.Location = new System.Drawing.Point(166, 490);
+            this.label_settings.Name = "label_settings";
+            this.label_settings.Size = new System.Drawing.Size(105, 15);
+            this.label_settings.TabIndex = 22;
+            this.label_settings.Text = "Settings not found";
+            // 
+            // label4
+            // 
+            this.label4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label4.Location = new System.Drawing.Point(-7, 483);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(369, 2);
+            this.label4.TabIndex = 23;
+            this.label4.Text = "label4";
+            // 
+            // label5
+            // 
+            this.label5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label5.Location = new System.Drawing.Point(284, 484);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(2, 35);
+            this.label5.TabIndex = 24;
+            this.label5.Text = "label5";
+            // 
+            // label6
+            // 
+            this.label6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label6.Location = new System.Drawing.Point(154, 484);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(2, 35);
+            this.label6.TabIndex = 25;
+            this.label6.Text = "label6";
+            // 
+            // btn_report
+            // 
+            this.btn_report.Location = new System.Drawing.Point(314, 10);
+            this.btn_report.Name = "btn_report";
+            this.btn_report.Size = new System.Drawing.Size(28, 23);
+            this.btn_report.TabIndex = 37;
+            this.btn_report.UseVisualStyleBackColor = true;
+            this.btn_report.Click += new System.EventHandler(this.btn_report_Click);
+            // 
+            // btn_info
+            // 
+            this.btn_info.Location = new System.Drawing.Point(283, 10);
+            this.btn_info.Name = "btn_info";
+            this.btn_info.Size = new System.Drawing.Size(28, 23);
+            this.btn_info.TabIndex = 38;
+            this.btn_info.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::backcraft.Properties.Resources.logo;
+            this.pictureBox3.Location = new System.Drawing.Point(93, 5);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(33, 32);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox3.TabIndex = 21;
+            this.pictureBox3.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::backcraft.Properties.Resources.twitter;
+            this.pictureBox2.Location = new System.Drawing.Point(293, 487);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(20, 20);
+            this.pictureBox2.TabIndex = 20;
+            this.pictureBox2.TabStop = false;
+            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::backcraft.Properties.Resources.github;
+            this.pictureBox1.Location = new System.Drawing.Point(323, 487);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(20, 20);
+            this.pictureBox1.TabIndex = 19;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(389, 503);
+            this.ClientSize = new System.Drawing.Size(349, 511);
+            this.Controls.Add(this.btn_info);
+            this.Controls.Add(this.btn_report);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label_settings);
+            this.Controls.Add(this.pictureBox3);
+            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btn_deletesettings);
             this.Controls.Add(this.label_version);
-            this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.b_panel);
             this.Controls.Add(this.m_panel);
@@ -695,6 +783,9 @@
             this.b_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scroll_interval)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -720,7 +811,6 @@
         private System.Windows.Forms.CheckBox back_enable;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.Label label2;
@@ -756,6 +846,15 @@
         private System.Windows.Forms.Label label_updater2;
         private System.Windows.Forms.Label label_updater;
         private System.Windows.Forms.CheckBox back_checkupdate;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.Label label_settings;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button btn_report;
+        private System.Windows.Forms.Button btn_info;
     }
 }
 
