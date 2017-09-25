@@ -301,7 +301,7 @@ namespace backcraft
 
             #endregion
 
-            #region MINECRAFT 
+            #region MINECRAFT
 
             //LoadMinecraftCheckboxes();
 
