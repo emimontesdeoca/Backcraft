@@ -34,24 +34,9 @@ namespace backcraft
         private const string currentVersion = "3.1";
         public bool isPanelOpened { get; set; }
 
-        public struct openPanels
-        {
-            public bool minecraftPanel { get; set; }
-            public bool resourcesPanel { get; set; }
-            public bool savesPanel { get; set; }
-        }
-
-        public static openPanels panels = new openPanels() { minecraftPanel = false, resourcesPanel = false, savesPanel = false };
-
         public Form1()
         {
             InitializeComponent();
-
-
-            panels.minecraftPanel = false;
-            panels.resourcesPanel = false;
-            panels.savesPanel = false;
-
 
             MaximizeBox = false;
             label_version.Text = "v" + currentVersion;
@@ -82,6 +67,10 @@ namespace backcraft
             object info = Properties.Resources.ResourceManager.GetObject("info");
             btn_info.Image = (Image)info;
             btn_info.ImageAlign = ContentAlignment.MiddleCenter;
+
+            object close = Properties.Resources.ResourceManager.GetObject("close");
+            btn_close.Image = (Image)close;
+            btn_close.ImageAlign = ContentAlignment.MiddleCenter;
 
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -694,92 +683,7 @@ namespace backcraft
 
         private void moveStuff(int newLoc)
         {
-            if (isPanelOpened)
-            {
-                if (panels.minecraftPanel)
-                {
-                    if (panels.minecraftPanel)
-                    {
-                        doStyleResize(0);
-                        panels.minecraftPanel = true;
-                        panels.resourcesPanel = false;
-                        panels.savesPanel = false;
-                        isPanelOpened = false;
-                        return;
-                    }
-                    if (panels.resourcesPanel)
-                    {
-                        doStyleResize(newLoc);
-                        panels.minecraftPanel = false;
-                        panels.resourcesPanel = true;
-                        panels.savesPanel = false;
-                        isPanelOpened = true;
-                        return;
-                    }
-                    else
-                    {
-                        doStyleResize(newLoc);
-                        panels.minecraftPanel = false;
-                        panels.resourcesPanel = false;
-                        panels.savesPanel = true;
-                        isPanelOpened = true;
-                        return;
-                    }
-
-                }
-                else if (panels.resourcesPanel)
-                {
-                    doStyleResize(0);
-                    panels.minecraftPanel = false;
-                    panels.resourcesPanel = false;
-                    panels.savesPanel = false;
-                    isPanelOpened = false;
-                    return;
-                }
-                else if (panels.savesPanel)
-                {
-                    doStyleResize(0);
-                    panels.minecraftPanel = false;
-                    panels.resourcesPanel = false;
-                    panels.savesPanel = false;
-                    isPanelOpened = false;
-                    return;
-                }
-            }
-            else
-            {
-                if (panels.minecraftPanel && !isPanelOpened)
-                {
-                    doStyleResize(newLoc);
-                    panels.minecraftPanel = true;
-                    panels.resourcesPanel = false;
-                    panels.savesPanel = false;
-                    isPanelOpened = true;
-                    return;
-                }
-
-                else if (panels.resourcesPanel && !isPanelOpened)
-                {
-                    doStyleResize(newLoc);
-                    panels.minecraftPanel = false;
-                    panels.resourcesPanel = true;
-                    panels.savesPanel = false;
-                    isPanelOpened = true;
-                    return;
-                }
-                else if (panels.savesPanel && !isPanelOpened)
-                {
-                    doStyleResize(newLoc);
-                    panels.minecraftPanel = false;
-                    panels.resourcesPanel = false;
-                    panels.savesPanel = true;
-                    isPanelOpened = true;
-                    return;
-                }
-
-            }
-
-
+            doStyleResize(newLoc);
         }
 
         private void doStyleResize(int newLoc)
@@ -812,29 +716,45 @@ namespace backcraft
             //this.Height += 50;
             //int cLocation = b_panel.Location.Y;
             //b_panel.Location = new Point(b_panel.Location.X, cLocation += 50);7
-            panels.minecraftPanel = true;
-            moveStuff(40);
+            label_text.Text = "Select the Minecraft's folder path";
+
+            moveStuff(60);
+
+
             textbox_minecraftpath.Visible = true;
             btn_minecraftfoldersearch.Visible = true;
             btn_minecraftpathsave.Visible = true;
             gridview_resourcepacks.Visible = false;
+            gridview_worlds.Visible = false;
 
         }
 
         private void btn_resourcepacks_Click(object sender, EventArgs e)
         {
+            label_text.Text = "Select the resource packs to save";
+
             //new forms.minecraft.m_resourcepacks().ShowDialog();
-            panels.resourcesPanel = true;
-            moveStuff(180);
+            moveStuff(210);
+
             textbox_minecraftpath.Visible = false;
             btn_minecraftfoldersearch.Visible = false;
             btn_minecraftpathsave.Visible = false;
             gridview_resourcepacks.Visible = true;
+            gridview_worlds.Visible = false;
         }
 
         private void btn_saves_Click(object sender, EventArgs e)
         {
-            new forms.minecraft.m_saves().ShowDialog();
+            label_text.Text = "Select the worlds to save";
+
+            //new forms.minecraft.m_saves().ShowDialog();
+            moveStuff(210);
+
+            textbox_minecraftpath.Visible = false;
+            btn_minecraftfoldersearch.Visible = false;
+            btn_minecraftpathsave.Visible = false;
+            gridview_resourcepacks.Visible = false;
+            gridview_worlds.Visible = true;
         }
 
         #endregion
@@ -1255,6 +1175,16 @@ namespace backcraft
         private void btn_report_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("https://github.com/emimontesdeoca/Backcraft/issues/new");
+
+        }
+
+        private void btn_close_Click(object sender, EventArgs e)
+        {
+            moveStuff(0);
+        }
+
+        private void m_panel_Enter(object sender, EventArgs e)
+        {
 
         }
     }
