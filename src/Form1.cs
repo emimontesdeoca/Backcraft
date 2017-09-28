@@ -32,13 +32,32 @@ namespace backcraft
         public int _IntervalTime { get; set; } = 5;
         public static bool[] states = new bool[6];
         private const string currentVersion = "3.1";
+        public bool isPanelOpened { get; set; }
+
+        public struct openPanels
+        {
+            public bool minecraftPanel { get; set; }
+            public bool resourcesPanel { get; set; }
+            public bool savesPanel { get; set; }
+        }
+
+        public static openPanels panels = new openPanels() { minecraftPanel = false, resourcesPanel = false, savesPanel = false };
 
         public Form1()
         {
             InitializeComponent();
 
+
+            panels.minecraftPanel = false;
+            panels.resourcesPanel = false;
+            panels.savesPanel = false;
+
+
             MaximizeBox = false;
             label_version.Text = "v" + currentVersion;
+
+
+            #region IMAGES
 
             object o = Properties.Resources.ResourceManager.GetObject("settings");
             btn_minecraftfolder.Image = (Image)o;
@@ -67,7 +86,7 @@ namespace backcraft
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
 
-
+            #endregion
 
             #region GET LOGS VALUE AT START
 
@@ -673,15 +692,144 @@ namespace backcraft
 
         #region BUTTONS
 
+        private void moveStuff(int newLoc)
+        {
+            if (isPanelOpened)
+            {
+                if (panels.minecraftPanel)
+                {
+                    if (panels.minecraftPanel)
+                    {
+                        doStyleResize(0);
+                        panels.minecraftPanel = true;
+                        panels.resourcesPanel = false;
+                        panels.savesPanel = false;
+                        isPanelOpened = false;
+                        return;
+                    }
+                    if (panels.resourcesPanel)
+                    {
+                        doStyleResize(newLoc);
+                        panels.minecraftPanel = false;
+                        panels.resourcesPanel = true;
+                        panels.savesPanel = false;
+                        isPanelOpened = true;
+                        return;
+                    }
+                    else
+                    {
+                        doStyleResize(newLoc);
+                        panels.minecraftPanel = false;
+                        panels.resourcesPanel = false;
+                        panels.savesPanel = true;
+                        isPanelOpened = true;
+                        return;
+                    }
+
+                }
+                else if (panels.resourcesPanel)
+                {
+                    doStyleResize(0);
+                    panels.minecraftPanel = false;
+                    panels.resourcesPanel = false;
+                    panels.savesPanel = false;
+                    isPanelOpened = false;
+                    return;
+                }
+                else if (panels.savesPanel)
+                {
+                    doStyleResize(0);
+                    panels.minecraftPanel = false;
+                    panels.resourcesPanel = false;
+                    panels.savesPanel = false;
+                    isPanelOpened = false;
+                    return;
+                }
+            }
+            else
+            {
+                if (panels.minecraftPanel && !isPanelOpened)
+                {
+                    doStyleResize(newLoc);
+                    panels.minecraftPanel = true;
+                    panels.resourcesPanel = false;
+                    panels.savesPanel = false;
+                    isPanelOpened = true;
+                    return;
+                }
+
+                else if (panels.resourcesPanel && !isPanelOpened)
+                {
+                    doStyleResize(newLoc);
+                    panels.minecraftPanel = false;
+                    panels.resourcesPanel = true;
+                    panels.savesPanel = false;
+                    isPanelOpened = true;
+                    return;
+                }
+                else if (panels.savesPanel && !isPanelOpened)
+                {
+                    doStyleResize(newLoc);
+                    panels.minecraftPanel = false;
+                    panels.resourcesPanel = false;
+                    panels.savesPanel = true;
+                    isPanelOpened = true;
+                    return;
+                }
+
+            }
+
+
+        }
+
+        private void doStyleResize(int newLoc)
+        {
+            m_panel.Height = 170 + newLoc;
+            this.Height = 550 + newLoc;
+
+            //int cLocation = getLocationOfItem(c);
+            b_panel.Location = new Point(b_panel.Location.X, m_panel.Location.Y + m_panel.Height + 5);
+
+            ///btns
+            back_save.Location = new Point(back_save.Location.X, b_panel.Location.Y + b_panel.Height + 5);
+            button1.Location = new Point(button1.Location.X, b_panel.Location.Y + b_panel.Height + 5);
+            btn_deletesettings.Location = new Point(btn_deletesettings.Location.X, b_panel.Location.Y + b_panel.Height + 5);
+
+            ///footer
+            label4.Location = new Point(label4.Location.X, btn_deletesettings.Location.Y + btn_deletesettings.Height + 5);
+            label5.Location = new Point(label5.Location.X, btn_deletesettings.Location.Y + btn_deletesettings.Height + 5);
+            label6.Location = new Point(label6.Location.X, btn_deletesettings.Location.Y + btn_deletesettings.Height + 5);
+            label10.Location = new Point(label10.Location.X, label4.Location.Y + label4.Height + 5);
+            label_settings.Location = new Point(label_settings.Location.X, label4.Location.Y + label4.Height + 5);
+            pictureBox1.Location = new Point(pictureBox1.Location.X, label4.Location.Y + label4.Height + 5);
+            pictureBox2.Location = new Point(pictureBox2.Location.X, label4.Location.Y + label4.Height + 5);
+        }
+
         private void btn_minecraftfolder_Click(object sender, EventArgs e)
         {
-            new forms.minecraft.m_minecraftpath().ShowDialog();
+            //new forms.minecraft.m_minecraftpath().ShowDialog();
+            //m_panel.Height += 50;
+            //this.Height += 50;
+            //int cLocation = b_panel.Location.Y;
+            //b_panel.Location = new Point(b_panel.Location.X, cLocation += 50);7
+            panels.minecraftPanel = true;
+            moveStuff(40);
+            textbox_minecraftpath.Visible = true;
+            btn_minecraftfoldersearch.Visible = true;
+            btn_minecraftpathsave.Visible = true;
+            gridview_resourcepacks.Visible = false;
 
         }
 
         private void btn_resourcepacks_Click(object sender, EventArgs e)
         {
-            new forms.minecraft.m_resourcepacks().ShowDialog();
+            //new forms.minecraft.m_resourcepacks().ShowDialog();
+            panels.resourcesPanel = true;
+            moveStuff(180);
+            textbox_minecraftpath.Visible = false;
+            btn_minecraftfoldersearch.Visible = false;
+            btn_minecraftpathsave.Visible = false;
+            gridview_resourcepacks.Visible = true;
         }
 
         private void btn_saves_Click(object sender, EventArgs e)

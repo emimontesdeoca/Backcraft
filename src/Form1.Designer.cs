@@ -37,6 +37,11 @@
             this.set_launcher = new System.Windows.Forms.CheckBox();
             this.set_options = new System.Windows.Forms.CheckBox();
             this.m_panel = new System.Windows.Forms.GroupBox();
+            this.gridview_resourcepacks = new System.Windows.Forms.DataGridView();
+            this.btn_minecraftfoldersearch = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.btn_minecraftpathsave = new System.Windows.Forms.Button();
+            this.textbox_minecraftpath = new System.Windows.Forms.TextBox();
             this.btn_minecraftfolder = new System.Windows.Forms.Button();
             this.label_checkboxscreenshots = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -93,6 +98,7 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.m_panel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridview_resourcepacks)).BeginInit();
             this.b_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scroll_interval)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -168,6 +174,11 @@
             // 
             // m_panel
             // 
+            this.m_panel.Controls.Add(this.gridview_resourcepacks);
+            this.m_panel.Controls.Add(this.btn_minecraftfoldersearch);
+            this.m_panel.Controls.Add(this.label7);
+            this.m_panel.Controls.Add(this.btn_minecraftpathsave);
+            this.m_panel.Controls.Add(this.textbox_minecraftpath);
             this.m_panel.Controls.Add(this.btn_minecraftfolder);
             this.m_panel.Controls.Add(this.label_checkboxscreenshots);
             this.m_panel.Controls.Add(this.label9);
@@ -190,10 +201,54 @@
             this.m_panel.Controls.Add(this.set_launcher);
             this.m_panel.Location = new System.Drawing.Point(9, 39);
             this.m_panel.Name = "m_panel";
-            this.m_panel.Size = new System.Drawing.Size(334, 172);
+            this.m_panel.Size = new System.Drawing.Size(334, 170);
             this.m_panel.TabIndex = 11;
             this.m_panel.TabStop = false;
             this.m_panel.Text = "Backup";
+            // 
+            // gridview_resourcepacks
+            // 
+            this.gridview_resourcepacks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridview_resourcepacks.Location = new System.Drawing.Point(6, 175);
+            this.gridview_resourcepacks.Name = "gridview_resourcepacks";
+            this.gridview_resourcepacks.Size = new System.Drawing.Size(322, 169);
+            this.gridview_resourcepacks.TabIndex = 41;
+            this.gridview_resourcepacks.Visible = false;
+            // 
+            // btn_minecraftfoldersearch
+            // 
+            this.btn_minecraftfoldersearch.Location = new System.Drawing.Point(266, 179);
+            this.btn_minecraftfoldersearch.Name = "btn_minecraftfoldersearch";
+            this.btn_minecraftfoldersearch.Size = new System.Drawing.Size(28, 23);
+            this.btn_minecraftfoldersearch.TabIndex = 40;
+            this.btn_minecraftfoldersearch.UseVisualStyleBackColor = true;
+            this.btn_minecraftfoldersearch.Visible = false;
+            // 
+            // label7
+            // 
+            this.label7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label7.Location = new System.Drawing.Point(-11, 170);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(369, 1);
+            this.label7.TabIndex = 39;
+            this.label7.Text = "label7";
+            // 
+            // btn_minecraftpathsave
+            // 
+            this.btn_minecraftpathsave.Location = new System.Drawing.Point(300, 179);
+            this.btn_minecraftpathsave.Name = "btn_minecraftpathsave";
+            this.btn_minecraftpathsave.Size = new System.Drawing.Size(28, 23);
+            this.btn_minecraftpathsave.TabIndex = 37;
+            this.btn_minecraftpathsave.UseVisualStyleBackColor = true;
+            this.btn_minecraftpathsave.Visible = false;
+            // 
+            // textbox_minecraftpath
+            // 
+            this.textbox_minecraftpath.Location = new System.Drawing.Point(6, 180);
+            this.textbox_minecraftpath.Name = "textbox_minecraftpath";
+            this.textbox_minecraftpath.Size = new System.Drawing.Size(254, 20);
+            this.textbox_minecraftpath.TabIndex = 37;
+            this.textbox_minecraftpath.Visible = false;
             // 
             // btn_minecraftfolder
             // 
@@ -363,7 +418,7 @@
             this.b_panel.Controls.Add(this.label1);
             this.b_panel.Controls.Add(this.back_enablelog);
             this.b_panel.Controls.Add(this.label8);
-            this.b_panel.Location = new System.Drawing.Point(9, 217);
+            this.b_panel.Location = new System.Drawing.Point(9, 215);
             this.b_panel.Name = "b_panel";
             this.b_panel.Size = new System.Drawing.Size(334, 222);
             this.b_panel.TabIndex = 12;
@@ -577,7 +632,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(131, 445);
+            this.button1.Location = new System.Drawing.Point(131, 443);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(90, 32);
             this.button1.TabIndex = 15;
@@ -587,7 +642,7 @@
             // 
             // back_save
             // 
-            this.back_save.Location = new System.Drawing.Point(35, 445);
+            this.back_save.Location = new System.Drawing.Point(35, 443);
             this.back_save.Name = "back_save";
             this.back_save.Size = new System.Drawing.Size(90, 32);
             this.back_save.TabIndex = 14;
@@ -599,7 +654,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(6, 490);
+            this.label10.Location = new System.Drawing.Point(6, 488);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(133, 15);
             this.label10.TabIndex = 13;
@@ -645,7 +700,7 @@
             // 
             // btn_deletesettings
             // 
-            this.btn_deletesettings.Location = new System.Drawing.Point(227, 445);
+            this.btn_deletesettings.Location = new System.Drawing.Point(227, 443);
             this.btn_deletesettings.Name = "btn_deletesettings";
             this.btn_deletesettings.Size = new System.Drawing.Size(90, 32);
             this.btn_deletesettings.TabIndex = 18;
@@ -666,7 +721,7 @@
             // 
             this.label_settings.AutoSize = true;
             this.label_settings.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_settings.Location = new System.Drawing.Point(166, 490);
+            this.label_settings.Location = new System.Drawing.Point(166, 488);
             this.label_settings.Name = "label_settings";
             this.label_settings.Size = new System.Drawing.Size(105, 15);
             this.label_settings.TabIndex = 22;
@@ -675,7 +730,7 @@
             // label4
             // 
             this.label4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label4.Location = new System.Drawing.Point(-7, 483);
+            this.label4.Location = new System.Drawing.Point(-7, 481);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(369, 2);
             this.label4.TabIndex = 23;
@@ -684,7 +739,7 @@
             // label5
             // 
             this.label5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label5.Location = new System.Drawing.Point(284, 484);
+            this.label5.Location = new System.Drawing.Point(284, 482);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(2, 35);
             this.label5.TabIndex = 24;
@@ -693,7 +748,7 @@
             // label6
             // 
             this.label6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label6.Location = new System.Drawing.Point(154, 484);
+            this.label6.Location = new System.Drawing.Point(154, 482);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(2, 35);
             this.label6.TabIndex = 25;
@@ -729,7 +784,7 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = global::backcraft.Properties.Resources.twitter;
-            this.pictureBox2.Location = new System.Drawing.Point(293, 487);
+            this.pictureBox2.Location = new System.Drawing.Point(293, 485);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(20, 20);
             this.pictureBox2.TabIndex = 20;
@@ -739,7 +794,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::backcraft.Properties.Resources.github;
-            this.pictureBox1.Location = new System.Drawing.Point(323, 487);
+            this.pictureBox1.Location = new System.Drawing.Point(323, 485);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(20, 20);
             this.pictureBox1.TabIndex = 19;
@@ -779,6 +834,7 @@
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.m_panel.ResumeLayout(false);
             this.m_panel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridview_resourcepacks)).EndInit();
             this.b_panel.ResumeLayout(false);
             this.b_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scroll_interval)).EndInit();
@@ -834,7 +890,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox back_intervaltextbox;
-        private System.Windows.Forms.Button btn_minecraftfolder;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Button btn_deletesettings;
@@ -855,6 +910,12 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btn_report;
         private System.Windows.Forms.Button btn_info;
+        public System.Windows.Forms.Button btn_minecraftfolder;
+        private System.Windows.Forms.Button btn_minecraftfoldersearch;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button btn_minecraftpathsave;
+        private System.Windows.Forms.TextBox textbox_minecraftpath;
+        private System.Windows.Forms.DataGridView gridview_resourcepacks;
     }
 }
 
