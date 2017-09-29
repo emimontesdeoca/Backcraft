@@ -121,7 +121,6 @@ namespace backcraft.forms.minecraft
                 }
 
             }
-            //logic.resourcepacks.FinallyWriteFile();
 
             this.Close();
         }

@@ -163,6 +163,8 @@
   <ItemGroup>
     <Content Include="assets\icon.ico" />
     <Content Include="icon.ico" />
+    <None Include="Resources\save.png" />
+    <None Include="Resources\folder.png" />
     <None Include="Resources\close.png" />
     <None Include="Resources\info.png" />
     <None Include="Resources\updates.png" />

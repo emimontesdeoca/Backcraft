@@ -32,7 +32,6 @@ namespace backcraft
         public int _IntervalTime { get; set; } = 5;
         public static bool[] states = new bool[6];
         private const string currentVersion = "3.1";
-        public bool isPanelOpened { get; set; }
 
         public Form1()
         {
@@ -40,7 +39,6 @@ namespace backcraft
 
             MaximizeBox = false;
             label_version.Text = "v" + currentVersion;
-
 
             #region IMAGES
 
@@ -71,6 +69,20 @@ namespace backcraft
             object close = Properties.Resources.ResourceManager.GetObject("close");
             btn_close.Image = (Image)close;
             btn_close.ImageAlign = ContentAlignment.MiddleCenter;
+
+            object folder = Properties.Resources.ResourceManager.GetObject("folder");
+            btn_minecraftfoldersearch.Image = (Image)folder;
+            btn_minecraftfoldersearch.ImageAlign = ContentAlignment.MiddleCenter;
+
+            object save = Properties.Resources.ResourceManager.GetObject("save");
+            btn_minecraftpathsave.Image = (Image)save;
+            btn_minecraftpathsave.ImageAlign = ContentAlignment.MiddleCenter;
+
+            btn_saveresourcepacks.Image = (Image)save;
+            btn_saveresourcepacks.ImageAlign = ContentAlignment.MiddleCenter;
+
+            btn_saveworlds.Image = (Image)save;
+            btn_saveworlds.ImageAlign = ContentAlignment.MiddleCenter;
 
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -512,6 +524,7 @@ namespace backcraft
 
         private void Form1_Load(object sender, EventArgs e)
         {
+
             int interval = _IntervalTime;
 
             CancellationToken cancel = new CancellationToken();
@@ -526,6 +539,206 @@ namespace backcraft
             new logs.log().WriteLog(0, "Backcraft finished loading");
 
         }
+
+        #region GRIDVIEWS
+
+        #region MINECRAFR PATH
+
+        private void btn_minecraftpathsave_Click(object sender, EventArgs e)
+        {
+            new logic.cfg("minecraft", textbox_minecraftpath.Text.ToString()).WriteCFG();
+            _MinecraftPath = textbox_minecraftpath.Text;
+        }
+
+        #endregion
+
+        #region WORLDS
+
+        private void btn_saveworlds_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow r in gridview_worlds.Rows)
+            {
+                string name = r.Cells[0].Value.ToString();
+                string path = r.Cells[1].Value.ToString();
+                string check = r.Cells[2].Value.ToString();
+                if (Convert.ToBoolean(check))
+                {
+                    new logic.files(name, path, "d").WriteCFG();
+                }
+                else
+                {
+                    try
+                    {
+                        new logic.files().DeleteFromFile(name, path);
+                    }
+                    catch (Exception)
+                    {
+                    }
+                }
+
+            }
+        }
+
+        #endregion
+
+        #region RESOURCEPACKS
+
+        private void btn_saveresourcepacks_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow r in gridview_resourcepacks.Rows)
+            {
+                string name = r.Cells[0].Value.ToString();
+                string path = r.Cells[1].Value.ToString();
+                string check = r.Cells[2].Value.ToString();
+                if (Convert.ToBoolean(check))
+                {
+                    new logic.files(name, path, "d").WriteCFG();
+                }
+                else
+                {
+                    try
+                    {
+                        new logic.files().DeleteFromFile(name, path);
+                    }
+                    catch (Exception)
+                    {
+                    }
+                }
+
+            }
+        }
+
+        #endregion
+
+        #region LOAD GRIDVIEW ITEMS
+
+        private void loadGridviewResourcePacks()
+        {
+            gridview_resourcepacks.Enabled = false;
+
+            var col1 = new DataGridViewTextBoxColumn();
+            var col2 = new DataGridViewTextBoxColumn();
+            var col3 = new DataGridViewCheckBoxColumn();
+
+            col1.HeaderText = "Name";
+            col1.Name = "name";
+
+            col2.HeaderText = "Path";
+            col2.Name = "path";
+
+            col3.HeaderText = "Backup";
+            col3.Name = "backup";
+
+
+            gridview_resourcepacks.Columns.AddRange(new DataGridViewColumn[] { col1, col2, col3 });
+            gridview_resourcepacks.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            gridview_resourcepacks.AllowUserToAddRows = false;
+
+            gridview_resourcepacks.RowHeadersVisible = false;
+            col3.Width = 50;
+
+            gridview_resourcepacks.Rows.Clear();
+            btn_saveresourcepacks.Enabled = false;
+            try
+            {
+                List<string> d = Directory.GetDirectories(_MinecraftPath + @"\resourcepacks").ToList();
+
+                try
+                {
+                    List<logic.files> files = logic.files.GetFiles();
+
+                    foreach (string dir in d)
+                    {
+                        string name = dir.Split('\\').Last();
+                        string path = dir;
+                        bool check = false;
+                        try
+                        {
+                            if (files.Single(x => x.name == name && x.path == path) != null)
+                            {
+                                check = true;
+                            }
+                        }
+                        catch (Exception)
+                        {
+                        }
+                        gridview_resourcepacks.Rows.Add(name, path, check);
+                    }
+                }
+                catch (Exception)
+                {
+                    foreach (string dir in d)
+                    {
+                        string name = dir.Split('\\').Last();
+                        string path = dir;
+                        bool check = false;
+
+                        gridview_resourcepacks.Rows.Add(name, path, check);
+                    }
+                }
+
+                gridview_resourcepacks.Enabled = true;
+                btn_saveresourcepacks.Enabled = true;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error getting the folders from the path! Check out that the Minecraft path is correct or if there are files inside the folder!", "Backcraft");
+            }
+        }
+
+        private void loadGridviewWorlds()
+        {
+            gridview_worlds.Rows.Clear();
+            btn_saveworlds.Enabled = false;
+
+            try
+            {
+                List<string> d = Directory.GetDirectories(_MinecraftPath + @"\saves").ToList();
+
+                try
+                {
+                    List<logic.files> files = logic.files.GetFiles();
+                    foreach (string dir in d)
+                    {
+                        string name = dir.Split('\\').Last();
+                        string path = dir;
+                        bool check = false;
+                        try
+                        {
+                            if (files.Single(x => x.name == name && x.path == path) != null)
+                            {
+                                check = true;
+                            }
+                        }
+                        catch (Exception)
+                        {
+                        }
+                        gridview_worlds.Rows.Add(name, path, check);
+                    }
+                }
+                catch (Exception)
+                {
+                    foreach (string dir in d)
+                    {
+                        string name = dir.Split('\\').Last();
+                        string path = dir;
+                        bool check = false;
+                        gridview_worlds.Rows.Add(name, path, check);
+                    }
+                }
+
+                gridview_worlds.Enabled = true;
+                btn_saveworlds.Enabled = true;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error getting the folders from the path! Check out that the Minecraft path is correct or if there are files inside the folder!", "Backcraft");
+            }
+        }
+
+        #endregion
+
+        #endregion
 
         #region BACKCRAFT
 
@@ -681,6 +894,81 @@ namespace backcraft
 
         #region BUTTONS
 
+        private void btn_minecraftfolder_Click(object sender, EventArgs e)
+        {
+            label_text.Text = "Select the Minecraft's folder path";
+
+            moveStuff(60);
+
+            btn_minecraftpathsave.Visible = true;
+            btn_saveworlds.Visible = false;
+            btn_saveresourcepacks.Visible = false;
+
+            textbox_minecraftpath.Visible = true;
+            btn_minecraftfoldersearch.Visible = true;
+            btn_minecraftpathsave.Visible = true;
+            gridview_resourcepacks.Visible = false;
+            gridview_worlds.Visible = false;
+
+            textbox_minecraftpath.Text = _MinecraftPath.ToString();
+
+        }
+
+        private void btn_resourcepacks_Click(object sender, EventArgs e)
+        {
+            label_text.Text = "Select the resource packs to save";
+
+            //new forms.minecraft.m_resourcepacks().ShowDialog();
+            moveStuff(210);
+
+            btn_minecraftpathsave.Visible = false;
+            btn_saveworlds.Visible = false;
+            btn_saveresourcepacks.Visible = true;
+
+            textbox_minecraftpath.Visible = false;
+            btn_minecraftfoldersearch.Visible = false;
+            btn_minecraftpathsave.Visible = false;
+            gridview_resourcepacks.Visible = true;
+            gridview_worlds.Visible = false;
+
+            loadGridviewResourcePacks();
+        }
+
+        private void btn_saves_Click(object sender, EventArgs e)
+        {
+            label_text.Text = "Select the worlds to save";
+
+            //new forms.minecraft.m_saves().ShowDialog();
+            moveStuff(210);
+
+            btn_minecraftpathsave.Visible = false;
+            btn_saveworlds.Visible = true;
+            btn_saveresourcepacks.Visible = false;
+
+            textbox_minecraftpath.Visible = false;
+            btn_minecraftfoldersearch.Visible = false;
+            btn_minecraftpathsave.Visible = false;
+            gridview_resourcepacks.Visible = false;
+            gridview_worlds.Visible = true;
+
+            loadGridviewWorlds();
+        }
+
+        #endregion
+
+        #region SCROLL
+
+        private void scroll_interval_Scroll(object sender, EventArgs e)
+        {
+            back_intervaltextbox.Text = scroll_interval.Value.ToString();
+        }
+
+        #endregion
+
+        #endregion
+
+        #region STYLING
+
         private void moveStuff(int newLoc)
         {
             doStyleResize(newLoc);
@@ -689,9 +977,8 @@ namespace backcraft
         private void doStyleResize(int newLoc)
         {
             m_panel.Height = 170 + newLoc;
-            this.Height = 550 + newLoc;
+            this.Height = 545 + newLoc;
 
-            //int cLocation = getLocationOfItem(c);
             b_panel.Location = new Point(b_panel.Location.X, m_panel.Location.Y + m_panel.Height + 5);
 
             ///btns
@@ -705,68 +992,14 @@ namespace backcraft
             label6.Location = new Point(label6.Location.X, btn_deletesettings.Location.Y + btn_deletesettings.Height + 5);
             label10.Location = new Point(label10.Location.X, label4.Location.Y + label4.Height + 5);
             label_settings.Location = new Point(label_settings.Location.X, label4.Location.Y + label4.Height + 5);
-            pictureBox1.Location = new Point(pictureBox1.Location.X, label4.Location.Y + label4.Height + 5);
-            pictureBox2.Location = new Point(pictureBox2.Location.X, label4.Location.Y + label4.Height + 5);
+            pictureBox1.Location = new Point(pictureBox1.Location.X, label4.Location.Y + label4.Height + 3);
+            pictureBox2.Location = new Point(pictureBox2.Location.X, label4.Location.Y + label4.Height + 4);
         }
 
-        private void btn_minecraftfolder_Click(object sender, EventArgs e)
+        private void btn_close_Click(object sender, EventArgs e)
         {
-            //new forms.minecraft.m_minecraftpath().ShowDialog();
-            //m_panel.Height += 50;
-            //this.Height += 50;
-            //int cLocation = b_panel.Location.Y;
-            //b_panel.Location = new Point(b_panel.Location.X, cLocation += 50);7
-            label_text.Text = "Select the Minecraft's folder path";
-
-            moveStuff(60);
-
-
-            textbox_minecraftpath.Visible = true;
-            btn_minecraftfoldersearch.Visible = true;
-            btn_minecraftpathsave.Visible = true;
-            gridview_resourcepacks.Visible = false;
-            gridview_worlds.Visible = false;
-
+            moveStuff(0);
         }
-
-        private void btn_resourcepacks_Click(object sender, EventArgs e)
-        {
-            label_text.Text = "Select the resource packs to save";
-
-            //new forms.minecraft.m_resourcepacks().ShowDialog();
-            moveStuff(210);
-
-            textbox_minecraftpath.Visible = false;
-            btn_minecraftfoldersearch.Visible = false;
-            btn_minecraftpathsave.Visible = false;
-            gridview_resourcepacks.Visible = true;
-            gridview_worlds.Visible = false;
-        }
-
-        private void btn_saves_Click(object sender, EventArgs e)
-        {
-            label_text.Text = "Select the worlds to save";
-
-            //new forms.minecraft.m_saves().ShowDialog();
-            moveStuff(210);
-
-            textbox_minecraftpath.Visible = false;
-            btn_minecraftfoldersearch.Visible = false;
-            btn_minecraftpathsave.Visible = false;
-            gridview_resourcepacks.Visible = false;
-            gridview_worlds.Visible = true;
-        }
-
-        #endregion
-
-        #region SCROLL
-
-        private void scroll_interval_Scroll(object sender, EventArgs e)
-        {
-            back_intervaltextbox.Text = scroll_interval.Value.ToString();
-        }
-
-        #endregion
 
         #endregion
 
@@ -1162,6 +1395,8 @@ namespace backcraft
 
         #endregion
 
+        #region FOOTER AND TOP
+
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("https://github.com/emimontesdeoca/backcraft");
@@ -1178,14 +1413,8 @@ namespace backcraft
 
         }
 
-        private void btn_close_Click(object sender, EventArgs e)
-        {
-            moveStuff(0);
-        }
 
-        private void m_panel_Enter(object sender, EventArgs e)
-        {
+        #endregion
 
-        }
     }
 }
