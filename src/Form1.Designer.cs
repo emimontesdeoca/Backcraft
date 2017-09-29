@@ -37,6 +37,8 @@
             this.set_launcher = new System.Windows.Forms.CheckBox();
             this.set_options = new System.Windows.Forms.CheckBox();
             this.m_panel = new System.Windows.Forms.GroupBox();
+            this.btn_saveworlds = new System.Windows.Forms.Button();
+            this.btn_saveresourcepacks = new System.Windows.Forms.Button();
             this.gridview_worlds = new System.Windows.Forms.DataGridView();
             this.gridview_resourcepacks = new System.Windows.Forms.DataGridView();
             this.btn_close = new System.Windows.Forms.Button();
@@ -100,8 +102,6 @@
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btn_saveresourcepacks = new System.Windows.Forms.Button();
-            this.btn_saveworlds = new System.Windows.Forms.Button();
             this.m_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridview_worlds)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridview_resourcepacks)).BeginInit();
@@ -217,10 +217,30 @@
             this.m_panel.TabStop = false;
             this.m_panel.Text = "Backup";
             // 
+            // btn_saveworlds
+            // 
+            this.btn_saveworlds.Location = new System.Drawing.Point(268, 177);
+            this.btn_saveworlds.Name = "btn_saveworlds";
+            this.btn_saveworlds.Size = new System.Drawing.Size(28, 23);
+            this.btn_saveworlds.TabIndex = 44;
+            this.btn_saveworlds.UseVisualStyleBackColor = true;
+            this.btn_saveworlds.Visible = false;
+            this.btn_saveworlds.Click += new System.EventHandler(this.btn_saveworlds_Click);
+            // 
+            // btn_saveresourcepacks
+            // 
+            this.btn_saveresourcepacks.Location = new System.Drawing.Point(268, 177);
+            this.btn_saveresourcepacks.Name = "btn_saveresourcepacks";
+            this.btn_saveresourcepacks.Size = new System.Drawing.Size(28, 23);
+            this.btn_saveresourcepacks.TabIndex = 43;
+            this.btn_saveresourcepacks.UseVisualStyleBackColor = true;
+            this.btn_saveresourcepacks.Visible = false;
+            this.btn_saveresourcepacks.Click += new System.EventHandler(this.btn_saveresourcepacks_Click);
+            // 
             // gridview_worlds
             // 
             this.gridview_worlds.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridview_worlds.Location = new System.Drawing.Point(10, 203);
+            this.gridview_worlds.Location = new System.Drawing.Point(9, 203);
             this.gridview_worlds.Name = "gridview_worlds";
             this.gridview_worlds.Size = new System.Drawing.Size(318, 169);
             this.gridview_worlds.TabIndex = 42;
@@ -229,7 +249,7 @@
             // gridview_resourcepacks
             // 
             this.gridview_resourcepacks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridview_resourcepacks.Location = new System.Drawing.Point(10, 203);
+            this.gridview_resourcepacks.Location = new System.Drawing.Point(9, 203);
             this.gridview_resourcepacks.Name = "gridview_resourcepacks";
             this.gridview_resourcepacks.Size = new System.Drawing.Size(318, 169);
             this.gridview_resourcepacks.TabIndex = 41;
@@ -261,6 +281,7 @@
             this.btn_minecraftfoldersearch.TabIndex = 40;
             this.btn_minecraftfoldersearch.UseVisualStyleBackColor = true;
             this.btn_minecraftfoldersearch.Visible = false;
+            this.btn_minecraftfoldersearch.Click += new System.EventHandler(this.btn_minecraftfoldersearch_Click);
             // 
             // label7
             // 
@@ -839,26 +860,6 @@
             this.pictureBox1.TabIndex = 19;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
-            // 
-            // btn_saveresourcepacks
-            // 
-            this.btn_saveresourcepacks.Location = new System.Drawing.Point(268, 177);
-            this.btn_saveresourcepacks.Name = "btn_saveresourcepacks";
-            this.btn_saveresourcepacks.Size = new System.Drawing.Size(28, 23);
-            this.btn_saveresourcepacks.TabIndex = 43;
-            this.btn_saveresourcepacks.UseVisualStyleBackColor = true;
-            this.btn_saveresourcepacks.Visible = false;
-            this.btn_saveresourcepacks.Click += new System.EventHandler(this.btn_saveresourcepacks_Click);
-            // 
-            // btn_saveworlds
-            // 
-            this.btn_saveworlds.Location = new System.Drawing.Point(268, 177);
-            this.btn_saveworlds.Name = "btn_saveworlds";
-            this.btn_saveworlds.Size = new System.Drawing.Size(28, 23);
-            this.btn_saveworlds.TabIndex = 44;
-            this.btn_saveworlds.UseVisualStyleBackColor = true;
-            this.btn_saveworlds.Visible = false;
-            this.btn_saveworlds.Click += new System.EventHandler(this.btn_saveworlds_Click);
             // 
             // Form1
             // 

@@ -522,8 +522,12 @@ namespace backcraft
 
         #endregion
 
+
+
         private void Form1_Load(object sender, EventArgs e)
         {
+            loadGridviewRPStructure();
+            loadGridviewWStructure();
 
             int interval = _IntervalTime;
 
@@ -549,6 +553,17 @@ namespace backcraft
             new logic.cfg("minecraft", textbox_minecraftpath.Text.ToString()).WriteCFG();
             _MinecraftPath = textbox_minecraftpath.Text;
         }
+
+        private void btn_minecraftfoldersearch_Click(object sender, EventArgs e)
+        {
+
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            if (fbd.ShowDialog() == DialogResult.OK)
+            {
+                textbox_minecraftpath.Text = fbd.SelectedPath;
+            }
+        }
+
 
         #endregion
 
@@ -612,9 +627,9 @@ namespace backcraft
 
         #region LOAD GRIDVIEW ITEMS
 
-        private void loadGridviewResourcePacks()
+        private void loadGridviewRPStructure()
         {
-            gridview_resourcepacks.Enabled = false;
+
 
             var col1 = new DataGridViewTextBoxColumn();
             var col2 = new DataGridViewTextBoxColumn();
@@ -630,12 +645,47 @@ namespace backcraft
             col3.Name = "backup";
 
 
-            gridview_resourcepacks.Columns.AddRange(new DataGridViewColumn[] { col1, col2, col3 });
+            gridview_worlds.Columns.AddRange(new DataGridViewColumn[] { col1, col2, col3 });
+            gridview_worlds.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            gridview_worlds.AllowUserToAddRows = false;
+
+            gridview_worlds.RowHeadersVisible = false;
+            col3.Width = 50;
+            col1.Width = 100;
+
+        }
+
+        private void loadGridviewWStructure()
+        {
+
+            var col1 = new DataGridViewTextBoxColumn();
+            var col2 = new DataGridViewTextBoxColumn();
+            var col3 = new DataGridViewCheckBoxColumn();
+
+            col1.HeaderText = "Name";
+            col1.Name = "name";
+
+            col2.HeaderText = "Path";
+            col2.Name = "path";
+
+            col3.HeaderText = "Backup";
+            col3.Name = "backup";
+
+
+            gridview_resourcepacks.Columns.AddRange(new DataGridViewColumn[] { col1, col2, col3
+    });
             gridview_resourcepacks.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             gridview_resourcepacks.AllowUserToAddRows = false;
 
             gridview_resourcepacks.RowHeadersVisible = false;
             col3.Width = 50;
+        }
+
+        private void loadGridviewResourcePacks()
+        {
+            gridview_resourcepacks.Enabled = false;
+
+
 
             gridview_resourcepacks.Rows.Clear();
             btn_saveresourcepacks.Enabled = false;
@@ -688,6 +738,9 @@ namespace backcraft
 
         private void loadGridviewWorlds()
         {
+            gridview_worlds.Enabled = false;
+
+
             gridview_worlds.Rows.Clear();
             btn_saveworlds.Enabled = false;
 
@@ -698,33 +751,40 @@ namespace backcraft
                 try
                 {
                     List<logic.files> files = logic.files.GetFiles();
-                    foreach (string dir in d)
+                    if (files.Count != 0)
                     {
-                        string name = dir.Split('\\').Last();
-                        string path = dir;
-                        bool check = false;
-                        try
+                        foreach (string dir in d)
                         {
-                            if (files.Single(x => x.name == name && x.path == path) != null)
+                            string name = dir.Split('\\').Last();
+                            string path = dir;
+                            bool check = false;
+                            try
                             {
-                                check = true;
+                                if (files.Single(x => x.name == name && x.path == path) != null)
+                                {
+                                    check = true;
+                                }
                             }
+                            catch (Exception)
+                            {
+                            }
+                            gridview_worlds.Rows.Add(name, path, check);
                         }
-                        catch (Exception)
+                    }
+                    else
+                    {
+
+                        foreach (string dir in d)
                         {
+                            string name = dir.Split('\\').Last();
+                            string path = dir;
+                            bool check = false;
+                            gridview_worlds.Rows.Add(name, path, check);
                         }
-                        gridview_worlds.Rows.Add(name, path, check);
                     }
                 }
                 catch (Exception)
                 {
-                    foreach (string dir in d)
-                    {
-                        string name = dir.Split('\\').Last();
-                        string path = dir;
-                        bool check = false;
-                        gridview_worlds.Rows.Add(name, path, check);
-                    }
                 }
 
                 gridview_worlds.Enabled = true;
@@ -953,6 +1013,7 @@ namespace backcraft
 
             loadGridviewWorlds();
         }
+
 
         #endregion
 
@@ -1415,6 +1476,7 @@ namespace backcraft
 
 
         #endregion
+
 
     }
 }
