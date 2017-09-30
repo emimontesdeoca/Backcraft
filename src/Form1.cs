@@ -37,6 +37,8 @@ namespace backcraft
         {
             InitializeComponent();
 
+            moveStuff(0);
+
             MaximizeBox = false;
             label_version.Text = "v" + currentVersion;
 
@@ -523,7 +525,6 @@ namespace backcraft
         #endregion
 
 
-
         private void Form1_Load(object sender, EventArgs e)
         {
             loadGridviewRPStructure();
@@ -561,65 +562,6 @@ namespace backcraft
             if (fbd.ShowDialog() == DialogResult.OK)
             {
                 textbox_minecraftpath.Text = fbd.SelectedPath;
-            }
-        }
-
-
-        #endregion
-
-        #region WORLDS
-
-        private void btn_saveworlds_Click(object sender, EventArgs e)
-        {
-            foreach (DataGridViewRow r in gridview_worlds.Rows)
-            {
-                string name = r.Cells[0].Value.ToString();
-                string path = r.Cells[1].Value.ToString();
-                string check = r.Cells[2].Value.ToString();
-                if (Convert.ToBoolean(check))
-                {
-                    new logic.files(name, path, "d").WriteCFG();
-                }
-                else
-                {
-                    try
-                    {
-                        new logic.files().DeleteFromFile(name, path);
-                    }
-                    catch (Exception)
-                    {
-                    }
-                }
-
-            }
-        }
-
-        #endregion
-
-        #region RESOURCEPACKS
-
-        private void btn_saveresourcepacks_Click(object sender, EventArgs e)
-        {
-            foreach (DataGridViewRow r in gridview_resourcepacks.Rows)
-            {
-                string name = r.Cells[0].Value.ToString();
-                string path = r.Cells[1].Value.ToString();
-                string check = r.Cells[2].Value.ToString();
-                if (Convert.ToBoolean(check))
-                {
-                    new logic.files(name, path, "d").WriteCFG();
-                }
-                else
-                {
-                    try
-                    {
-                        new logic.files().DeleteFromFile(name, path);
-                    }
-                    catch (Exception)
-                    {
-                    }
-                }
-
             }
         }
 
@@ -732,7 +674,7 @@ namespace backcraft
             }
             catch (Exception)
             {
-                MessageBox.Show("Error getting the folders from the path! Check out that the Minecraft path is correct or if there are files inside the folder!", "Backcraft");
+                throw new Exception();
             }
         }
 
@@ -792,7 +734,7 @@ namespace backcraft
             }
             catch (Exception)
             {
-                MessageBox.Show("Error getting the folders from the path! Check out that the Minecraft path is correct or if there are files inside the folder!", "Backcraft");
+                throw new Exception();
             }
         }
 
@@ -976,42 +918,68 @@ namespace backcraft
 
         private void btn_resourcepacks_Click(object sender, EventArgs e)
         {
-            label_text.Text = "Select the resource packs to save";
+            try
+            {
+                loadGridviewResourcePacks();
 
-            //new forms.minecraft.m_resourcepacks().ShowDialog();
-            moveStuff(210);
+                label_text.Text = "Select the resource packs to save";
 
-            btn_minecraftpathsave.Visible = false;
-            btn_saveworlds.Visible = false;
-            btn_saveresourcepacks.Visible = true;
+                moveStuff(210);
 
-            textbox_minecraftpath.Visible = false;
-            btn_minecraftfoldersearch.Visible = false;
-            btn_minecraftpathsave.Visible = false;
-            gridview_resourcepacks.Visible = true;
-            gridview_worlds.Visible = false;
+                btn_minecraftpathsave.Visible = false;
+                btn_saveworlds.Visible = false;
+                btn_saveresourcepacks.Visible = true;
 
-            loadGridviewResourcePacks();
+                textbox_minecraftpath.Visible = false;
+                btn_minecraftfoldersearch.Visible = false;
+                btn_minecraftpathsave.Visible = false;
+                gridview_resourcepacks.Visible = true;
+                gridview_worlds.Visible = false;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error getting the folders from the path! Check out that the Minecraft path is correct or if there are files inside the folder!", "Backcraft");
+                set_resource.Checked = false;
+                label_resource.Enabled = false;
+                label_checkboxresources.Enabled = false;
+
+            }
         }
 
         private void btn_saves_Click(object sender, EventArgs e)
         {
-            label_text.Text = "Select the worlds to save";
 
-            //new forms.minecraft.m_saves().ShowDialog();
-            moveStuff(210);
+            try
+            {
+                loadGridviewWorlds();
 
-            btn_minecraftpathsave.Visible = false;
-            btn_saveworlds.Visible = true;
-            btn_saveresourcepacks.Visible = false;
+                label_text.Text = "Select the worlds to save";
 
-            textbox_minecraftpath.Visible = false;
-            btn_minecraftfoldersearch.Visible = false;
-            btn_minecraftpathsave.Visible = false;
-            gridview_resourcepacks.Visible = false;
-            gridview_worlds.Visible = true;
+                //new forms.minecraft.m_saves().ShowDialog();
+                moveStuff(210);
 
-            loadGridviewWorlds();
+                btn_minecraftpathsave.Visible = false;
+                btn_saveworlds.Visible = true;
+                btn_saveresourcepacks.Visible = false;
+
+                textbox_minecraftpath.Visible = false;
+                btn_minecraftfoldersearch.Visible = false;
+                btn_minecraftpathsave.Visible = false;
+                gridview_resourcepacks.Visible = false;
+                gridview_worlds.Visible = true;
+
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error getting the folders from the path! Check out that the Minecraft path is correct or if there are files inside the folder!", "Backcraft");
+                set_saves.Checked = false;
+                label_checkboxsaves.Enabled = false;
+                label_saves.Enabled = false;
+
+            }
+
+
+
         }
 
 
@@ -1038,7 +1006,7 @@ namespace backcraft
         private void doStyleResize(int newLoc)
         {
             m_panel.Height = 170 + newLoc;
-            this.Height = 545 + newLoc;
+            this.Height = 543 + newLoc;
 
             b_panel.Location = new Point(b_panel.Location.X, m_panel.Location.Y + m_panel.Height + 5);
 
@@ -1053,8 +1021,8 @@ namespace backcraft
             label6.Location = new Point(label6.Location.X, btn_deletesettings.Location.Y + btn_deletesettings.Height + 5);
             label10.Location = new Point(label10.Location.X, label4.Location.Y + label4.Height + 5);
             label_settings.Location = new Point(label_settings.Location.X, label4.Location.Y + label4.Height + 5);
-            pictureBox1.Location = new Point(pictureBox1.Location.X, label4.Location.Y + label4.Height + 3);
-            pictureBox2.Location = new Point(pictureBox2.Location.X, label4.Location.Y + label4.Height + 4);
+            pictureBox1.Location = new Point(pictureBox1.Location.X, label4.Location.Y + label4.Height + 2);
+            pictureBox2.Location = new Point(pictureBox2.Location.X, label4.Location.Y + label4.Height + 3);
         }
 
         private void btn_close_Click(object sender, EventArgs e)
@@ -1202,6 +1170,28 @@ namespace backcraft
                     new logs.log().WriteLog(2, "Saved resource packs state: " + set_resource.Checked.ToString());
                 }
 
+                foreach (DataGridViewRow r in gridview_resourcepacks.Rows)
+                {
+                    string name = r.Cells[0].Value.ToString();
+                    string path = r.Cells[1].Value.ToString();
+                    string check = r.Cells[2].Value.ToString();
+                    if (Convert.ToBoolean(check))
+                    {
+                        new logic.files(name, path, "d").WriteCFG();
+                    }
+                    else
+                    {
+                        try
+                        {
+                            new logic.files().DeleteFromFile(name, path);
+                        }
+                        catch (Exception)
+                        {
+                        }
+                    }
+
+                }
+
 
                 #endregion
 
@@ -1215,6 +1205,28 @@ namespace backcraft
                 catch (Exception)
                 {
                     new logs.log().WriteLog(2, "Saved worlds state: " + set_saves.Checked.ToString());
+                }
+
+                foreach (DataGridViewRow r in gridview_worlds.Rows)
+                {
+                    string name = r.Cells[0].Value.ToString();
+                    string path = r.Cells[1].Value.ToString();
+                    string check = r.Cells[2].Value.ToString();
+                    if (Convert.ToBoolean(check))
+                    {
+                        new logic.files(name, path, "d").WriteCFG();
+                    }
+                    else
+                    {
+                        try
+                        {
+                            new logic.files().DeleteFromFile(name, path);
+                        }
+                        catch (Exception)
+                        {
+                        }
+                    }
+
                 }
 
 
@@ -1385,6 +1397,7 @@ namespace backcraft
                 #endregion
 
                 new logs.log().WriteLog(0, "All files saved, restarting Backcraft..");
+
                 RestartApp();
             }
             catch (Exception err)

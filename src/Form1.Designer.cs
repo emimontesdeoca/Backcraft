@@ -225,7 +225,6 @@
             this.btn_saveworlds.TabIndex = 44;
             this.btn_saveworlds.UseVisualStyleBackColor = true;
             this.btn_saveworlds.Visible = false;
-            this.btn_saveworlds.Click += new System.EventHandler(this.btn_saveworlds_Click);
             // 
             // btn_saveresourcepacks
             // 
@@ -235,7 +234,6 @@
             this.btn_saveresourcepacks.TabIndex = 43;
             this.btn_saveresourcepacks.UseVisualStyleBackColor = true;
             this.btn_saveresourcepacks.Visible = false;
-            this.btn_saveresourcepacks.Click += new System.EventHandler(this.btn_saveresourcepacks_Click);
             // 
             // gridview_worlds
             // 
@@ -480,7 +478,7 @@
             this.b_panel.Controls.Add(this.label8);
             this.b_panel.Location = new System.Drawing.Point(9, 213);
             this.b_panel.Name = "b_panel";
-            this.b_panel.Size = new System.Drawing.Size(334, 222);
+            this.b_panel.Size = new System.Drawing.Size(334, 220);
             this.b_panel.TabIndex = 12;
             this.b_panel.TabStop = false;
             this.b_panel.Text = "Settings";
@@ -854,7 +852,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::backcraft.Properties.Resources.github;
-            this.pictureBox1.Location = new System.Drawing.Point(319, 483);
+            this.pictureBox1.Location = new System.Drawing.Point(319, 482);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(20, 20);
             this.pictureBox1.TabIndex = 19;
@@ -865,7 +863,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(349, 511);
+            this.ClientSize = new System.Drawing.Size(349, 506);
             this.Controls.Add(this.btn_info);
             this.Controls.Add(this.btn_report);
             this.Controls.Add(this.label6);
