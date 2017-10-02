@@ -102,6 +102,15 @@
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.btn_settings_close = new System.Windows.Forms.Button();
+            this.gridview_backups = new System.Windows.Forms.DataGridView();
+            this.label_path = new System.Windows.Forms.Label();
+            this.textbox_path = new System.Windows.Forms.TextBox();
+            this.btn_search_path = new System.Windows.Forms.Button();
+            this.btn_add_path = new System.Windows.Forms.Button();
+            this.btn_search_7zip = new System.Windows.Forms.Button();
+            this.textbox_7zip = new System.Windows.Forms.TextBox();
             this.m_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridview_worlds)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridview_resourcepacks)).BeginInit();
@@ -111,6 +120,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridview_backups)).BeginInit();
             this.SuspendLayout();
             // 
             // label
@@ -457,8 +467,17 @@
             // 
             // b_panel
             // 
+            this.b_panel.Controls.Add(this.btn_search_7zip);
+            this.b_panel.Controls.Add(this.textbox_7zip);
+            this.b_panel.Controls.Add(this.btn_add_path);
+            this.b_panel.Controls.Add(this.btn_search_path);
+            this.b_panel.Controls.Add(this.gridview_backups);
+            this.b_panel.Controls.Add(this.btn_settings_close);
+            this.b_panel.Controls.Add(this.label11);
             this.b_panel.Controls.Add(this.label_updater2);
+            this.b_panel.Controls.Add(this.textbox_path);
             this.b_panel.Controls.Add(this.label_updater);
+            this.b_panel.Controls.Add(this.label_path);
             this.b_panel.Controls.Add(this.back_checkupdate);
             this.b_panel.Controls.Add(this.back_intervaltextbox);
             this.b_panel.Controls.Add(this.label13);
@@ -476,9 +495,9 @@
             this.b_panel.Controls.Add(this.label1);
             this.b_panel.Controls.Add(this.back_enablelog);
             this.b_panel.Controls.Add(this.label8);
-            this.b_panel.Location = new System.Drawing.Point(9, 213);
+            this.b_panel.Location = new System.Drawing.Point(8, 216);
             this.b_panel.Name = "b_panel";
-            this.b_panel.Size = new System.Drawing.Size(334, 220);
+            this.b_panel.Size = new System.Drawing.Size(334, 461);
             this.b_panel.TabIndex = 12;
             this.b_panel.TabStop = false;
             this.b_panel.Text = "Settings";
@@ -534,7 +553,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(295, 91);
+            this.button5.Location = new System.Drawing.Point(297, 91);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(28, 23);
             this.button5.TabIndex = 31;
@@ -553,7 +572,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(295, 65);
+            this.button3.Location = new System.Drawing.Point(297, 65);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(28, 23);
             this.button3.TabIndex = 26;
@@ -690,7 +709,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(131, 441);
+            this.button1.Location = new System.Drawing.Point(127, 708);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(90, 32);
             this.button1.TabIndex = 15;
@@ -700,7 +719,7 @@
             // 
             // back_save
             // 
-            this.back_save.Location = new System.Drawing.Point(35, 441);
+            this.back_save.Location = new System.Drawing.Point(31, 708);
             this.back_save.Name = "back_save";
             this.back_save.Size = new System.Drawing.Size(90, 32);
             this.back_save.TabIndex = 14;
@@ -712,7 +731,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(6, 486);
+            this.label10.Location = new System.Drawing.Point(2, 753);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(133, 15);
             this.label10.TabIndex = 13;
@@ -758,7 +777,7 @@
             // 
             // btn_deletesettings
             // 
-            this.btn_deletesettings.Location = new System.Drawing.Point(227, 441);
+            this.btn_deletesettings.Location = new System.Drawing.Point(223, 708);
             this.btn_deletesettings.Name = "btn_deletesettings";
             this.btn_deletesettings.Size = new System.Drawing.Size(90, 32);
             this.btn_deletesettings.TabIndex = 18;
@@ -779,7 +798,7 @@
             // 
             this.label_settings.AutoSize = true;
             this.label_settings.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_settings.Location = new System.Drawing.Point(166, 486);
+            this.label_settings.Location = new System.Drawing.Point(162, 753);
             this.label_settings.Name = "label_settings";
             this.label_settings.Size = new System.Drawing.Size(105, 15);
             this.label_settings.TabIndex = 22;
@@ -788,7 +807,7 @@
             // label4
             // 
             this.label4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label4.Location = new System.Drawing.Point(-7, 479);
+            this.label4.Location = new System.Drawing.Point(-11, 746);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(369, 2);
             this.label4.TabIndex = 23;
@@ -797,7 +816,7 @@
             // label5
             // 
             this.label5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label5.Location = new System.Drawing.Point(284, 480);
+            this.label5.Location = new System.Drawing.Point(280, 747);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(2, 35);
             this.label5.TabIndex = 24;
@@ -806,7 +825,7 @@
             // label6
             // 
             this.label6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label6.Location = new System.Drawing.Point(154, 480);
+            this.label6.Location = new System.Drawing.Point(150, 747);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(2, 35);
             this.label6.TabIndex = 25;
@@ -842,7 +861,7 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = global::backcraft.Properties.Resources.twitter;
-            this.pictureBox2.Location = new System.Drawing.Point(293, 483);
+            this.pictureBox2.Location = new System.Drawing.Point(289, 750);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(20, 20);
             this.pictureBox2.TabIndex = 20;
@@ -852,18 +871,106 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::backcraft.Properties.Resources.github;
-            this.pictureBox1.Location = new System.Drawing.Point(319, 482);
+            this.pictureBox1.Location = new System.Drawing.Point(317, 750);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(20, 20);
             this.pictureBox1.TabIndex = 19;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
+            // label11
+            // 
+            this.label11.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label11.Location = new System.Drawing.Point(-17, 220);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(369, 1);
+            this.label11.TabIndex = 46;
+            this.label11.Text = "label11";
+            // 
+            // btn_settings_close
+            // 
+            this.btn_settings_close.Location = new System.Drawing.Point(297, 224);
+            this.btn_settings_close.Name = "btn_settings_close";
+            this.btn_settings_close.Size = new System.Drawing.Size(28, 23);
+            this.btn_settings_close.TabIndex = 47;
+            this.btn_settings_close.UseVisualStyleBackColor = true;
+            this.btn_settings_close.Click += new System.EventHandler(this.btn_settings_close_Click);
+            // 
+            // gridview_backups
+            // 
+            this.gridview_backups.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridview_backups.Enabled = false;
+            this.gridview_backups.Location = new System.Drawing.Point(6, 286);
+            this.gridview_backups.Name = "gridview_backups";
+            this.gridview_backups.Size = new System.Drawing.Size(318, 169);
+            this.gridview_backups.TabIndex = 48;
+            this.gridview_backups.Visible = false;
+            this.gridview_backups.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridview_backups_CellContentClick);
+            // 
+            // label_path
+            // 
+            this.label_path.AutoSize = true;
+            this.label_path.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_path.Location = new System.Drawing.Point(6, 227);
+            this.label_path.Name = "label_path";
+            this.label_path.Size = new System.Drawing.Size(44, 18);
+            this.label_path.TabIndex = 1;
+            this.label_path.Text = "Path:";
+            // 
+            // textbox_path
+            // 
+            this.textbox_path.Location = new System.Drawing.Point(10, 255);
+            this.textbox_path.Name = "textbox_path";
+            this.textbox_path.Size = new System.Drawing.Size(243, 20);
+            this.textbox_path.TabIndex = 3;
+            this.textbox_path.Visible = false;
+            // 
+            // btn_search_path
+            // 
+            this.btn_search_path.Enabled = false;
+            this.btn_search_path.Location = new System.Drawing.Point(263, 253);
+            this.btn_search_path.Name = "btn_search_path";
+            this.btn_search_path.Size = new System.Drawing.Size(28, 23);
+            this.btn_search_path.TabIndex = 49;
+            this.btn_search_path.UseVisualStyleBackColor = true;
+            this.btn_search_path.Visible = false;
+            this.btn_search_path.Click += new System.EventHandler(this.btn_search_path_Click);
+            // 
+            // btn_add_path
+            // 
+            this.btn_add_path.Enabled = false;
+            this.btn_add_path.Location = new System.Drawing.Point(297, 253);
+            this.btn_add_path.Name = "btn_add_path";
+            this.btn_add_path.Size = new System.Drawing.Size(28, 23);
+            this.btn_add_path.TabIndex = 50;
+            this.btn_add_path.UseVisualStyleBackColor = true;
+            this.btn_add_path.Visible = false;
+            this.btn_add_path.Click += new System.EventHandler(this.btn_add_path_Click);
+            // 
+            // btn_search_7zip
+            // 
+            this.btn_search_7zip.Enabled = false;
+            this.btn_search_7zip.Location = new System.Drawing.Point(297, 253);
+            this.btn_search_7zip.Name = "btn_search_7zip";
+            this.btn_search_7zip.Size = new System.Drawing.Size(28, 23);
+            this.btn_search_7zip.TabIndex = 52;
+            this.btn_search_7zip.UseVisualStyleBackColor = true;
+            this.btn_search_7zip.Visible = false;
+            this.btn_search_7zip.Click += new System.EventHandler(this.btn_search_7zip_Click);
+            // 
+            // textbox_7zip
+            // 
+            this.textbox_7zip.Location = new System.Drawing.Point(10, 255);
+            this.textbox_7zip.Name = "textbox_7zip";
+            this.textbox_7zip.Size = new System.Drawing.Size(280, 20);
+            this.textbox_7zip.TabIndex = 51;
+            this.textbox_7zip.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(349, 506);
+            this.ClientSize = new System.Drawing.Size(349, 774);
             this.Controls.Add(this.btn_info);
             this.Controls.Add(this.btn_report);
             this.Controls.Add(this.label6);
@@ -901,6 +1008,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridview_backups)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -980,6 +1088,15 @@
         private System.Windows.Forms.Label label_text;
         private System.Windows.Forms.Button btn_saveworlds;
         private System.Windows.Forms.Button btn_saveresourcepacks;
+        private System.Windows.Forms.Button btn_settings_close;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.DataGridView gridview_backups;
+        private System.Windows.Forms.Label label_path;
+        private System.Windows.Forms.TextBox textbox_path;
+        private System.Windows.Forms.Button btn_search_path;
+        private System.Windows.Forms.Button btn_add_path;
+        private System.Windows.Forms.Button btn_search_7zip;
+        private System.Windows.Forms.TextBox textbox_7zip;
     }
 }
 

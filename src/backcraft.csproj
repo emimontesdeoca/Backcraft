@@ -66,12 +66,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="forms\about\about.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="forms\about\about.Designer.cs">
-      <DependentUpon>about.cs</DependentUpon>
-    </Compile>
     <Compile Include="logic\backup.cs" />
     <Compile Include="logic\cfg.cs" />
     <Compile Include="logic\files.cs" />
@@ -83,18 +77,6 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="forms\backcraft\b_7zip.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="forms\backcraft\b_7zip.Designer.cs">
-      <DependentUpon>b_7zip.cs</DependentUpon>
-    </Compile>
-    <Compile Include="forms\backcraft\b_backups.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="forms\backcraft\b_backups.Designer.cs">
-      <DependentUpon>b_backups.cs</DependentUpon>
-    </Compile>
     <Compile Include="logic\paths.cs" />
     <Compile Include="logs\log.cs" />
     <Compile Include="Program.cs" />
@@ -102,12 +84,6 @@
     <Compile Include="updater\updater.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="forms\backcraft\b_7zip.resx">
-      <DependentUpon>b_7zip.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="forms\backcraft\b_backups.resx">
-      <DependentUpon>b_backups.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

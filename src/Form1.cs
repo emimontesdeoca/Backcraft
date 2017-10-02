@@ -37,7 +37,7 @@ namespace backcraft
         {
             InitializeComponent();
 
-            moveStuff(0);
+            //moveStuff(0);
 
             MaximizeBox = false;
             label_version.Text = "v" + currentVersion;
@@ -72,9 +72,18 @@ namespace backcraft
             btn_close.Image = (Image)close;
             btn_close.ImageAlign = ContentAlignment.MiddleCenter;
 
+            btn_settings_close.Image = (Image)close;
+            btn_settings_close.ImageAlign = ContentAlignment.MiddleCenter;
+
             object folder = Properties.Resources.ResourceManager.GetObject("folder");
             btn_minecraftfoldersearch.Image = (Image)folder;
             btn_minecraftfoldersearch.ImageAlign = ContentAlignment.MiddleCenter;
+
+            btn_search_7zip.Image = (Image)folder;
+            btn_search_7zip.ImageAlign = ContentAlignment.MiddleCenter;
+
+            btn_search_path.Image = (Image)folder;
+            btn_search_path.ImageAlign = ContentAlignment.MiddleCenter;
 
             object save = Properties.Resources.ResourceManager.GetObject("save");
             btn_minecraftpathsave.Image = (Image)save;
@@ -85,6 +94,9 @@ namespace backcraft
 
             btn_saveworlds.Image = (Image)save;
             btn_saveworlds.ImageAlign = ContentAlignment.MiddleCenter;
+
+            btn_add_path.Image = (Image)save;
+            btn_add_path.ImageAlign = ContentAlignment.MiddleCenter;
 
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -529,6 +541,7 @@ namespace backcraft
         {
             loadGridviewRPStructure();
             loadGridviewWStructure();
+            loadGridviewBStructure();
 
             int interval = _IntervalTime;
 
@@ -621,6 +634,29 @@ namespace backcraft
 
             gridview_resourcepacks.RowHeadersVisible = false;
             col3.Width = 50;
+        }
+
+        private void loadGridviewBStructure()
+        {
+
+
+            var col1 = new DataGridViewTextBoxColumn();
+            var col2 = new DataGridViewButtonColumn();
+
+            col1.HeaderText = "Path";
+            col1.Name = "path";
+
+            col2.HeaderText = "Delete";
+            col2.Name = "delete";
+
+
+
+            gridview_backups.Columns.AddRange(new DataGridViewColumn[] { col1, col2 });
+            gridview_backups.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            gridview_backups.AllowUserToAddRows = false;
+
+            gridview_backups.RowHeadersVisible = false;
+            col2.Width = 50;
         }
 
         private void loadGridviewResourcePacks()
@@ -738,6 +774,25 @@ namespace backcraft
             }
         }
 
+        private void loadGridviewBackups()
+        {
+            gridview_backups.Rows.Clear();
+
+            try
+            {
+                List<string> l = logic.paths.GetPaths();
+
+                foreach (string s in l)
+                {
+                    gridview_backups.Rows.Add(s, "Delete");
+                }
+            }
+            catch (Exception)
+            {
+            }
+
+        }
+
         #endregion
 
         #endregion
@@ -800,12 +855,46 @@ namespace backcraft
 
         private void button3_Click(object sender, EventArgs e)
         {
-            new forms.backcraft.b_7zip().ShowDialog();
+            //new forms.backcraft.b_7zip().ShowDialog();
+
+            textbox_7zip.Text = logic.cfg.GetPathFromFile("7zip");
+
+            textbox_7zip.Visible = true;
+            btn_search_7zip.Visible = true;
+            label_path.Text = "Folder to 7zip";
+            textbox_7zip.Enabled = true;
+            btn_search_7zip.Enabled = true;
+
+            textbox_path.Visible = false;
+            btn_search_path.Visible = false;
+            btn_add_path.Visible = false;
+            gridview_backups.Visible = false;
+            btn_search_path.Enabled = false;
+            btn_add_path.Enabled = false;
+            gridview_backups.Enabled = false;
+
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            new forms.backcraft.b_backups().ShowDialog();
+            //new forms.backcraft.b_backups().ShowDialog();
+
+            loadGridviewBackups();
+
+            textbox_7zip.Visible = false;
+            btn_search_7zip.Visible = false;
+            label_path.Text = "Backup destinations";
+            textbox_7zip.Enabled = false;
+            btn_search_7zip.Enabled = false;
+
+            textbox_path.Visible = true;
+            btn_search_path.Visible = true;
+            btn_add_path.Visible = true;
+            gridview_backups.Visible = true;
+            btn_search_path.Enabled = true;
+            btn_add_path.Enabled = true;
+            gridview_backups.Enabled = true;
+
         }
 
         #endregion
@@ -982,6 +1071,53 @@ namespace backcraft
 
         }
 
+        private void gridview_backups_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (gridview_backups.Columns[e.ColumnIndex].Name == "delete")
+            {
+                try
+                {
+                    new logic.paths().DeleteFromFile(gridview_backups.Rows[e.RowIndex].Cells[0].Value.ToString());
+                    gridview_backups.Rows.RemoveAt(e.RowIndex);
+                }
+                catch (Exception)
+                {
+                }
+            }
+        }
+
+        private void btn_search_path_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            if (fbd.ShowDialog() == DialogResult.OK)
+            {
+                textbox_path.Text = fbd.SelectedPath;
+            }
+        }
+
+        private void btn_add_path_Click(object sender, EventArgs e)
+        {
+            if (textbox_path.Text != string.Empty)
+            {   // Add path if exists.
+                if (Directory.Exists(textbox_path.Text))
+                {
+                    gridview_backups.Rows.Add(textbox_path.Text.ToString(), "Delete");
+                }
+                else
+                {
+                    MessageBox.Show("Path does not exist!", "Error");
+                }
+            }
+        }
+
+        private void btn_search_7zip_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            if (fbd.ShowDialog() == DialogResult.OK)
+            {
+                textbox_7zip.Text = fbd.SelectedPath;
+            }
+        }
 
         #endregion
 
@@ -1396,6 +1532,44 @@ namespace backcraft
 
                 #endregion
 
+                #region BACKUPS
+
+                try
+                {
+                    foreach (DataGridViewRow r in gridview_backups.Rows)
+                    {
+                        try
+                        {
+                            new logic.paths(r.Cells[0].Value.ToString()).WriteCFg();
+                            new logs.log().WriteLog(0, "Saved destination path: " + r.Cells[0].Value.ToString());
+                        }
+                        catch (Exception)
+                        {
+                            new logs.log().WriteLog(2, "Saved destination path: " + r.Cells[0].Value.ToString());
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    new logs.log().WriteLog(2, "Destination path save");
+                }
+
+                #endregion
+
+                #region 7ZIP
+
+                try
+                {
+                    new logic.cfg("7zip", textbox_path.Text.ToString()).WriteCFG();
+                    new logs.log().WriteLog(0, "Saved 7zip path: " + textbox_path.Text.ToString());
+                }
+                catch (Exception)
+                {
+                    new logs.log().WriteLog(2, "Saved 7zip path: " + textbox_path.Text.ToString());
+                }
+
+                #endregion
+
                 new logs.log().WriteLog(0, "All files saved, restarting Backcraft..");
 
                 RestartApp();
@@ -1488,7 +1662,14 @@ namespace backcraft
         }
 
 
+
         #endregion
+
+        private void btn_settings_close_Click(object sender, EventArgs e)
+        {
+
+        }
+
 
 
     }
