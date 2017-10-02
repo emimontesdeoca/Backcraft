@@ -37,8 +37,6 @@ namespace backcraft
         {
             InitializeComponent();
 
-            //moveStuff(0);
-
             MaximizeBox = false;
             label_version.Text = "v" + currentVersion;
 
@@ -472,7 +470,7 @@ namespace backcraft
 
             #endregion
 
-            #region ICON TRAY SETTINGS
+            #region ICON TRAY ON LOAD
 
             notifyIcon1.BalloonTipTitle = "Backcraft minimized!";
             notifyIcon1.BalloonTipText = "Backcraft will be running in the background.";
@@ -503,7 +501,31 @@ namespace backcraft
                 new logs.log().WriteLog(0, "Backcraft disabled");
                 new logs.log().WriteLog(0, "Backcraft started maximized");
             }
+
+            #endregion
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            loadGridviewRPStructure();
+            loadGridviewWStructure();
+            loadGridviewBStructure();
+
+            int interval = _IntervalTime;
+
+            CancellationToken cancel = new CancellationToken();
+            cancel = token.Token;
+
+            if (!_EnableBackcraftState)
+            {
+                token.Cancel();
+            }
+
+            var x = AsyncBackcraft(interval);
+            new logs.log().WriteLog(0, "Backcraft finished loading");
+        }
+
+        #region ICON TRAY SETTINGS
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -536,28 +558,6 @@ namespace backcraft
 
         #endregion
 
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            loadGridviewRPStructure();
-            loadGridviewWStructure();
-            loadGridviewBStructure();
-
-            int interval = _IntervalTime;
-
-            CancellationToken cancel = new CancellationToken();
-            cancel = token.Token;
-
-            if (!_EnableBackcraftState)
-            {
-                token.Cancel();
-            }
-
-            var x = AsyncBackcraft(interval);
-            new logs.log().WriteLog(0, "Backcraft finished loading");
-
-        }
-
         #region GRIDVIEWS
 
         #region MINECRAFR PATH
@@ -570,7 +570,6 @@ namespace backcraft
 
         private void btn_minecraftfoldersearch_Click(object sender, EventArgs e)
         {
-
             FolderBrowserDialog fbd = new FolderBrowserDialog();
             if (fbd.ShowDialog() == DialogResult.OK)
             {
@@ -584,8 +583,6 @@ namespace backcraft
 
         private void loadGridviewRPStructure()
         {
-
-
             var col1 = new DataGridViewTextBoxColumn();
             var col2 = new DataGridViewTextBoxColumn();
             var col3 = new DataGridViewCheckBoxColumn();
@@ -598,7 +595,6 @@ namespace backcraft
 
             col3.HeaderText = "Backup";
             col3.Name = "backup";
-
 
             gridview_worlds.Columns.AddRange(new DataGridViewColumn[] { col1, col2, col3 });
             gridview_worlds.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -607,12 +603,10 @@ namespace backcraft
             gridview_worlds.RowHeadersVisible = false;
             col3.Width = 50;
             col1.Width = 100;
-
         }
 
         private void loadGridviewWStructure()
         {
-
             var col1 = new DataGridViewTextBoxColumn();
             var col2 = new DataGridViewTextBoxColumn();
             var col3 = new DataGridViewCheckBoxColumn();
@@ -627,8 +621,7 @@ namespace backcraft
             col3.Name = "backup";
 
 
-            gridview_resourcepacks.Columns.AddRange(new DataGridViewColumn[] { col1, col2, col3
-    });
+            gridview_resourcepacks.Columns.AddRange(new DataGridViewColumn[] { col1, col2, col3 });
             gridview_resourcepacks.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             gridview_resourcepacks.AllowUserToAddRows = false;
 
@@ -638,8 +631,6 @@ namespace backcraft
 
         private void loadGridviewBStructure()
         {
-
-
             var col1 = new DataGridViewTextBoxColumn();
             var col2 = new DataGridViewButtonColumn();
 
@@ -648,8 +639,6 @@ namespace backcraft
 
             col2.HeaderText = "Delete";
             col2.Name = "delete";
-
-
 
             gridview_backups.Columns.AddRange(new DataGridViewColumn[] { col1, col2 });
             gridview_backups.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -662,8 +651,6 @@ namespace backcraft
         private void loadGridviewResourcePacks()
         {
             gridview_resourcepacks.Enabled = false;
-
-
 
             gridview_resourcepacks.Rows.Clear();
             btn_saveresourcepacks.Enabled = false;
@@ -717,7 +704,6 @@ namespace backcraft
         private void loadGridviewWorlds()
         {
             gridview_worlds.Enabled = false;
-
 
             gridview_worlds.Rows.Clear();
             btn_saveworlds.Enabled = false;
@@ -790,7 +776,6 @@ namespace backcraft
             catch (Exception)
             {
             }
-
         }
 
         #endregion
@@ -855,8 +840,6 @@ namespace backcraft
 
         private void button3_Click(object sender, EventArgs e)
         {
-            //new forms.backcraft.b_7zip().ShowDialog();
-
             textbox_7zip.Text = logic.cfg.GetPathFromFile("7zip");
 
             textbox_7zip.Visible = true;
@@ -877,9 +860,9 @@ namespace backcraft
 
         private void button5_Click(object sender, EventArgs e)
         {
-            //new forms.backcraft.b_backups().ShowDialog();
-
             loadGridviewBackups();
+
+            textbox_path.Text = "";
 
             textbox_7zip.Visible = false;
             btn_search_7zip.Visible = false;
@@ -894,7 +877,6 @@ namespace backcraft
             btn_search_path.Enabled = true;
             btn_add_path.Enabled = true;
             gridview_backups.Enabled = true;
-
         }
 
         #endregion
@@ -1164,6 +1146,11 @@ namespace backcraft
         private void btn_close_Click(object sender, EventArgs e)
         {
             moveStuff(0);
+        }
+
+        private void btn_settings_close_Click(object sender, EventArgs e)
+        {
+
         }
 
         #endregion
@@ -1664,13 +1651,5 @@ namespace backcraft
 
 
         #endregion
-
-        private void btn_settings_close_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
-
     }
 }
