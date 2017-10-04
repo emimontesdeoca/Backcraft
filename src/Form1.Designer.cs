@@ -94,10 +94,6 @@
             this.back_save = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.makeBackupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btn_deletesettings = new System.Windows.Forms.Button();
             this.label_version = new System.Windows.Forms.Label();
             this.label_settings = new System.Windows.Forms.Label();
@@ -109,13 +105,13 @@
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.m_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridview_worlds)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridview_resourcepacks)).BeginInit();
             this.b_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridview_backups)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.scroll_interval)).BeginInit();
-            this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -139,6 +135,7 @@
             this.set_resource.Name = "set_resource";
             this.set_resource.Size = new System.Drawing.Size(15, 14);
             this.set_resource.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.set_resource, "Check to save Minecraft\'s resource packs.");
             this.set_resource.UseVisualStyleBackColor = true;
             this.set_resource.Click += new System.EventHandler(this.set_resource_Click);
             // 
@@ -150,6 +147,7 @@
             this.set_screenshots.Name = "set_screenshots";
             this.set_screenshots.Size = new System.Drawing.Size(15, 14);
             this.set_screenshots.TabIndex = 4;
+            this.toolTip1.SetToolTip(this.set_screenshots, "Check to save Minecraft\'s screenshots.");
             this.set_screenshots.UseVisualStyleBackColor = true;
             this.set_screenshots.Click += new System.EventHandler(this.set_screenshots_Click);
             // 
@@ -161,6 +159,7 @@
             this.set_saves.Name = "set_saves";
             this.set_saves.Size = new System.Drawing.Size(15, 14);
             this.set_saves.TabIndex = 5;
+            this.toolTip1.SetToolTip(this.set_saves, "Check to save Minecraft\'s worlds.");
             this.set_saves.UseVisualStyleBackColor = true;
             this.set_saves.Click += new System.EventHandler(this.set_saves_Click);
             // 
@@ -172,6 +171,7 @@
             this.set_launcher.Name = "set_launcher";
             this.set_launcher.Size = new System.Drawing.Size(15, 14);
             this.set_launcher.TabIndex = 6;
+            this.toolTip1.SetToolTip(this.set_launcher, "Check to save Minecraft\'s launcher profiles.");
             this.set_launcher.UseVisualStyleBackColor = true;
             this.set_launcher.Click += new System.EventHandler(this.set_launcher_Click);
             // 
@@ -183,6 +183,7 @@
             this.set_options.Name = "set_options";
             this.set_options.Size = new System.Drawing.Size(15, 14);
             this.set_options.TabIndex = 7;
+            this.toolTip1.SetToolTip(this.set_options, "Check to save Minecraft\'s option.");
             this.set_options.UseVisualStyleBackColor = true;
             this.set_options.Click += new System.EventHandler(this.set_options_Click);
             // 
@@ -226,7 +227,7 @@
             // gridview_worlds
             // 
             this.gridview_worlds.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridview_worlds.Location = new System.Drawing.Point(9, 203);
+            this.gridview_worlds.Location = new System.Drawing.Point(9, 202);
             this.gridview_worlds.Name = "gridview_worlds";
             this.gridview_worlds.Size = new System.Drawing.Size(318, 169);
             this.gridview_worlds.TabIndex = 42;
@@ -235,7 +236,7 @@
             // gridview_resourcepacks
             // 
             this.gridview_resourcepacks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridview_resourcepacks.Location = new System.Drawing.Point(9, 203);
+            this.gridview_resourcepacks.Location = new System.Drawing.Point(9, 202);
             this.gridview_resourcepacks.Name = "gridview_resourcepacks";
             this.gridview_resourcepacks.Size = new System.Drawing.Size(318, 169);
             this.gridview_resourcepacks.TabIndex = 41;
@@ -247,6 +248,7 @@
             this.btn_close.Name = "btn_close";
             this.btn_close.Size = new System.Drawing.Size(28, 23);
             this.btn_close.TabIndex = 42;
+            this.toolTip1.SetToolTip(this.btn_close, "Close.");
             this.btn_close.UseVisualStyleBackColor = true;
             this.btn_close.Click += new System.EventHandler(this.btn_close_Click);
             // 
@@ -265,6 +267,7 @@
             this.btn_minecraftfoldersearch.Name = "btn_minecraftfoldersearch";
             this.btn_minecraftfoldersearch.Size = new System.Drawing.Size(28, 23);
             this.btn_minecraftfoldersearch.TabIndex = 40;
+            this.toolTip1.SetToolTip(this.btn_minecraftfoldersearch, "Search Minecraft\'s folder.");
             this.btn_minecraftfoldersearch.UseVisualStyleBackColor = true;
             this.btn_minecraftfoldersearch.Visible = false;
             this.btn_minecraftfoldersearch.Click += new System.EventHandler(this.btn_minecraftfoldersearch_Click);
@@ -284,6 +287,7 @@
             this.btn_minecraftpathsave.Name = "btn_minecraftpathsave";
             this.btn_minecraftpathsave.Size = new System.Drawing.Size(28, 23);
             this.btn_minecraftpathsave.TabIndex = 37;
+            this.toolTip1.SetToolTip(this.btn_minecraftpathsave, "Save Minecraft\'s path.");
             this.btn_minecraftpathsave.UseVisualStyleBackColor = true;
             this.btn_minecraftpathsave.Visible = false;
             this.btn_minecraftpathsave.Click += new System.EventHandler(this.btn_minecraftpathsave_Click);
@@ -302,6 +306,7 @@
             this.btn_minecraftfolder.Name = "btn_minecraftfolder";
             this.btn_minecraftfolder.Size = new System.Drawing.Size(28, 23);
             this.btn_minecraftfolder.TabIndex = 35;
+            this.toolTip1.SetToolTip(this.btn_minecraftfolder, "Click to set the Mineraft\'s path");
             this.btn_minecraftfolder.UseVisualStyleBackColor = true;
             this.btn_minecraftfolder.Click += new System.EventHandler(this.btn_minecraftfolder_Click);
             // 
@@ -381,6 +386,7 @@
             this.btn_saves.Name = "btn_saves";
             this.btn_saves.Size = new System.Drawing.Size(28, 23);
             this.btn_saves.TabIndex = 20;
+            this.toolTip1.SetToolTip(this.btn_saves, "Click to select worlds to save.");
             this.btn_saves.UseVisualStyleBackColor = true;
             this.btn_saves.Click += new System.EventHandler(this.btn_saves_Click);
             // 
@@ -390,6 +396,7 @@
             this.btn_resourcepacks.Name = "btn_resourcepacks";
             this.btn_resourcepacks.Size = new System.Drawing.Size(28, 23);
             this.btn_resourcepacks.TabIndex = 19;
+            this.toolTip1.SetToolTip(this.btn_resourcepacks, "Click to select the resource packs to save.");
             this.btn_resourcepacks.UseVisualStyleBackColor = true;
             this.btn_resourcepacks.Click += new System.EventHandler(this.btn_resourcepacks_Click);
             // 
@@ -473,7 +480,7 @@
             this.b_panel.Controls.Add(this.label1);
             this.b_panel.Controls.Add(this.back_enablelog);
             this.b_panel.Controls.Add(this.label8);
-            this.b_panel.Location = new System.Drawing.Point(9, 219);
+            this.b_panel.Location = new System.Drawing.Point(8, 219);
             this.b_panel.Name = "b_panel";
             this.b_panel.Size = new System.Drawing.Size(334, 220);
             this.b_panel.TabIndex = 12;
@@ -487,6 +494,7 @@
             this.btn_search_7zip.Name = "btn_search_7zip";
             this.btn_search_7zip.Size = new System.Drawing.Size(28, 23);
             this.btn_search_7zip.TabIndex = 52;
+            this.toolTip1.SetToolTip(this.btn_search_7zip, "Search 7Zip path.");
             this.btn_search_7zip.UseVisualStyleBackColor = true;
             this.btn_search_7zip.Visible = false;
             this.btn_search_7zip.Click += new System.EventHandler(this.btn_search_7zip_Click);
@@ -495,7 +503,7 @@
             // 
             this.textbox_7zip.Location = new System.Drawing.Point(10, 255);
             this.textbox_7zip.Name = "textbox_7zip";
-            this.textbox_7zip.Size = new System.Drawing.Size(280, 20);
+            this.textbox_7zip.Size = new System.Drawing.Size(281, 20);
             this.textbox_7zip.TabIndex = 51;
             this.textbox_7zip.Visible = false;
             // 
@@ -506,6 +514,7 @@
             this.btn_add_path.Name = "btn_add_path";
             this.btn_add_path.Size = new System.Drawing.Size(28, 23);
             this.btn_add_path.TabIndex = 50;
+            this.toolTip1.SetToolTip(this.btn_add_path, "Add path to list.");
             this.btn_add_path.UseVisualStyleBackColor = true;
             this.btn_add_path.Visible = false;
             this.btn_add_path.Click += new System.EventHandler(this.btn_add_path_Click);
@@ -517,6 +526,7 @@
             this.btn_search_path.Name = "btn_search_path";
             this.btn_search_path.Size = new System.Drawing.Size(28, 23);
             this.btn_search_path.TabIndex = 49;
+            this.toolTip1.SetToolTip(this.btn_search_path, "Search destination path.");
             this.btn_search_path.UseVisualStyleBackColor = true;
             this.btn_search_path.Visible = false;
             this.btn_search_path.Click += new System.EventHandler(this.btn_search_path_Click);
@@ -538,6 +548,7 @@
             this.btn_settings_close.Name = "btn_settings_close";
             this.btn_settings_close.Size = new System.Drawing.Size(28, 23);
             this.btn_settings_close.TabIndex = 47;
+            this.toolTip1.SetToolTip(this.btn_settings_close, "Close");
             this.btn_settings_close.UseVisualStyleBackColor = true;
             this.btn_settings_close.Click += new System.EventHandler(this.btn_settings_close_Click);
             // 
@@ -596,6 +607,7 @@
             this.back_checkupdate.Name = "back_checkupdate";
             this.back_checkupdate.Size = new System.Drawing.Size(15, 14);
             this.back_checkupdate.TabIndex = 34;
+            this.toolTip1.SetToolTip(this.back_checkupdate, "Check to enable updates at launch.");
             this.back_checkupdate.UseVisualStyleBackColor = true;
             this.back_checkupdate.CheckedChanged += new System.EventHandler(this.back_checkupdate_CheckedChanged);
             // 
@@ -624,6 +636,7 @@
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(28, 23);
             this.button5.TabIndex = 31;
+            this.toolTip1.SetToolTip(this.button5, "Click to select destination paths.");
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
@@ -643,6 +656,7 @@
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(28, 23);
             this.button3.TabIndex = 26;
+            this.toolTip1.SetToolTip(this.button3, "Click to select 7-Zip\'s path.");
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
@@ -707,6 +721,7 @@
             this.scroll_interval.TabIndex = 20;
             this.scroll_interval.TickFrequency = 5;
             this.scroll_interval.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.toolTip1.SetToolTip(this.scroll_interval, "Select interval between backups.");
             this.scroll_interval.Value = 5;
             this.scroll_interval.Scroll += new System.EventHandler(this.scroll_interval_Scroll);
             // 
@@ -718,6 +733,7 @@
             this.back_startup.Name = "back_startup";
             this.back_startup.Size = new System.Drawing.Size(15, 14);
             this.back_startup.TabIndex = 18;
+            this.toolTip1.SetToolTip(this.back_startup, "Check to start Backcraft at startup.");
             this.back_startup.UseVisualStyleBackColor = true;
             this.back_startup.CheckedChanged += new System.EventHandler(this.back_startup_CheckedChanged);
             // 
@@ -749,6 +765,7 @@
             this.back_enablelog.Name = "back_enablelog";
             this.back_enablelog.Size = new System.Drawing.Size(15, 14);
             this.back_enablelog.TabIndex = 13;
+            this.toolTip1.SetToolTip(this.back_enablelog, "Check to enable logs.");
             this.back_enablelog.UseVisualStyleBackColor = true;
             this.back_enablelog.CheckedChanged += new System.EventHandler(this.back_enablelog_CheckedChanged);
             // 
@@ -771,26 +788,29 @@
             this.back_enable.Size = new System.Drawing.Size(70, 24);
             this.back_enable.TabIndex = 12;
             this.back_enable.Text = "Enable";
+            this.toolTip1.SetToolTip(this.back_enable, "Enables Backcraft.");
             this.back_enable.UseVisualStyleBackColor = true;
             this.back_enable.CheckedChanged += new System.EventHandler(this.back_enable_CheckedChanged);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(131, 445);
+            this.button1.Location = new System.Drawing.Point(131, 446);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(90, 32);
             this.button1.TabIndex = 15;
             this.button1.Text = "Backup now";
+            this.toolTip1.SetToolTip(this.button1, "Make a backup.");
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // back_save
             // 
-            this.back_save.Location = new System.Drawing.Point(35, 445);
+            this.back_save.Location = new System.Drawing.Point(35, 446);
             this.back_save.Name = "back_save";
             this.back_save.Size = new System.Drawing.Size(90, 32);
             this.back_save.TabIndex = 14;
             this.back_save.Text = "Save settings";
+            this.toolTip1.SetToolTip(this.back_save, "Saves settings and restart.");
             this.back_save.UseVisualStyleBackColor = true;
             this.back_save.Click += new System.EventHandler(this.back_save_Click);
             // 
@@ -798,7 +818,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(6, 490);
+            this.label10.Location = new System.Drawing.Point(6, 491);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(133, 15);
             this.label10.TabIndex = 13;
@@ -806,49 +826,19 @@
             // 
             // notifyIcon1
             // 
-            this.notifyIcon1.ContextMenuStrip = this.contextMenuStrip1;
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
             this.notifyIcon1.Text = "Backcraft";
             this.notifyIcon1.Visible = true;
             this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
             // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openToolStripMenuItem,
-            this.makeBackupToolStripMenuItem,
-            this.exitToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(146, 70);
-            // 
-            // openToolStripMenuItem
-            // 
-            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
-            this.openToolStripMenuItem.Text = "Open";
-            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
-            // 
-            // makeBackupToolStripMenuItem
-            // 
-            this.makeBackupToolStripMenuItem.Name = "makeBackupToolStripMenuItem";
-            this.makeBackupToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
-            this.makeBackupToolStripMenuItem.Text = "Make backup";
-            this.makeBackupToolStripMenuItem.Click += new System.EventHandler(this.makeBackupToolStripMenuItem_Click);
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
-            // 
             // btn_deletesettings
             // 
-            this.btn_deletesettings.Location = new System.Drawing.Point(227, 445);
+            this.btn_deletesettings.Location = new System.Drawing.Point(227, 446);
             this.btn_deletesettings.Name = "btn_deletesettings";
             this.btn_deletesettings.Size = new System.Drawing.Size(90, 32);
             this.btn_deletesettings.TabIndex = 18;
             this.btn_deletesettings.Text = "Delete settings";
+            this.toolTip1.SetToolTip(this.btn_deletesettings, "Delete settings and restart.");
             this.btn_deletesettings.UseVisualStyleBackColor = true;
             this.btn_deletesettings.Click += new System.EventHandler(this.btn_deletesettings_Click);
             // 
@@ -865,7 +855,7 @@
             // 
             this.label_settings.AutoSize = true;
             this.label_settings.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_settings.Location = new System.Drawing.Point(166, 490);
+            this.label_settings.Location = new System.Drawing.Point(164, 491);
             this.label_settings.Name = "label_settings";
             this.label_settings.Size = new System.Drawing.Size(105, 15);
             this.label_settings.TabIndex = 22;
@@ -874,7 +864,7 @@
             // label4
             // 
             this.label4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label4.Location = new System.Drawing.Point(-7, 483);
+            this.label4.Location = new System.Drawing.Point(-7, 484);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(369, 2);
             this.label4.TabIndex = 23;
@@ -883,7 +873,7 @@
             // label5
             // 
             this.label5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label5.Location = new System.Drawing.Point(284, 484);
+            this.label5.Location = new System.Drawing.Point(284, 485);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(2, 35);
             this.label5.TabIndex = 24;
@@ -892,7 +882,7 @@
             // label6
             // 
             this.label6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label6.Location = new System.Drawing.Point(154, 484);
+            this.label6.Location = new System.Drawing.Point(154, 485);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(2, 35);
             this.label6.TabIndex = 25;
@@ -904,6 +894,7 @@
             this.btn_report.Name = "btn_report";
             this.btn_report.Size = new System.Drawing.Size(28, 23);
             this.btn_report.TabIndex = 37;
+            this.toolTip1.SetToolTip(this.btn_report, "Open a issue in Github.");
             this.btn_report.UseVisualStyleBackColor = true;
             this.btn_report.Click += new System.EventHandler(this.btn_report_Click);
             // 
@@ -913,6 +904,7 @@
             this.btn_info.Name = "btn_info";
             this.btn_info.Size = new System.Drawing.Size(28, 23);
             this.btn_info.TabIndex = 38;
+            this.toolTip1.SetToolTip(this.btn_info, "Check the logs.");
             this.btn_info.UseVisualStyleBackColor = true;
             // 
             // pictureBox3
@@ -928,21 +920,23 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = global::backcraft.Properties.Resources.twitter;
-            this.pictureBox2.Location = new System.Drawing.Point(293, 487);
+            this.pictureBox2.Location = new System.Drawing.Point(293, 488);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(20, 20);
             this.pictureBox2.TabIndex = 20;
             this.pictureBox2.TabStop = false;
+            this.toolTip1.SetToolTip(this.pictureBox2, "Twitter");
             this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::backcraft.Properties.Resources.github;
-            this.pictureBox1.Location = new System.Drawing.Point(321, 487);
+            this.pictureBox1.Location = new System.Drawing.Point(321, 488);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(20, 20);
             this.pictureBox1.TabIndex = 19;
             this.pictureBox1.TabStop = false;
+            this.toolTip1.SetToolTip(this.pictureBox1, "Github");
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // Form1
@@ -984,7 +978,6 @@
             this.b_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridview_backups)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.scroll_interval)).EndInit();
-            this.contextMenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -1039,10 +1032,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Button btn_deletesettings;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem makeBackupToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.Label label_version;
         private System.Windows.Forms.Label label_updater2;
         private System.Windows.Forms.Label label_updater;
@@ -1074,6 +1063,7 @@
         private System.Windows.Forms.Button btn_add_path;
         private System.Windows.Forms.Button btn_search_7zip;
         private System.Windows.Forms.TextBox textbox_7zip;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
 

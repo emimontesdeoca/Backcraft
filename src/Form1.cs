@@ -961,7 +961,7 @@ namespace backcraft
             {
                 if (_MinecraftPath == "")
                 {
-                    MessageBox.Show("Error getting the folders from the path!" + Environment.NewLine + "Check that the Minecraft path is correct or if there are files inside the folder!", "Backcraft");
+                    MessageBox.Show("Error getting the folders from the path!" + Environment.NewLine + Environment.NewLine + "The Minecraft folder configured is: " + _MinecraftPath + Environment.NewLine + Environment.NewLine + "Check that the Minecraft path is correct or if there are files inside the folder!", "Backcraft - Path error");
                     label_resource.Enabled = false;
                     label_checkboxresources.Enabled = false;
                     btn_resourcepacks.Enabled = false;
@@ -988,7 +988,7 @@ namespace backcraft
             {
                 if (_MinecraftPath == "")
                 {
-                    MessageBox.Show("Error getting the folders from the path!" + Environment.NewLine + "Check that the Minecraft path is correct or if there are files inside the folder!", "Backcraft");
+                    MessageBox.Show("Error getting the folders from the path!" + Environment.NewLine + Environment.NewLine + "The Minecraft folder configured is: " + _MinecraftPath + Environment.NewLine + Environment.NewLine + "Check that the Minecraft path is correct or if there are files inside the folder!", "Backcraft - Path error");
                     label_checkboxsaves.Enabled = false;
                     label_saves.Enabled = false;
                     set_saves.Checked = false;
@@ -1016,7 +1016,7 @@ namespace backcraft
 
                 if (_MinecraftPath == "")
                 {
-                    MessageBox.Show("Error getting the folders from the path!" + Environment.NewLine + "Check that the Minecraft path is correct or if there are files inside the folder!", "Backcraft");
+                    MessageBox.Show("Error getting the folders from the path!" + Environment.NewLine + Environment.NewLine + "The Minecraft folder configured is: " + _MinecraftPath + Environment.NewLine + Environment.NewLine + "Check that the Minecraft path is correct or if there are files inside the folder!", "Backcraft - Path error");
                     set_screenshots.Checked = false;
                     label_screenshots.Enabled = false;
                     label_checkboxscreenshots.Enabled = false;
@@ -1041,7 +1041,7 @@ namespace backcraft
 
                 if (_MinecraftPath == "")
                 {
-                    MessageBox.Show("Error getting the folders from the path!" + Environment.NewLine + "Check that the Minecraft path is correct or if there are files inside the folder!", "Backcraft");
+                    MessageBox.Show("Error getting the folders from the path!" + Environment.NewLine + Environment.NewLine + "The Minecraft folder configured is: " + _MinecraftPath + Environment.NewLine + Environment.NewLine + "Check that the Minecraft path is correct or if there are files inside the folder!", "Backcraft - Path error");
                     set_options.Checked = false;
                     label_options.Enabled = false;
                     label_checkboxoptions.Enabled = false;
@@ -1065,7 +1065,7 @@ namespace backcraft
             {
                 if (_MinecraftPath == "")
                 {
-                    MessageBox.Show("Error getting the folders from the path!" + Environment.NewLine + "Check that the Minecraft path is correct or if there are files inside the folder!", "Backcraft");
+                    MessageBox.Show("Error getting the folders from the path!" + Environment.NewLine + Environment.NewLine + "The Minecraft folder configured is: " + _MinecraftPath + Environment.NewLine + Environment.NewLine + "Check that the Minecraft path is correct or if there are files inside the folder!", "Backcraft - Path error");
                     set_launcher.Checked = false;
                     label_launcher.Enabled = false;
                     label_checkboxlauncher.Enabled = false;
@@ -1119,7 +1119,7 @@ namespace backcraft
             }
             catch (Exception)
             {
-                MessageBox.Show("Error getting the folders from the path!" + Environment.NewLine + " Check that the Minecraft path is correct or if there are files inside the folder!", "Backcraft");
+                MessageBox.Show("Error getting the folders from the path!" + Environment.NewLine + Environment.NewLine + "The Minecraft folder configured is: " + _MinecraftPath + Environment.NewLine + Environment.NewLine + "Check that the Minecraft path is correct or if there are files inside the folder!", "Backcraft - Path error");
                 set_resource.Checked = false;
                 label_resource.Enabled = false;
                 label_checkboxresources.Enabled = false;
@@ -1147,7 +1147,7 @@ namespace backcraft
             }
             catch (Exception)
             {
-                MessageBox.Show("Error getting the folders from the path!" + Environment.NewLine + "Check that the Minecraft path is correct or if there are files inside the folder!", "Backcraft");
+                MessageBox.Show("Error getting the folders from the path!" + Environment.NewLine + Environment.NewLine + "The Minecraft folder configured is: " + _MinecraftPath + Environment.NewLine + Environment.NewLine + "Check that the Minecraft path is correct or if there are files inside the folder!", "Backcraft - Path error");
                 set_saves.Checked = false;
                 label_checkboxsaves.Enabled = false;
                 label_saves.Enabled = false;
@@ -1244,7 +1244,7 @@ namespace backcraft
             }
             //b_panel.Height = 220 + newLoc;
 
-            this.Height = 100 + m_panel.Height + 15 + b_panel.Height + 40;
+            this.Height = 100 + m_panel.Height + 15 + b_panel.Height + 35;
 
             b_panel.Location = new Point(b_panel.Location.X, m_panel.Location.Y + m_panel.Height + 5);
 
@@ -1257,10 +1257,10 @@ namespace backcraft
             label4.Location = new Point(label4.Location.X, btn_deletesettings.Location.Y + btn_deletesettings.Height + 5);
             label5.Location = new Point(label5.Location.X, btn_deletesettings.Location.Y + btn_deletesettings.Height + 5);
             label6.Location = new Point(label6.Location.X, btn_deletesettings.Location.Y + btn_deletesettings.Height + 5);
-            label10.Location = new Point(label10.Location.X, label4.Location.Y + label4.Height + 5);
-            label_settings.Location = new Point(label_settings.Location.X, label4.Location.Y + label4.Height + 5);
-            pictureBox1.Location = new Point(pictureBox1.Location.X, label4.Location.Y + label4.Height + 2);
-            pictureBox2.Location = new Point(pictureBox2.Location.X, label4.Location.Y + label4.Height + 3);
+            label10.Location = new Point(label10.Location.X, label4.Location.Y + label4.Height + 3);
+            label_settings.Location = new Point(label_settings.Location.X, label4.Location.Y + label4.Height + 3);
+            pictureBox1.Location = new Point(pictureBox1.Location.X, label4.Location.Y + label4.Height + 1);
+            pictureBox2.Location = new Point(pictureBox2.Location.X, label4.Location.Y + label4.Height + 1);
 
         }
 
