@@ -23,15 +23,37 @@ namespace backcraft.logic
 
             this.type = type;
 
-            //if (type == "f")
-            //{
-            //    MD5 = bs.md5.checkMD5(path);
+            if (type == "f")
+            {
+                string cppath = "";
+                switch (name)
+                {
+                    case "launcher_profiles":
 
-            //}
-            //else
-            //{
-            //    MD5 = bs.md5.CreateMd5ForFolder(path);
-            //}
+                        cppath = @"backups\" + name + ".json";
+                        File.Copy(this.path, cppath);
+                        this.MD5 = bs.md5.checkMD5(path);
+                        File.Delete(cppath);
+
+                        break;
+                    case "options":
+
+                        cppath = @"backups\" + name + ".txt";
+                        File.Copy(this.path, cppath);
+                        this.MD5 = bs.md5.checkMD5(path);
+                        File.Delete(cppath);
+
+                        break;
+                }
+            }
+            else
+            {
+                string newname = @"backups\" + name;
+                bs.compression.Copy(path, newname);
+                this.MD5 = bs.md5.CreateMd5ForFolder(newname);
+                Directory.Delete(newname, true);
+            }
+
 
         }
 
@@ -41,6 +63,8 @@ namespace backcraft.logic
         {
             List<string> ListToWrite = new List<string>();
             string build = this.name + "&" + this.type + "&" + this.path + "&" + this.MD5;
+
+
             try
             {
                 using (StreamReader rd = new StreamReader(_txtfile, true))
@@ -59,7 +83,7 @@ namespace backcraft.logic
             {
                 var x = ListToWrite.Single(a => a.Contains(this.name) && a.Contains(this.path));
 
-                string cmd5 = x.Split('&')[4];
+                string cmd5 = x.Split('&')[3];
 
                 if (this.MD5 != cmd5)
                 {
@@ -168,6 +192,41 @@ namespace backcraft.logic
             }
 
             return files;
+
+        }
+
+        public static bool checkIfNameExist(string name, string path)
+        {
+
+            //If file doese not exist, create empty file and close writer
+            if (!File.Exists(_txtfile))
+            {
+                File.Create(_txtfile).Dispose();
+            }
+
+            using (StreamReader rd = new StreamReader(_txtfile, true))
+            {
+                while (true)
+                {
+                    try
+                    {
+
+                        string line = rd.ReadLine();
+                        string[] split = line.Split('&');
+
+                        if (split[0] == name && split[2] == path)
+                        {
+                            return true;
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            return false;
 
         }
 

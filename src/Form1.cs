@@ -74,7 +74,7 @@ namespace backcraft
         /// <summary>
         /// App version
         /// </summary>
-        private const string currentVersion = "3.1";
+        public static string currentVersion = "3.0";
 
         #endregion
 
@@ -654,8 +654,9 @@ namespace backcraft
             gridview_worlds.Columns.AddRange(new DataGridViewColumn[] { col1, col2, col3 });
             gridview_worlds.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             gridview_worlds.AllowUserToAddRows = false;
-
             gridview_worlds.RowHeadersVisible = false;
+            gridview_worlds.AllowUserToResizeRows = false;
+
             col3.Width = 50;
             col1.Width = 100;
         }
@@ -677,13 +678,13 @@ namespace backcraft
             col3.HeaderText = "Backup";
             col3.Name = "backup";
 
-
             gridview_resourcepacks.Columns.AddRange(new DataGridViewColumn[] { col1, col2, col3 });
             gridview_resourcepacks.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             gridview_resourcepacks.AllowUserToAddRows = false;
+            gridview_resourcepacks.AllowUserToResizeRows = false;
 
             gridview_resourcepacks.RowHeadersVisible = false;
-            col3.Width = 50;
+            col3.Width = 30;
         }
 
         private void loadGridviewBStructure()
@@ -701,6 +702,7 @@ namespace backcraft
             gridview_backups.Columns.AddRange(new DataGridViewColumn[] { col1, col2 });
             gridview_backups.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             gridview_backups.AllowUserToAddRows = false;
+            gridview_backups.AllowUserToResizeRows = false;
 
             gridview_backups.RowHeadersVisible = false;
             col2.Width = 50;
@@ -1496,8 +1498,9 @@ namespace backcraft
 
                         }
                     }
-                    catch (Exception)
+                    catch (Exception exc)
                     {
+                        string a = exc.Message;
                     }
                 }
                 catch (Exception)
@@ -1768,45 +1771,12 @@ namespace backcraft
 
         }
 
-        #endregion
-
         private void btn_info_Click(object sender, EventArgs e)
         {
-            using (Form form = new Form())
-            {
-                form.Text = "Backcraft - Logs";
-                form.StartPosition = FormStartPosition.CenterScreen;
-                form.Size = new Size(495, 495);
-                form.Icon = this.Icon;
-                form.MinimizeBox = false;
-                form.FormBorderStyle = FormBorderStyle.FixedSingle;
-
-                RichTextBox rtb = new RichTextBox();
-                rtb.Size = new Size(425,400);
-                rtb.Location = new Point(25, 25);
-                rtb.ReadOnly = true;
-
-                try
-                {
-                    using (System.IO.StreamReader sr = new StreamReader("logs.txt"))
-                    {
-                        string line = "";
-                        while ((line = sr.ReadLine()) != null)
-                        {
-                            rtb.Text += line + Environment.NewLine;
-                        }
-                    }
-                }
-                catch (Exception)
-                {
-                    rtb.Text = "File logs.txt not found!";
-                }
-                
-
-                form.Controls.Add(rtb);
-                
-                form.ShowDialog();
-            }
+            new info().ShowDialog();
         }
+
+        #endregion
+
     }
 }
