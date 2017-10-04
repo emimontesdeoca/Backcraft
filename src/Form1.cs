@@ -1770,5 +1770,43 @@ namespace backcraft
 
         #endregion
 
+        private void btn_info_Click(object sender, EventArgs e)
+        {
+            using (Form form = new Form())
+            {
+                form.Text = "Backcraft - Logs";
+                form.StartPosition = FormStartPosition.CenterScreen;
+                form.Size = new Size(495, 495);
+                form.Icon = this.Icon;
+                form.MinimizeBox = false;
+                form.FormBorderStyle = FormBorderStyle.FixedSingle;
+
+                RichTextBox rtb = new RichTextBox();
+                rtb.Size = new Size(425,400);
+                rtb.Location = new Point(25, 25);
+                rtb.ReadOnly = true;
+
+                try
+                {
+                    using (System.IO.StreamReader sr = new StreamReader("logs.txt"))
+                    {
+                        string line = "";
+                        while ((line = sr.ReadLine()) != null)
+                        {
+                            rtb.Text += line + Environment.NewLine;
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    rtb.Text = "File logs.txt not found!";
+                }
+                
+
+                form.Controls.Add(rtb);
+                
+                form.ShowDialog();
+            }
+        }
     }
 }

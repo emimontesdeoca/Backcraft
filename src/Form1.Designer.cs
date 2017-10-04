@@ -906,6 +906,7 @@
             this.btn_info.TabIndex = 38;
             this.toolTip1.SetToolTip(this.btn_info, "Check the logs.");
             this.btn_info.UseVisualStyleBackColor = true;
+            this.btn_info.Click += new System.EventHandler(this.btn_info_Click);
             // 
             // pictureBox3
             // 
