@@ -8,7 +8,7 @@
              alt="build status">
     </a>
     <a href="https://github.com/emimontesdeoca/backcraft/releases">
-        <img src="https://img.shields.io/badge/version-3.0-green.svg"
+        <img src="https://img.shields.io/badge/version-3.1-green.svg"
              alt="build status">
     </a>
     <a href="https://github.com/emimontesdeoca/backcraft/releases">
