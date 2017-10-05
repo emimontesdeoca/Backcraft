@@ -8,7 +8,7 @@
              alt="build status">
     </a>
     <a href="https://github.com/emimontesdeoca/backcraft/releases">
-        <img src="https://img.shields.io/badge/version-2.0-green.svg"
+        <img src="https://img.shields.io/badge/version-3.0-green.svg"
              alt="build status">
     </a>
     <a href="https://github.com/emimontesdeoca/backcraft/releases">
@@ -35,6 +35,8 @@
 
 ## About Backcraft
 
+<b>Backcraft now supports incremental backups!</b> if the data hasnt change, why backup it again?
+
 Backcraft is a desktop app backup tool for Windows, designed 
 to help you make backups of your Minecraft folder, which includes in-game configuration files, launcher options, worlds, screenshots, resource packs and more.
 
@@ -53,31 +55,32 @@ In order to use this software you will need this two applications installed in y
 
 ### Configuration files
 
-After the first lunch, 2 folders with files will be created:
+After the first lunch, 2 folders and a file is created:
 
+- logs.txt => where teh logs are saved if enabled.
 - data => configuration files
-  - bsettings.txt => text file containing backcraft settings.
-  - msettings.txt => text file containing Minecraft settings.
-  - logs.txt => where logs are saved if enabled.
-- backups => where backups are saved.
+  - config.txt => text file containing Backcraft settings.
+  - files.txt => text file containing files to backup with its information.
+- backups => where backups Backcraft works and make the backups.
   - Backcraft_13-07-2017_20-32-44.7z (example)
   - Backcraft_13-07-2017_20-52-47.7z (example)
 
 ### Configuration
 
-<img src="http://i.imgur.com/ZLv6HtS.png" align="right">
+<img src="https://i.imgur.com/ySC18cZ.png" align="right">
 
 When open for the first time, there will be a few things to configure:
-
+- Checkbox to enable the backup system.
 - Minecraft configuration
     - Folder path to Minecraft folder, if you didn't change anything, you can select "Default path".
-    - A few checkboxes to select what do you want to backup from the Minecraft folder.
-- Backcraft configuration
-    - Checkbox to enable the backup system.
+    - Resource packs and select which one.
+    - Worlds and select which one.
+- Backcraft configuration  
     - Checkbox to enable the logs, it will save logs for every backup.
     - Checkbox to enable Backcraft to run at startup.
-    - Folder path to 7zip program, if you didn't change anything, you can select "Default path".
-    - Folder path for the Backups, you can select any folder where you want to save the backups, if "Default path" is selected, they will be stored in "backups", located in the same folder as Backcraft.exe.
+    - Checkbox to enable autoupdater at start.
+    - Folder path to 7zip program
+    - Destination paths to save all the backups
     - Interval for the time between backups.
 
 <strong>Remember to save, the application will restart itself and will start minimized in the system tray.</strong>
