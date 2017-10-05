@@ -94,6 +94,7 @@ namespace backcraft.logic
             }
             catch (Exception)
             {
+                build = this.name + "&" + this.type + "&" + this.path + "&";
                 if (!ListToWrite.Contains(build))
                 {
                     ListToWrite.Add(build);
@@ -192,41 +193,6 @@ namespace backcraft.logic
             }
 
             return files;
-
-        }
-
-        public static bool checkIfNameExist(string name, string path)
-        {
-
-            //If file doese not exist, create empty file and close writer
-            if (!File.Exists(_txtfile))
-            {
-                File.Create(_txtfile).Dispose();
-            }
-
-            using (StreamReader rd = new StreamReader(_txtfile, true))
-            {
-                while (true)
-                {
-                    try
-                    {
-
-                        string line = rd.ReadLine();
-                        string[] split = line.Split('&');
-
-                        if (split[0] == name && split[2] == path)
-                        {
-                            return true;
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        break;
-                    }
-                }
-            }
-
-            return false;
 
         }
 

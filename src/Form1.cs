@@ -74,7 +74,7 @@ namespace backcraft
         /// <summary>
         /// App version
         /// </summary>
-        public static string currentVersion = "3.0";
+        public static string currentVersion = "3.1";
 
         #endregion
 
@@ -89,6 +89,8 @@ namespace backcraft
 
             MaximizeBox = false;
             label_version.Text = "v" + currentVersion;
+
+            this.Icon = backcraft.Properties.Resources.icon;
 
             #endregion
 
@@ -899,7 +901,29 @@ namespace backcraft
 
             doStyleResizeForSettings(65, 1);
 
-            textbox_7zip.Text = logic.cfg.GetPathFromFile("7zip");
+            string pathfromsettings = logic.cfg.GetPathFromFile("7zip");
+
+            label_path.Text = "Folder to 7zip";
+
+            string sevenzip32bits = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + @"\7-Zip";
+            string sevenzip64bits = @"C:\Program Files\7-Zip";
+
+            if (pathfromsettings == "")
+            {
+                if (Directory.Exists(sevenzip32bits))
+                {
+                    textbox_7zip.Text = sevenzip32bits;
+                }
+                else
+                {
+                    textbox_7zip.Text = sevenzip64bits;
+                }
+                label_path.Text += " (NOT SAVED)";
+            }
+            else
+            {
+                textbox_7zip.Text = logic.cfg.GetPathFromFile("7zip");
+            }
 
             textbox_7zip.Visible = true;
             btn_search_7zip.Visible = true;
@@ -1086,7 +1110,7 @@ namespace backcraft
 
         private void btn_minecraftfolder_Click(object sender, EventArgs e)
         {
-            label_text.Text = "Select the Minecraft's folder path";
+            label_text.Text = "Minecraft's folder path";
 
             doStyleResizeForSettings(60, 0);
 
@@ -1098,7 +1122,18 @@ namespace backcraft
             gridview_resourcepacks.Visible = false;
             gridview_worlds.Visible = false;
 
-            textbox_minecraftpath.Text = _MinecraftPath.ToString();
+            string folderpath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\.minecraft\";
+
+            if (_MinecraftPath.ToString() == "" && Directory.Exists(folderpath))
+            {
+                textbox_minecraftpath.Text = folderpath;
+                label_text.Text += " (NOT SAVED)";
+            }
+            else
+            {
+                textbox_minecraftpath.Text = _MinecraftPath.ToString();
+            }
+
         }
 
         private void btn_resourcepacks_Click(object sender, EventArgs e)
