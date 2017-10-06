@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Threading;
+using Microsoft.Win32;
 
 namespace backcraft
 {
@@ -1662,16 +1663,16 @@ namespace backcraft
                     new logic.cfg("startup", back_enablelog.Checked.ToString()).WriteCFG();
                     new logs.log().WriteLog(0, "Saved startup state: " + back_startup.Checked.ToString());
 
-                    //RegistryKey registryKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+                    RegistryKey registryKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
 
-                    //if (back_startup.Checked)
-                    //{
-                    //    registryKey.SetValue("Backcraft", Application.ExecutablePath);
-                    //}
-                    //else
-                    //{
-                    //    registryKey.DeleteValue("Backcraft");
-                    //}
+                    if (back_startup.Checked)
+                    {
+                        registryKey.SetValue("Backcraft", Application.ExecutablePath);
+                    }
+                    else
+                    {
+                        registryKey.DeleteValue("Backcraft");
+                    }
                 }
                 catch (Exception)
                 {
