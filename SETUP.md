@@ -3,119 +3,166 @@
 <p align="center"><img src="http://i.imgur.com/nWswd3B.png" width="200px" height="200px" ></p>
 
 <p align="center">
-    <a href="https://travis-ci.com/emimontesdeoca/backcraft">
-        <img src="https://travis-ci.org/emimontesdeoca/Backcraft.svg?branch=master"
-             alt="build status">
-    </a>
-    <a href="https://github.com/emimontesdeoca/backcraft/releases">
-        <img src="https://img.shields.io/badge/version-3.1-green.svg"
-             alt="build status">
-    </a>
-    <a href="https://github.com/emimontesdeoca/backcraft/releases">
-        <img src="https://img.shields.io/badge/Platform-Windows-blue.svg"
-             alt="build status">
-    </a>
-    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=UBYQDM59B3GCC">
-        <img src="https://img.shields.io/badge/Donate-PayPal-green.svg"
-             alt="Donate a coffee!">
-    </a>
-    <a href="LICENSE">
-        <img src="https://img.shields.io/github/license/mashape/apistatus.svg"
-             alt="Donate a coffee!">
-    </a>
-</p>
-
-<p align="center">
 :open_file_folder: A backup tool for Minecraft players.
 </p>
 
-<p align="center">
-:computer: <strong>For releases click <a href="https://github.com/emimontesdeoca/Backcraft/releases">here</a>.</strong>
-</p>
+## Installation and usage 
 
-## About Backcraft
-
-<b>Backcraft now supports incremental backups!</b> if the data hasnt change, why backup it again?
-
-Backcraft is a desktop app backup tool for Windows, designed 
-to help you make backups of your Minecraft folder, which includes in-game configuration files, launcher options, worlds, screenshots, resource packs and more.
-
-Archives are copied, compressed and labeled easily for you to restore them if there were a problem with your files, plus there is a log file where you can see what, where and when the backup was made.
-
-The configuration is very simple, select what you want to backup, the interval between backups, proceed to save and voila! Plus there if you set Backcraft to run at startup, it will open and hide in the system tray.
-
-## Getting Started
 ### Prerequisites
 
 In order to use this software you will need this two applications installed in your machine:
 
-- [.NET Framework 4.5.2](https://www.microsoft.com/en-us/download/details.aspx?id=42642)
-- [7zip](http://www.7-zip.org/download.html)
-- Windows with administrators rights.
+- [.NET Framework 4.5.2](https://www.microsoft.com/en-us/download/details.aspx?id=42642).
+- [7zip](http://www.7-zip.org/download.html).
+- [Minecraft](https://minecraft.net/es-es/).
 
-### Configuration files
+### Get the latest release
 
-After the first lunch, 2 folders and a file is created:
+Go to releases and get Backcraft's latest version. It's better for Backcraft and the user to place it in a separated folder, for example in the Desktop.
 
-- logs.txt => where teh logs are saved if enabled.
-- data => configuration files
-  - config.txt => text file containing Backcraft settings.
-  - files.txt => text file containing files to backup with its information.
-- backups => where backups Backcraft works and make the backups.
-  - Backcraft_13-07-2017_20-32-44.7z (example)
-  - Backcraft_13-07-2017_20-52-47.7z (example)
+<p align="center"><img src="https://i.imgur.com/98LtZZn.png" ></p>
+    
+### First launch
 
-### Configuration
+For first launch, Backcraft will not load any settings and the default flow will start, it will create 2 folders:
+- backups
+- settings
 
-<img src="https://i.imgur.com/ySC18cZ.png" align="right">
+<p align="center"><img src="https://i.imgur.com/2drQYvD.png" ></p>
 
-When open for the first time, there will be a few things to configure:
-- Checkbox to enable the backup system.
-- Minecraft configuration
-    - Folder path to Minecraft folder, if you didn't change anything, you can select "Default path".
-    - Resource packs and select which one.
-    - Worlds and select which one.
-- Backcraft configuration  
-    - Checkbox to enable the logs, it will save logs for every backup.
-    - Checkbox to enable Backcraft to run at startup.
-    - Checkbox to enable autoupdater at start.
-    - Folder path to 7zip program
-    - Destination paths to save all the backups
-    - Interval for the time between backups.
+## Set settings
 
-<strong>Remember to save, the application will restart itself and will start minimized in the system tray.</strong>
+Now that everything is up, Backcraft should be open and waiting for the settings to change, there are 2 kind of settings: Minecraft's settings like folder path, worlds saves, etc, and Backcraft's settings like logs, interval, etc.
 
-Also there is a button if you want to make an instant backup, this action will not cancel the interval between automatic updated.
+### Minecraft settings
 
-## How does it work
+#### Miencraft's folder path
+First of all the most important step after checking the Enable, is to save the Minecraft path, if Minecraf it's installed in the default path it will be autodetected but not saved, so you HAVE to save it.
 
-### Main flow
-After the configuration is done, Backcraft will restart and load everything. After that it will look for Minecraft process <strong>("javaw.exe")</strong>:
+<p align="center"><img src="https://i.imgur.com/oB1YOP5.png" ></p>
 
-- If it is opened, it will do a backup and will keep doing them depending on the interval that the user configured. 
-- If it is not opened, it will look for it again every 5 minutes.
+<b>Remember to click on the disk button to save!</b> If you don't save, you won't be able to make further steps!
 
-That is the main cycle of the application.
+#### Resource packs
 
-### Backups
+Check the Resource packs checkbox and proceed to push the button to select which resource pack you want to backup:
 
-<img src="http://i.imgur.com/SbT7MFl.png" align="right">
-How the backups method works is:
+<p align="center"><img src="https://i.imgur.com/hxTwj8T.png" ></p>
 
-- Copy all the folders that the user configured to the folder backups, which is located in the same folder that the backcraft.exe.
-- Compress it with 7zip and move it to the destination folder.
-- Delete the backup folder
+Then check which resource pack you want to save and close it. <b> If you reopen it without save it will not save!</b>
 
-Pretty simple, since all the hard work is being done by cmd commands, check [compression.cs](https://github.com/emimontesdeoca/Backcraft/blob/master/src/bs/compression.cs) for more details.
+#### Worlds
 
-## Contributing
+Check the Worlds checkbox and proceed to push the button to select which worlds you want to backup:
 
-As a developer, if you feel like helping, any contribution is welcome.
+<p align="center"><img src="https://i.imgur.com/hxTwj8T.png" ></p>
 
-And as user, if youy have any bug, issue, feature request or question, feel free to open a [ticket issue](https://github.com/emimontesdeoca/backcraft/issues).
+Then check which world you want to save and close it. <b> If you reopen it without save it will not save!</b>
 
+#### Launcher profiles, options and screenshots
 
+Check if you want to save the launcher profiles, options and screenshots:
 
-## License
+<p align="center"><img src="https://i.imgur.com/PmdKmpG.png" ></p>
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+Then check which world you want to save and close it. <b> If you reopen it without save it will not save!</b>
+
+### Backcraft settings
+
+#### Logs
+
+If you want to save logs, just check the Logs checkbox. 
+
+<b>I strongly recomend you to save the logs, it's not only important for you to know what Backcraft is doing, but if you want to report  a bug, it would be good to the logs to check what is going on.</b>
+
+#### Run at startup
+
+Check if you want Backcraft to start when the session opens.
+
+#### 7Zip
+
+This is necessary for the backups to be done, if you have 7-zip already installed, it will autodetect it and place it on the textbox.
+
+<p align="center"><img src="https://i.imgur.com/JF43QsR.png" ></p>
+
+#### Backups
+
+This is also necessary for the backups to be done, destination paths are needed for the final copy. Just push the settings button for the backups and search a folder where you want to save the backups, then push on the save and done.
+
+<b>This won't be saved until you make the final save settings!</b>
+
+<p align="center"><img src="https://i.imgur.com/FB6EjUM.png" ></p>
+
+#### Backup interval
+
+Time between backups, just scroll it to the interval you want.
+
+#### Auto-Updater
+
+Check the auto-updater to get notified when there are new releases. Backcraft will download it and reset to the new version with the same configuration files.
+
+#### Finish
+
+In the end, it should look like this, but this is not over since we still have to save everything!
+
+<p align="center"><img src="https://i.imgur.com/HzUpfFs.png" ></p>
+
+## Save settings and check files
+
+Click on Save settings, this will save everything and create a few files, and the restart Backcraft.
+
+### Files created
+
+The files created are: 
+
+```
+Backcraft
+│   Backcraft.exe
+│   logs.txt 
+│
+└───backups
+│   
+└───config
+    │   cfg.txt
+    │   files.txt
+    │   paths.txt
+```
+
+- logs.txt -> where logs are saved.
+- config\cfg.txt -> where the settings are saved.
+- config\files.txt -> where the files to backup with its MD5 is saved.
+- config\paths.txt -> where the destination paths are saved.
+
+### After restart
+
+After this and every save, Backcraft will restart and load everything, if we didn't screw anything, settings should be loaded and everything that you check and put would be there again.
+
+<p align="center"><img src="https://i.imgur.com/WTwqXrj.png" ></p>
+
+### Check if everything is cool
+
+You can check the config files by hand, but I do recommend to check the information dispplayed in Backcraft, to access it, push in the information button in the top right.
+
+<p align="center"><img src="https://i.imgur.com/MMNZUq5.png" ></p>
+
+#### Files
+
+Navigate to files and you can see all the files that you wanted to backup right there, with its MD5. If you haven't backuped yet, it will not display any MD5.
+
+<p align="center"><img src="https://i.imgur.com/0T0r6vk.png" ></p>
+
+#### Logs
+
+Navigate to Logs and you can see the logs.
+
+<p align="center"><img src="https://i.imgur.com/ZEUfUn8.png" ></p>
+
+## Done
+
+Now you can make minimze Backcraft and start playing Minecraft or you can push Backup now and it will backup all your data instantly. This will be saved in your log and you can see that everything is saved and copied to your destination folder.
+
+<p align="center"><img src="https://i.imgur.com/FfuT47a.png" ></p>
+
+# Issues
+
+If you have any issues with this documentation or a bug, feel free to open an issue in this repository, or you can let me know in my twitter @emimontesdeoca.
