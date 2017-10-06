@@ -74,7 +74,7 @@ namespace backcraft
         /// <summary>
         /// App version
         /// </summary>
-        public static string currentVersion = "3.1";
+        public static string currentVersion = "3.3";
 
         #endregion
 
@@ -188,8 +188,11 @@ namespace backcraft
                     string t3 = "The latest version is: " + updaterVersion + ".";
                     string t4 = "Do you want to update?";
 
+                    string t5 = "This might take some time!";
+
                     string total = t1 + Environment.NewLine + Environment.NewLine + t2
-                        + Environment.NewLine + t3 + Environment.NewLine + Environment.NewLine + t4;
+                        + Environment.NewLine + t3 + Environment.NewLine + Environment.NewLine
+                        + t4 + Environment.NewLine + Environment.NewLine + t5;
 
                     DialogResult dialogResult = MessageBox.Show(total, "New version found", MessageBoxButtons.YesNo);
 
@@ -753,6 +756,12 @@ namespace backcraft
                     }
                 }
 
+
+                int gridview_rp_height = gridview_resourcepacks.Rows.GetRowsHeight(DataGridViewElementStates.Visible);
+
+                gridview_resourcepacks.Enabled = true;
+                gridview_resourcepacks.Height = gridview_rp_height + 47;
+
                 gridview_resourcepacks.Enabled = true;
             }
             catch (Exception)
@@ -810,7 +819,10 @@ namespace backcraft
                 {
                 }
 
+                int gridview_worlds_height = gridview_worlds.Rows.GetRowsHeight(DataGridViewElementStates.Visible);
+
                 gridview_worlds.Enabled = true;
+                gridview_worlds.Height = gridview_worlds_height + 47;
             }
             catch (Exception)
             {
@@ -834,6 +846,11 @@ namespace backcraft
             catch (Exception)
             {
             }
+
+            int gridview_backups_height = gridview_backups.Rows.GetRowsHeight(DataGridViewElementStates.Visible);
+
+            gridview_backups.Enabled = true;
+            gridview_backups.Height = gridview_backups_height + 47;
         }
 
         #endregion
@@ -945,7 +962,7 @@ namespace backcraft
         {
             loadGridviewBackups();
 
-            doStyleResizeForSettings(240, 1);
+            doStyleResizeForSettings(75 + gridview_backups.Height, 1);
 
 
             textbox_path.Text = "";
@@ -1144,7 +1161,7 @@ namespace backcraft
 
                 label_text.Text = "Select the resource packs to save";
 
-                doStyleResizeForSettings(210, 0);
+                doStyleResizeForSettings(40 + gridview_resourcepacks.Height, 0);
 
                 btn_minecraftpathsave.Visible = false;
 
@@ -1171,7 +1188,7 @@ namespace backcraft
 
                 label_text.Text = "Select the worlds to save";
 
-                doStyleResizeForSettings(210, 0);
+                doStyleResizeForSettings(40 + gridview_worlds.Height, 0);
 
                 btn_minecraftpathsave.Visible = false;
 
