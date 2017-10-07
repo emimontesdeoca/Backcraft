@@ -7,10 +7,11 @@
     <ProjectGuid>{304FBF25-9C1C-4836-B848-18C075D85D29}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>backcraft</RootNamespace>
-    <AssemblyName>backcraft</AssemblyName>
+    <AssemblyName>Backcraft</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -23,7 +24,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -45,12 +45,37 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>bin\Release\Backcraft.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup />
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>967D2C72505C57DD59C7D9265A7A894C82D047CE</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>EMPK.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>false</GenerateManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -66,14 +91,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="logic\7zippath.cs" />
-    <Compile Include="logic\backcraft.cs" />
-    <Compile Include="logic\interval.cs" />
-    <Compile Include="logic\launcherprofiles.cs" />
-    <Compile Include="logic\logs.cs" />
-    <Compile Include="logic\minecraftpath.cs" />
-    <Compile Include="logic\options.cs" />
-    <Compile Include="logic\resourcepacks.cs" />
+    <Compile Include="BackupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BackupForm.Designer.cs">
+      <DependentUpon>BackupForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BackupSavesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BackupSavesForm.Designer.cs">
+      <DependentUpon>BackupSavesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ResPacksForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ResPacksForm.Designer.cs">
+      <DependentUpon>ResPacksForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="info.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="info.Designer.cs">
+      <DependentUpon>info.cs</DependentUpon>
+    </Compile>
+    <Compile Include="logic\backup.cs" />
+    <Compile Include="logic\cfg.cs" />
+    <Compile Include="logic\files.cs" />
     <Compile Include="bs\compression.cs" />
     <Compile Include="bs\md5.cs" />
     <Compile Include="Form1.cs">
@@ -82,60 +126,25 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="forms\backcraft\b_7zip.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="forms\backcraft\b_7zip.Designer.cs">
-      <DependentUpon>b_7zip.cs</DependentUpon>
-    </Compile>
-    <Compile Include="forms\backcraft\b_backups.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="forms\backcraft\b_backups.Designer.cs">
-      <DependentUpon>b_backups.cs</DependentUpon>
-    </Compile>
-    <Compile Include="forms\minecraft\m_minecraftpath.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="forms\minecraft\m_minecraftpath.Designer.cs">
-      <DependentUpon>m_minecraftpath.cs</DependentUpon>
-    </Compile>
-    <Compile Include="forms\minecraft\m_resourcepacks.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="forms\minecraft\m_resourcepacks.Designer.cs">
-      <DependentUpon>m_resourcepacks.cs</DependentUpon>
-    </Compile>
-    <Compile Include="forms\minecraft\m_saves.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="forms\minecraft\m_saves.Designer.cs">
-      <DependentUpon>m_saves.cs</DependentUpon>
-    </Compile>
-    <Compile Include="logic\resourcepackstate.cs" />
-    <Compile Include="logic\screenshots.cs" />
-    <Compile Include="logic\startup.cs" />
-    <Compile Include="logic\worlds.cs" />
-    <Compile Include="logic\worldstate.cs" />
+    <Compile Include="logic\paths.cs" />
+    <Compile Include="logs\log.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="updater\updater.cs" />
+    <EmbeddedResource Include="BackupForm.resx">
+      <DependentUpon>BackupForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BackupSavesForm.resx">
+      <DependentUpon>BackupSavesForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="forms\backcraft\b_7zip.resx">
-      <DependentUpon>b_7zip.cs</DependentUpon>
+    <EmbeddedResource Include="ResPacksForm.resx">
+      <DependentUpon>ResPacksForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="forms\backcraft\b_backups.resx">
-      <DependentUpon>b_backups.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="forms\minecraft\m_minecraftpath.resx">
-      <DependentUpon>m_minecraftpath.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="forms\minecraft\m_resourcepacks.resx">
-      <DependentUpon>m_resourcepacks.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="forms\minecraft\m_saves.resx">
-      <DependentUpon>m_saves.cs</DependentUpon>
+    <EmbeddedResource Include="info.resx">
+      <DependentUpon>info.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -164,11 +173,16 @@
   <ItemGroup>
     <Content Include="assets\icon.ico" />
     <Content Include="icon.ico" />
-    <None Include="Resources\gear.png" />
-    <None Include="Resources\icon %281%29.png" />
-    <None Include="Resources\icon.png" />
-    <None Include="Resources\19-gear-icon16x16.png" />
-    <None Include="Resources\19-gear-icon24x24.png" />
+    <None Include="Resources\save.png" />
+    <None Include="Resources\folder.png" />
+    <None Include="Resources\close.png" />
+    <None Include="Resources\info.png" />
+    <None Include="Resources\updates.png" />
+    <None Include="Resources\bug.png" />
+    <None Include="Resources\settings.png" />
+    <None Include="Resources\logo.png" />
+    <None Include="Resources\twitter.png" />
+    <None Include="Resources\github.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">

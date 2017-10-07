@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
@@ -16,30 +13,251 @@ namespace backcraft
 {
     public partial class Form1 : Form
     {
+
+        #region VARS
+
+        /// <summary>
+        /// Log state
+        /// </summary>
+        public static bool _LogsState { get; set; }
+        /// <summary>
+        /// Updater state
+        /// </summary>
+        public static bool _EnableCheckUpdates { get; set; }
+        /// <summary>
+        /// Token for async methods
+        /// </summary>
         public CancellationTokenSource token = new CancellationTokenSource();
+        /// <summary>
+        /// Minecraft path
+        /// </summary>
         public static string _MinecraftPath { get; set; }
+        /// <summary>
+        /// 7-zip path
+        /// </summary>
         public static string _Backcraft7ZipPath { get; set; }
+        /// <summary>
+        /// App state
+        /// </summary>
         public bool _EnableBackcraftState { get; set; }
+        /// <summary>
+        /// Resource packs state
+        /// </summary>
         public bool _ResourcePackState { get; set; }
+        /// <summary>
+        /// Worlds state
+        /// </summary>
         public bool _SavesState { get; set; }
-        public bool _LauncherOptionsSate { get; set; }
+        /// <summary>
+        /// Launcher profiles state
+        /// </summary>
+        public bool _LauncherProfilesState { get; set; }
+        /// <summary>
+        /// Options state
+        /// </summary>
         public bool _OptionsState { get; set; }
+        /// <summary>
+        /// Screenshots state
+        /// </summary>
         public bool _ScreenshotsState { get; set; }
-        public bool _LogsState { get; set; }
+        /// <summary>
+        /// Startup state
+        /// </summary>
         public bool _StartupState { get; set; }
+        /// <summary>
+        /// Interval value, min is 5 if not configured
+        /// </summary>
         public int _IntervalTime { get; set; }
+        /// <summary>
+        /// Array of states
+        /// </summary>
+        public static bool[] states = new bool[6];
+        /// <summary>
+        /// App version
+        /// </summary>
+        public static string currentVersion = "3.3";
+
+        #endregion
+
+        private void GreyOutUncheckedCheckboxes(object sender, EventArgs e)
+        {
+            if ((sender as CheckBox).Checked)
+                (sender as CheckBox).ForeColor = Color.Black;
+            else
+                (sender as CheckBox).ForeColor = Color.DarkGray;
+        }
 
         public Form1()
         {
             InitializeComponent();
 
-            pictureBox1.Image = this.Icon.ToBitmap();
+            #region INITIAL STYLING
+
+            MaximizeBox = false;
+            label_version.Text = "v" + currentVersion;
+
+            this.Icon = backcraft.Properties.Resources.icon;
+
+            #endregion
+
+            #region HANDLERS TO GREY OUT UNCHECKED CHECKBOXES
+
+            foreach (Control c in m_panel.Controls)
+            {
+                if (c is CheckBox)
+                    (c as CheckBox).CheckedChanged += GreyOutUncheckedCheckboxes;
+            }
+
+            foreach (Control c in b_panel.Controls)
+            {
+                if (c is CheckBox)
+                    (c as CheckBox).CheckedChanged += GreyOutUncheckedCheckboxes;
+            }
+
+            #endregion
+
+            #region IMAGES
+
+            Bitmap settingsImg = Properties.Resources.settings;
+
+            Bitmap bugReportImg = Properties.Resources.bug;
+
+            btn_report.Image = bugReportImg;
+            btn_report.ImageAlign = ContentAlignment.MiddleCenter;
+
+
+            Bitmap infoImg = Properties.Resources.info;
+
+            btn_info.Image = infoImg;
+            btn_info.ImageAlign = ContentAlignment.MiddleCenter;
+
+
+            Bitmap closeImg = Properties.Resources.close;
+
+            btn_close.Image = closeImg;
+            btn_close.ImageAlign = ContentAlignment.MiddleCenter;
+
+
+            Bitmap folderImg = Properties.Resources.folder;
+
+            btn_minecraftfoldersearch.Image = folderImg;
+            btn_minecraftfoldersearch.ImageAlign = ContentAlignment.MiddleCenter;
+
+
+            Bitmap saveImg = Properties.Resources.save;
+
+            btn_minecraftpathsave.Image = saveImg;
+            btn_minecraftpathsave.ImageAlign = ContentAlignment.MiddleCenter;
+
+            #endregion
+
+            #region GET LOGS VALUE AT START
+
+            /// Get logs value, necessary for fist launch
+            try
+            {
+                _LogsState = Convert.ToBoolean(logic.cfg.GetTypeFromFile("logs"));
+            }
+            catch (Exception)
+            {
+                _LogsState = false;
+            }
+
+            new logs.log().WriteLog(4, "");
+
+            #endregion
+
+            #region CHECK FOR UPDATES
+
+            try
+            {
+                _EnableCheckUpdates = Convert.ToBoolean(logic.cfg.GetTypeFromFile("updater"));
+            }
+            catch (Exception)
+            {
+                _EnableCheckUpdates = false;
+            }
+
+            if (_EnableCheckUpdates)
+            {
+                new logs.log().WriteLog(8, "Checking for new releases");
+                string updaterVersion = updater.updater.checkForUpdates(currentVersion);
+
+                if (Convert.ToDouble(updaterVersion) > Convert.ToDouble(currentVersion))
+                {
+                    new logs.log().WriteLog(8, "New release found");
+
+                    string NL = Environment.NewLine;
+
+                    string total =
+                    "There is a new release for Backcraft." + NL +
+                    "Your current version is: {1}." + NL +
+                    "The latest version is: {2}." + NL +
+                    "Do you want to update?" + NL + NL +
+
+                    "This might take some time!";
+
+                    total = String.Format(total, currentVersion, updaterVersion);
+
+                    DialogResult dialogResult = MessageBox.Show(total, "New version found", MessageBoxButtons.YesNo);
+
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        new logs.log().WriteLog(8, "Downloading new version.");
+                        updater.updater.downloadUpdate(currentVersion, updaterVersion);
+
+                        new logs.log().WriteLog(8, "Finished download and rename");
+                        RestartApp();
+                    }
+                }
+                else
+                {
+                    new logs.log().WriteLog(8, "Latest release already");
+                }
+            }
+            else
+            {
+                new logs.log().WriteLog(8, "Updater not enabled");
+            }
+
+            #endregion
+
+            #region FORM TEXT
+
+            new logs.log().WriteLog(0, "Backcraft starts loading");
+
+            if (Environment.Is64BitOperatingSystem)
+            {
+                this.Text += " - 64 bits ";
+                if (File.Exists(@"config\cfg.txt"))
+                {
+                    new logs.log().WriteLog(0, "Detected 64 bits OS");
+                    lblStatus.Text = " Settings loaded";
+                    lblStatus.ForeColor = System.Drawing.Color.Green;
+                    new logs.log().WriteLog(0, "Settings found");
+                }
+                else
+                {
+                    lblStatus.Text = " Settings not found";
+                    lblStatus.ForeColor = System.Drawing.Color.Red;
+                    new logs.log().WriteLog(0, "Settings not found");
+                    //MessageBox.Show("Settings file not found");
+                }
+            }
+            else
+            {
+                this.Text += " - 32 bits -";
+                new logs.log().WriteLog(0, "Detected 32 bits OS");
+            }
+
+            #endregion
 
             #region FOLDER CREATION
 
             /// Create data folder if not created for user settings
             if (!Directory.Exists("config"))
             {
+                new logs.log().WriteLog(0, "Create config folder");
                 Directory.CreateDirectory("config");
 
             }
@@ -47,6 +265,8 @@ namespace backcraft
             /// Create backup folder if not created for backups
             if (!Directory.Exists("backups"))
             {
+                // TODO: isn't it supposed to be "backup folder"?
+                new logs.log().WriteLog(0, "Create config folder");
                 Directory.CreateDirectory("backups");
             }
 
@@ -54,42 +274,137 @@ namespace backcraft
 
             #region LOAD STATES AND SET CHECKBOXES
 
-            _MinecraftPath = logic.minecraftpath.GetMinecraftPath();
-            _Backcraft7ZipPath = logic._7zippath.Get7ZipPath();
-            _EnableBackcraftState = logic.backcraft.GetBackcraftState();
-            _ResourcePackState = logic.resourcepackstate.GetResourcePackState();
-            _SavesState = logic.worldstate.GetWorldsState();
-            _LauncherOptionsSate = logic.launcherprofiles.GetLauncherOptionsState();
-            _OptionsState = logic.options.GetOptionsState();
-            _ScreenshotsState = logic.screenshots.GetScreenshotsState();
-            _LogsState = logic.logs.GetLogsState();
-            _StartupState = logic.startup.GetStartupState();
-            _IntervalTime = logic.interval.GetIntervalTime();
-
-            foreach (Control c in m_panel.Controls)
+            try
             {
-                if (c is CheckBox)
-                    (c as CheckBox).CheckedChanged += GreyOutControlsIfNeeded;
+                _MinecraftPath = logic.cfg.GetTypeFromFile("minecraft");
+                new logs.log().WriteLog(0, "Loaded Minecraft path: " + _MinecraftPath);
+            }
+            catch (Exception)
+            {
+                _MinecraftPath = "";
+                new logs.log().WriteLog(2, "Loaded Minecraft path: " + _MinecraftPath);
+            }
+            try
+            {
+                _Backcraft7ZipPath = logic.cfg.GetTypeFromFile("7zip");
+                new logs.log().WriteLog(0, "Loaded 7zip path: " + _Backcraft7ZipPath);
+            }
+            catch (Exception)
+            {
+
+                _Backcraft7ZipPath = "";
+                new logs.log().WriteLog(2, "Loaded 7zip path: " + _Backcraft7ZipPath);
+            }
+            try
+            {
+                _EnableBackcraftState = Convert.ToBoolean(logic.cfg.GetTypeFromFile("backcraft"));
+                new logs.log().WriteLog(0, "Loaded Backcraft state: " + _EnableBackcraftState);
+            }
+            catch (Exception)
+            {
+                _EnableBackcraftState = false;
+                new logs.log().WriteLog(2, "Loaded Backcraft state: " + _EnableBackcraftState);
+            }
+            try
+            {
+                _ResourcePackState = Convert.ToBoolean(logic.cfg.GetTypeFromFile("resource_packs"));
+                new logs.log().WriteLog(0, "Loaded Resource pack state: " + _ResourcePackState);
+            }
+            catch (Exception)
+            {
+                _ResourcePackState = false;
+                new logs.log().WriteLog(2, "Loaded Resource pack state: " + _ResourcePackState);
+            }
+            try
+            {
+                _SavesState = Convert.ToBoolean(logic.cfg.GetTypeFromFile("worlds"));
+                new logs.log().WriteLog(0, "Loaded Mineraft saves path: " + _SavesState);
+            }
+            catch (Exception)
+            {
+                _SavesState = false;
+                new logs.log().WriteLog(2, "Loaded Mineraft saves path: " + _SavesState);
+            }
+            try
+            {
+                _LauncherProfilesState = Convert.ToBoolean(logic.cfg.GetTypeFromFile("launcher_profiles"));
+                new logs.log().WriteLog(0, "Loaded Launcher profiles state: " + _LauncherProfilesState);
+            }
+            catch (Exception)
+            {
+                _LauncherProfilesState = false;
+                new logs.log().WriteLog(2, "Loaded Launcher profiles state: " + _LauncherProfilesState);
+            }
+            try
+            {
+                _OptionsState = Convert.ToBoolean(logic.cfg.GetTypeFromFile("options"));
+                new logs.log().WriteLog(0, "Loaded Options state: " + _OptionsState);
+            }
+            catch (Exception)
+            {
+                _OptionsState = false;
+                new logs.log().WriteLog(2, "Loaded Options state: " + _OptionsState);
+            }
+            try
+            {
+                _ScreenshotsState = Convert.ToBoolean(logic.cfg.GetTypeFromFile("screenshots"));
+                new logs.log().WriteLog(0, "Loaded Screenshots state: " + _ScreenshotsState);
+            }
+            catch (Exception)
+            {
+                _ScreenshotsState = false;
+                new logs.log().WriteLog(2, "Loaded Screenshots state: " + _ScreenshotsState);
+            }
+            try
+            {
+                _StartupState = Convert.ToBoolean(logic.cfg.GetTypeFromFile("startup"));
+                new logs.log().WriteLog(0, "Loaded Startup state: " + _StartupState);
+            }
+            catch (Exception)
+            {
+                _StartupState = false;
+                new logs.log().WriteLog(2, "Loaded Startup state: " + _StartupState);
+            }
+            try
+            {
+                _IntervalTime = Convert.ToInt32(logic.cfg.GetTypeFromFile("interval"));
+                new logs.log().WriteLog(0, "Loaded Interval value: " + _IntervalTime);
+            }
+            catch (Exception)
+            {
+                _IntervalTime = 5;
+                new logs.log().WriteLog(2, "Loaded Interval value: " + _IntervalTime);
+            }
+            try
+            {
+                _EnableCheckUpdates = Convert.ToBoolean(logic.cfg.GetTypeFromFile("updater"));
+                new logs.log().WriteLog(0, "Loaded Updater state: " + _EnableCheckUpdates);
+            }
+            catch (Exception)
+            {
+                _EnableCheckUpdates = false;
+                new logs.log().WriteLog(2, "Loaded Updater state: " + _EnableCheckUpdates);
             }
 
-            foreach (Control c in b_panel.Controls)
-            {
-                if (c is CheckBox)
-                    (c as CheckBox).CheckedChanged += GreyOutControlsIfNeeded;
-            }
-
+            /// Assign values to checkboxes
             back_enable.Checked = _EnableBackcraftState;
             set_resource.Checked = _ResourcePackState;
             set_saves.Checked = _SavesState;
-            set_launcher.Checked = _LauncherOptionsSate;
+            set_launcher.Checked = _LauncherProfilesState;
             set_options.Checked = _OptionsState;
             set_screenshots.Checked = _ScreenshotsState;
             back_enablelog.Checked = _LogsState;
             back_startup.Checked = _StartupState;
+            back_checkupdate.Checked = _EnableCheckUpdates;
+            textbox_7zip.Text = _Backcraft7ZipPath;
 
-            txtMinecraftPath.Text = logic.minecraftpath.GetMinecraftPath ();
-            txtPath7Zip.Text = logic._7zippath.Get7ZipPath ();
-
+            /// Assign values to array
+            states[0] = _ResourcePackState;
+            states[1] = _SavesState;
+            states[2] = _LauncherProfilesState;
+            states[3] = _OptionsState;
+            states[4] = _ScreenshotsState;
+            states[5] = _LogsState;
 
             #endregion
 
@@ -110,71 +425,70 @@ namespace backcraft
 
             #endregion
 
-            #region MINECRAFT 
-
-            // LoadMinecraftCheckboxes();
-
-            // If the checkboxes are checked, make their forecolor black.
-            // Otherwise, make them gray.
-
-
-            #endregion
-
-            #region BACKCRAFT
-
-         
-
-            #endregion
-
-            #endregion
-
             #region LOAD SCROLL AND TEXTBOX
 
             scroll_interval.Value = _IntervalTime;
-            back_intervaltextbox.Text = _IntervalTime.ToString() + " min";
+            back_intervaltextbox.Text = _IntervalTime.ToString();
 
             #endregion
 
-            #region ICON TRAY SETTINGS
+            #region ICON TRAY ON LOAD
 
             notifyIcon1.BalloonTipTitle = "Backcraft minimized!";
             notifyIcon1.BalloonTipText = "Backcraft will be running in the background.";
 
             if (_EnableBackcraftState)
             {
+                new logs.log().WriteLog(0, "Backcraft enabled");
                 try
                 {
                     WindowState = FormWindowState.Minimized;
                     ShowInTaskbar = false;
                     ShowIcon = true;
                     notifyIcon1.Visible = true;
+                    notifyIcon1.Text = "Backcraft";
                     notifyIcon1.ShowBalloonTip(50);
 
+                    new logs.log().WriteLog(0, "Backcraft started minimized");
                 }
                 catch (Exception)
                 {
                     ShowInTaskbar = true;
                     ShowIcon = false;
+                    new logs.log().WriteLog(0, "Backcraft started maximized");
                 }
+            }
+            else
+            {
+                new logs.log().WriteLog(0, "Backcraft disabled");
+                new logs.log().WriteLog(0, "Backcraft started maximized");
             }
 
             #endregion
-
-}
-
-        void GreyOutControlsIfNeeded (object sender, EventArgs e)
-        {
-            if ((sender as CheckBox).Checked)
-                (sender as CheckBox).ForeColor = Color.Black;
-            else
-                (sender as CheckBox).ForeColor = Color.FromArgb (128, 128, 128);
-
-            btn_resourcepacks.Enabled = set_resource.Checked;
-            btn_saves.Enabled = set_saves.Checked;
         }
+
+        #region FORM LOAD
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            // TODO: might override loaded settings (?)
+            string folderpath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\.minecraft\";
+
+            if (_MinecraftPath.ToString() == "" && Directory.Exists(folderpath))
+            {
+                textBox1.Text = folderpath;
+                label_text.Text += " (NOT SAVED)";
+            }
+            else
+            {
+                textBox1.Text = _MinecraftPath.ToString();
+            }
+
+            _MinecraftPath = textBox1.Text;
+
+            loadGridviewWStructure();
+            loadGridviewBStructure();
+
             int interval = _IntervalTime;
 
             CancellationToken cancel = new CancellationToken();
@@ -185,8 +499,287 @@ namespace backcraft
                 token.Cancel();
             }
 
-            //var x = AsyncBackcraft(interval);
+            var x = AsyncBackcraft(interval);
+            new logs.log().WriteLog(0, "Backcraft finished loading");
         }
+
+        #endregion
+
+        #region ICON TRAY SETTINGS
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Normal;
+            ShowInTaskbar = true;
+            ShowIcon = false;
+            notifyIcon1.Visible = false;
+        }
+
+        private void makeBackupToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                new logs.log().WriteLog(0, "Manual backup from tray icon");
+                new logs.log().WriteLog(6, "");
+                logic.backup.MakeBackup(states);
+                new logs.log().WriteLog(7, "");
+            }
+            catch (Exception)
+            {
+                new logs.log().WriteLog(3, "Manual backup from tray icon");
+            }
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new logs.log().WriteLog(5, "");
+            Close();
+        }
+
+        #endregion
+
+        #region GRIDVIEWS
+
+        #region MINECRAFR PATH
+
+        private void btn_minecraftpathsave_Click(object sender, EventArgs e)
+        {
+            new logic.cfg("minecraft", textbox_minecraftpath.Text.ToString()).WriteCFG();
+            _MinecraftPath = textbox_minecraftpath.Text;
+        }
+
+        private void btn_minecraftfoldersearch_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            if (fbd.ShowDialog() == DialogResult.OK)
+            {
+                textbox_minecraftpath.Text = fbd.SelectedPath;
+            }
+        }
+
+        #endregion
+
+        #region LOAD GRIDVIEW ITEMS
+
+        private void loadGridviewRPStructure()
+        {
+            var col1 = new DataGridViewTextBoxColumn();
+            var col2 = new DataGridViewTextBoxColumn();
+            var col3 = new DataGridViewCheckBoxColumn();
+
+            col1.HeaderText = "Name";
+            col1.Name = "name";
+            col1.ReadOnly = true;
+
+            col2.HeaderText = "Path";
+            col2.Name = "path";
+            col2.ReadOnly = true;
+
+            col3.HeaderText = "Backup";
+            col3.Name = "backup";
+
+            gridview_worlds.Columns.AddRange(new DataGridViewColumn[] { col1, col2, col3 });
+            gridview_worlds.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            gridview_worlds.AllowUserToAddRows = false;
+            gridview_worlds.RowHeadersVisible = false;
+            gridview_worlds.AllowUserToResizeRows = false;
+
+            col3.Width = 50;
+            col1.Width = 100;
+        }
+
+        private void loadGridviewWStructure()
+        {
+            var col1 = new DataGridViewTextBoxColumn();
+            var col2 = new DataGridViewTextBoxColumn();
+            var col3 = new DataGridViewCheckBoxColumn();
+
+            col1.HeaderText = "Name";
+            col1.Name = "name";
+            col1.ReadOnly = true;
+
+            col2.HeaderText = "Path";
+            col2.Name = "path";
+            col2.ReadOnly = true;
+
+            col3.HeaderText = "Backup";
+            col3.Name = "backup";
+
+            gridview_resourcepacks.Columns.AddRange(new DataGridViewColumn[] { col1, col2, col3 });
+            gridview_resourcepacks.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            gridview_resourcepacks.AllowUserToAddRows = false;
+            gridview_resourcepacks.AllowUserToResizeRows = false;
+
+            gridview_resourcepacks.RowHeadersVisible = false;
+            col3.Width = 30;
+        }
+
+        private void loadGridviewBStructure()
+        {
+            var col1 = new DataGridViewTextBoxColumn();
+            var col2 = new DataGridViewButtonColumn();
+
+            col1.HeaderText = "Path";
+            col1.Name = "path";
+            col1.ReadOnly = true;
+
+            col2.HeaderText = "Delete";
+            col2.Name = "delete";
+
+            gridview_backups.Columns.AddRange(new DataGridViewColumn[] { col1, col2 });
+            gridview_backups.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            gridview_backups.AllowUserToAddRows = false;
+            gridview_backups.AllowUserToResizeRows = false;
+
+            gridview_backups.RowHeadersVisible = false;
+            col2.Width = 50;
+        }
+
+        private void loadGridviewResourcePacks()
+        {
+            gridview_resourcepacks.Enabled = false;
+
+            gridview_resourcepacks.Rows.Clear();
+            try
+            {
+                List<string> d = Directory.GetDirectories(_MinecraftPath + @"\resourcepacks").ToList();
+
+                try
+                {
+                    List<logic.files> files = logic.files.GetFiles();
+
+                    foreach (string dir in d)
+                    {
+                        string name = dir.Split('\\').Last();
+                        string path = dir;
+                        bool check = false;
+                        try
+                        {
+                            if (files.Single(x => x.name == name && x.path == path) != null)
+                            {
+                                check = true;
+                            }
+                        }
+                        catch (Exception)
+                        {
+                        }
+                        gridview_resourcepacks.Rows.Add(name, path, check);
+                    }
+                }
+                catch (Exception)
+                {
+                    foreach (string dir in d)
+                    {
+                        string name = dir.Split('\\').Last();
+                        string path = dir;
+                        bool check = false;
+
+                        gridview_resourcepacks.Rows.Add(name, path, check);
+                    }
+                }
+
+
+                int gridview_rp_height = gridview_resourcepacks.Rows.GetRowsHeight(DataGridViewElementStates.Visible);
+
+                gridview_resourcepacks.Enabled = true;
+                gridview_resourcepacks.Height = gridview_rp_height + 47;
+
+                gridview_resourcepacks.Enabled = true;
+            }
+            catch (Exception)
+            {
+                throw new Exception();
+            }
+        }
+
+        private void loadGridviewWorlds()
+        {
+            gridview_worlds.Enabled = false;
+
+            gridview_worlds.Rows.Clear();
+
+            try
+            {
+                List<string> d = Directory.GetDirectories(_MinecraftPath + @"\saves").ToList();
+
+                try
+                {
+                    List<logic.files> files = logic.files.GetFiles();
+                    if (files.Count != 0)
+                    {
+                        foreach (string dir in d)
+                        {
+                            string name = dir.Split('\\').Last();
+                            string path = dir;
+                            bool check = false;
+                            try
+                            {
+                                if (files.Single(x => x.name == name && x.path == path) != null)
+                                {
+                                    check = true;
+                                }
+                            }
+                            catch (Exception)
+                            {
+                            }
+                            gridview_worlds.Rows.Add(name, path, check);
+                        }
+                    }
+                    else
+                    {
+
+                        foreach (string dir in d)
+                        {
+                            string name = dir.Split('\\').Last();
+                            string path = dir;
+                            bool check = false;
+                            gridview_worlds.Rows.Add(name, path, check);
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                }
+
+                int gridview_worlds_height = gridview_worlds.Rows.GetRowsHeight(DataGridViewElementStates.Visible);
+
+                gridview_worlds.Enabled = true;
+                gridview_worlds.Height = gridview_worlds_height + 47;
+            }
+            catch (Exception)
+            {
+                throw new Exception();
+            }
+        }
+
+        private void loadGridviewBackups()
+        {
+            gridview_backups.Rows.Clear();
+
+            try
+            {
+                List<string> l = logic.paths.GetPaths();
+
+                foreach (string s in l)
+                {
+                    gridview_backups.Rows.Add(s, "Delete");
+                }
+            }
+            catch (Exception)
+            {
+            }
+
+            int gridview_backups_height = gridview_backups.Rows.GetRowsHeight(DataGridViewElementStates.Visible);
+
+            gridview_backups.Enabled = true;
+            gridview_backups.Height = gridview_backups_height + 47;
+        }
+
+        #endregion
+
+        #endregion
+
+        #endregion
 
         #region BACKCRAFT
 
@@ -208,27 +801,18 @@ namespace backcraft
 
         #endregion
 
-        #region SETTINGS
-
-        #region CHECKBOXES
-
         #endregion
 
-        #region BUTTONS
+        #region MINECRAFT SETTINGS
 
-        private void button3_Click(object sender, EventArgs e)
+        #region ACTIVATING CHECKBOXES
+
+        // TODO: error messages when an invalid Minecraft folder path is provided
+
+        private void set_launcher_Click(object sender, EventArgs e)
         {
-            new forms.backcraft.b_7zip().ShowDialog();
+
         }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-            new forms.backcraft.b_backups().ShowDialog();
-        }
-
-        #endregion
-
-        #endregion
 
         #endregion
 
@@ -236,36 +820,70 @@ namespace backcraft
 
         private void btn_minecraftfolder_Click(object sender, EventArgs e)
         {
-            new forms.minecraft.m_minecraftpath().ShowDialog();
+            label_text.Text = "Minecraft's folder path";
+
+            doStyleResizeForSettings(60, 0);
+
+            btn_minecraftpathsave.Visible = true;
+
+            textbox_minecraftpath.Visible = true;
+            btn_minecraftfoldersearch.Visible = true;
+            btn_minecraftpathsave.Visible = true;
+            gridview_resourcepacks.Visible = false;
+            gridview_worlds.Visible = false;
         }
 
         private void btn_resourcepacks_Click(object sender, EventArgs e)
         {
-            if (!Directory.Exists(txtMinecraftPath.Text))
-            {
-                MessageBox.Show("The specified Minecraft path doesn't exist!",
-                                 "BackCraft",
-                                 MessageBoxButtons.OK,
-                                 MessageBoxIcon.Warning);
-            }
-            else
-            {
-                new forms.minecraft.m_resourcepacks().ShowDialog();
-            }
+
         }
 
         private void btn_saves_Click(object sender, EventArgs e)
         {
-            if (!Directory.Exists(txtMinecraftPath.Text))
+            try
             {
-                MessageBox.Show("The specified Minecraft path doesn't exist!",
-                                 "BackCraft",
-                                 MessageBoxButtons.OK,
-                                 MessageBoxIcon.Warning);
+                loadGridviewWorlds();
+
+                label_text.Text = "Select the worlds to save";
+
+                doStyleResizeForSettings(40 + gridview_worlds.Height, 0);
+
+                btn_minecraftpathsave.Visible = false;
+
+                textbox_minecraftpath.Visible = false;
+                btn_minecraftfoldersearch.Visible = false;
+                btn_minecraftpathsave.Visible = false;
+                gridview_resourcepacks.Visible = false;
+                gridview_worlds.Visible = true;
+
             }
-            else
+            catch (Exception)
             {
-                new forms.minecraft.m_saves().ShowDialog();
+
+            }
+        }
+
+        private void gridview_backups_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (gridview_backups.Columns[e.ColumnIndex].Name == "delete")
+            {
+                try
+                {
+                    new logic.paths().DeleteFromFile(gridview_backups.Rows[e.RowIndex].Cells[0].Value.ToString());
+                    gridview_backups.Rows.RemoveAt(e.RowIndex);
+                }
+                catch (Exception)
+                {
+                }
+            }
+        }
+
+        private void btn_search_7zip_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            if (fbd.ShowDialog() == DialogResult.OK)
+            {
+                textbox_7zip.Text = fbd.SelectedPath;
             }
         }
 
@@ -275,8 +893,26 @@ namespace backcraft
 
         private void scroll_interval_Scroll(object sender, EventArgs e)
         {
-            back_intervaltextbox.Text = 
-            scroll_interval.Value.ToString() + " min";
+            back_intervaltextbox.Text = scroll_interval.Value.ToString();
+        }
+
+        #endregion
+
+        #region STYLING
+
+        private void doStyleResizeForSettings(int newLoc, int i)
+        {
+           
+        }
+
+        private void btn_close_Click(object sender, EventArgs e)
+        {
+            doStyleResizeForSettings(0, 0);
+        }
+
+        private void btn_settings_close_Click(object sender, EventArgs e)
+        {
+            doStyleResizeForSettings(0, 1);
         }
 
         #endregion
@@ -289,10 +925,12 @@ namespace backcraft
             {
                 if (CheckIfMinecraftIsRunning())
                 {
+                    new logs.log().WriteLog(0, "Minecraft is running, proceed to backup.");
                     await Backcraft();
                     try
                     {
                         await Task.Delay(TimeSpan.FromMinutes(interval), token.Token);
+                        new logs.log().WriteLog(0, "Finished backup, next backup will be in: " + interval);
                     }
                     catch (TaskCanceledException)
                     {
@@ -301,6 +939,7 @@ namespace backcraft
                 }
                 else
                 {
+                    new logs.log().WriteLog(1, "Minecraft is not running, waiting 5 minutes.");
                     await Task.Delay(TimeSpan.FromMinutes(5), token.Token);
                 }
 
@@ -309,106 +948,15 @@ namespace backcraft
 
         private async Task Backcraft()
         {
-            #region Make folder
-
-
-            /// Build folderpath string
-            string folderpath = "backups\\Backcraft_" + DateTime.Now.ToShortDateString() + "_" + DateTime.Now.ToLongTimeString();
-            folderpath = folderpath.Replace('/', '-').Replace(':', '-');
-
-            /// Create path
-            Directory.CreateDirectory(folderpath);
-
-
-            /// Get Minecraft folder location
-            string folderlocation = ""; /*set_folderlocation.Text.ToString();*/
-
-            #endregion
-
-            #region Copy files 
-
             try
             {
-                /// If resource folder is checked, copy for the backup
-                if (set_resource.Checked)
-                {
-                    /// Copy to the backup folder
-                    bs.compression.Copy(folderlocation + "\\resourcepacks", folderpath + "\\resourcepacks");
-
-                }
-                /// If launcher file is checked, copy for the backup
-                if (set_launcher.Checked)
-                {
-                    /// Copy to the backup folder
-                    File.Copy(folderlocation + "\\launcher_profiles.json", folderpath + "\\launcher_profiles");
-
-                }
-                /// If screenshots folder is checked, copy for the backup
-                if (set_screenshots.Checked)
-                {
-                    /// Copy to the backup folder
-                    bs.compression.Copy(folderlocation + "\\screenshots", folderpath + "\\screenshots");
-
-
-                }
-                /// If options file is checked, copy for the backup
-                if (set_options.Checked)
-                {
-                    /// Copy to the backup folder
-                    File.Copy(folderlocation + "\\options.txt", folderpath + "\\options.txt");
-
-
-                }
-                /// If saves folder is checked, copy for the backup
-                if (set_saves.Checked)
-                {
-                    /// Copy to the backup folder
-                    bs.compression.Copy(folderlocation + "\\saves", folderpath + "\\saves");
-
-                }
+                new logs.log().WriteLog(6, "");
+                logic.backup.MakeBackup(states);
+                new logs.log().WriteLog(7, "");
             }
             catch (Exception)
             {
-                MessageBox.Show("There was a problem copying some files!", "Backcraft");
             }
-
-            #endregion
-
-            #region Compression
-
-            try
-            {
-                string fileName = folderpath;
-                FileInfo f = new FileInfo(fileName);
-                string fullname = f.FullName;
-
-                /// Compress it with 7Zip
-                //bs.compression.CreateZipFile(back_7zippath.Text, back_backupfolderpath.Text + "\\" + fileName.Split('\\')[1], fullname);
-                //bs.compression.CreateZipFile(back_7zippath.Text, folderpath, fullname);
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("There was a problem compressing the folder!", "Backcraft");
-            }
-
-
-            #endregion
-
-            #region Delete folder
-
-            try
-            {
-                /// Delete recursively the folder created
-                Directory.Delete(folderpath, true);
-
-
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("There was a problem deleting the folder!", "Backcraft");
-            }
-
-            #endregion
         }
 
         private bool CheckIfMinecraftIsRunning()
@@ -429,11 +977,14 @@ namespace backcraft
         {
             try
             {
+                new logs.log().WriteLog(0, "Restarting Backcraft..");
                 Process.Start(Application.StartupPath + "\\backcraft.exe");
                 Process.GetCurrentProcess().Kill();
             }
             catch
-            { }
+            {
+                new logs.log().WriteLog(3, "Restarting Backcraft..");
+            }
         }
 
         #endregion
@@ -477,133 +1028,225 @@ namespace backcraft
         {
             try
             {
-                #region 7-ZIP AND MINECRAFT PATHS
-
-                new logic._7zippath(txtPath7Zip.Text).WriteToFile();
-                Form1._Backcraft7ZipPath = txtPath7Zip.Text;
-
-                new logic.minecraftpath(txtMinecraftPath.Text).WriteToFile();
-                Form1._MinecraftPath = txtMinecraftPath.Text;
-
-                #endregion
 
                 #region ENABLE BACKCRAFT
 
-                if (_EnableBackcraftState == back_enable.Checked)
+                try
                 {
+                    new logic.cfg("backcraft", back_enable.Checked.ToString()).WriteCFG();
+                    new logs.log().WriteLog(0, "Saved Backcraft state: " + back_enable.Checked.ToString());
                 }
-                else
+                catch (Exception)
                 {
-                    new logic.backcraft(back_enable.Checked).WriteToFile();
+                    new logs.log().WriteLog(2, "Saved Backcraft state: " + back_enable.Checked.ToString());
                 }
 
                 #endregion
 
                 #region RESOURCE PACKS STATE
 
-                if (_ResourcePackState == set_resource.Checked)
+                try
                 {
+                    new logic.cfg("resource_packs", set_resource.Checked.ToString()).WriteCFG();
+                    new logs.log().WriteLog(0, "Saved resource packs state: " + set_resource.Checked.ToString());
                 }
-                else
+                catch (Exception)
                 {
-                    new logic.resourcepackstate(set_resource.Checked).WriteToFile();
+                    new logs.log().WriteLog(2, "Saved resource packs state: " + set_resource.Checked.ToString());
+                }
+
+                foreach (DataGridViewRow r in gridview_resourcepacks.Rows)
+                {
+                    string name = r.Cells[0].Value.ToString();
+                    string path = r.Cells[1].Value.ToString();
+                    string check = r.Cells[2].Value.ToString();
+                    
+                    if (Convert.ToBoolean(check))
+                    {
+                        new logic.files(name, path, "d").WriteCFG();
+                    }
+                    else
+                    {
+                        try
+                        {
+                            new logic.files().DeleteFromFile(name, path);
+                        }
+                        catch (Exception)
+                        {
+                        }
+                    }
                 }
 
                 #endregion
-
+                
                 #region WORLDS/SAVES STATE
 
-                if (_SavesState == set_saves.Checked)
+                try
                 {
+                    new logic.cfg("worlds", set_saves.Checked.ToString()).WriteCFG();
+                    new logs.log().WriteLog(0, "Saved worlds state: " + set_saves.Checked.ToString());
                 }
-                else
+                catch (Exception)
                 {
-                    new logic.worldstate(set_saves.Checked).WriteToFile();
+                    new logs.log().WriteLog(2, "Saved worlds state: " + set_saves.Checked.ToString());
                 }
+
+                foreach (DataGridViewRow r in gridview_worlds.Rows)
+                {
+                    string name = r.Cells[0].Value.ToString();
+                    string path = r.Cells[1].Value.ToString();
+                    string check = r.Cells[2].Value.ToString();
+                    if (Convert.ToBoolean(check))
+                    {
+                        new logic.files(name, path, "d").WriteCFG();
+                    }
+                    else
+                    {
+                        try
+                        {
+                            new logic.files().DeleteFromFile(name, path);
+                        }
+                        catch (Exception)
+                        {
+                        }
+                    }
+
+                }
+
 
                 #endregion
 
                 #region LAUNCHER PROFILES STATE
 
 
-                if (_LauncherOptionsSate == set_launcher.Checked)
+                try
                 {
-                }
-                else
-                {
-                    if (File.Exists(@"config\launcheroptions.txt"))
+                    new logic.cfg("launcher_profiles", set_launcher.Checked.ToString()).WriteCFG();
+                    new logs.log().WriteLog(0, "Saved launcher profiles state: " + set_launcher.Checked.ToString());
+                    try
                     {
-                        logic.launcherprofiles.SetState(set_launcher.Checked);
-                    }
-                    else
-                    {
-                        new logic.launcherprofiles("launcher_profiles.json", _MinecraftPath + @"\launcher_profiles.json", set_launcher.Checked).WriteToFile();
-                    }
+                        if (set_launcher.Checked)
+                        {
+                            new logic.files("launcher_profiles", _MinecraftPath + @"\launcher_profiles.json", "f").WriteCFG();
+                        }
+                        else
+                        {
+                            new logic.files().DeleteFromFile("launcher_profiles", _MinecraftPath + @"\launcher_profiles.json");
+                            new logs.log().WriteLog(0, "Deleted launcher profiles state: " + set_launcher.Checked.ToString());
 
+                        }
+                    }
+                    catch (Exception exc)
+                    {
+                        string a = exc.Message;
+                    }
                 }
+                catch (Exception)
+                {
+                    new logs.log().WriteLog(2, "Saved launcher profiles state: " + set_launcher.Checked.ToString());
+                }
+
 
                 #endregion
 
                 #region OPTIONS STATE
 
-                if (_OptionsState == set_options.Checked)
+                try
                 {
+                    new logic.cfg("options", set_options.Checked.ToString()).WriteCFG();
+                    new logs.log().WriteLog(0, "Saved options state: " + set_options.Checked.ToString());
+                    try
+                    {
+                        if (set_options.Checked)
+                        {
+                            new logic.files("options", _MinecraftPath + @"\options.txt", "f").WriteCFG();
+                        }
+                        else
+                        {
+                            new logic.files().DeleteFromFile("options", _MinecraftPath + @"\options.txt");
+                            new logs.log().WriteLog(0, "Deleted options state: " + set_options.Checked.ToString());
+                        }
+
+
+                    }
+                    catch (Exception)
+                    {
+                    }
                 }
-                else
+                catch (Exception)
                 {
-                    if (File.Exists(@"config\options.txt"))
-                    {
-                        logic.options.SetState(set_options.Checked);
-                    }
-                    else
-                    {
-                        new logic.options("options.txt", _MinecraftPath + @"\options.txt", set_options.Checked).WriteToFile();
-                    }
+                    new logs.log().WriteLog(2, "Saved options state: " + set_options.Checked.ToString());
                 }
 
                 #endregion
 
                 #region SCREENSHOTS STATE
 
-                if (_ScreenshotsState == set_screenshots.Checked)
+
+                try
                 {
+                    new logic.cfg("screenshots", set_screenshots.Checked.ToString()).WriteCFG();
+                    new logs.log().WriteLog(0, "Saved screenshots state: " + set_screenshots.Checked.ToString());
+                    try
+                    {
+                        if (set_screenshots.Checked)
+                        {
+                            new logic.files("screenshots", _MinecraftPath + @"\screenshots", "d").WriteCFG();
+                        }
+                        else
+                        {
+                            new logic.files().DeleteFromFile("screenshots", _MinecraftPath + @"\screenshots");
+                            new logs.log().WriteLog(0, "Delete screenshots state: " + set_screenshots.Checked.ToString());
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        new logic.cfg("screenshots", false.ToString()).WriteCFG();
+                    }
                 }
-                else
+                catch (Exception)
                 {
-                    if (File.Exists(@"config\screenshots.txt"))
-                    {
-                        logic.screenshots.SetState(set_screenshots.Checked);
-                    }
-                    else
-                    {
-                        new logic.screenshots("screenshots", _MinecraftPath + @"\screenshots", set_screenshots.Checked).WriteToFile();
-                    }
+                    new logs.log().WriteLog(2, "Saved screenshots state: " + set_screenshots.Checked.ToString());
                 }
+
 
                 #endregion
 
                 #region LOGS STATE
 
-                if (_LogsState == back_enable.Checked)
+                try
                 {
+                    new logic.cfg("logs", back_enablelog.Checked.ToString()).WriteCFG();
+                    new logs.log().WriteLog(0, "Saved Logs state: " + back_enablelog.Checked.ToString());
                 }
-                else
+                catch (Exception)
                 {
-                    new logic.logs(back_enable.Checked).WriteToFile();
+                    new logs.log().WriteLog(2, "Saved Logs state: " + back_enablelog.Checked.ToString());
                 }
 
+                #endregion
+
+                #region CHECK UPDATES
+
+                try
+                {
+                    new logic.cfg("updater", back_checkupdate.Checked.ToString()).WriteCFG();
+                    new logs.log().WriteLog(0, "Saved Check updates state: " + back_checkupdate.Checked.ToString());
+                }
+                catch (Exception)
+                {
+                    new logs.log().WriteLog(2, "Saved Check state: " + back_enablelog.Checked.ToString());
+                }
 
                 #endregion
 
                 #region STARTUP STATE
 
-                if (_StartupState == back_startup.Checked)
-                {
 
-                }
-                else
+                try
                 {
-                    new logic.startup(back_startup.Checked).WriteToFile();
+                    new logic.cfg("startup", back_enablelog.Checked.ToString()).WriteCFG();
+                    new logs.log().WriteLog(0, "Saved startup state: " + back_startup.Checked.ToString());
 
                     RegistryKey registryKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
 
@@ -616,20 +1259,67 @@ namespace backcraft
                         registryKey.DeleteValue("Backcraft");
                     }
                 }
+                catch (Exception)
+                {
+                    new logs.log().WriteLog(2, "Saved startup state: " + back_startup.Checked.ToString());
+                }
+
 
                 #endregion
 
                 #region INTERVAL STATE
 
-                if (_IntervalTime == scroll_interval.Value)
+                try
                 {
+                    new logic.cfg("interval", scroll_interval.Value.ToString()).WriteCFG();
+                    new logs.log().WriteLog(0, "Saved interval value: " + scroll_interval.Value.ToString());
                 }
-                else
+                catch (Exception)
                 {
-                    new logic.interval(scroll_interval.Value).WriteToFile();
+                    new logs.log().WriteLog(2, "Saved interval value: " + scroll_interval.Value.ToString());
                 }
 
                 #endregion
+
+                #region BACKUPS
+
+                try
+                {
+                    foreach (DataGridViewRow r in gridview_backups.Rows)
+                    {
+                        try
+                        {
+                            new logic.paths(r.Cells[0].Value.ToString()).WriteCFg();
+                            new logs.log().WriteLog(0, "Saved destination path: " + r.Cells[0].Value.ToString());
+                        }
+                        catch (Exception)
+                        {
+                            new logs.log().WriteLog(2, "Saved destination path: " + r.Cells[0].Value.ToString());
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    new logs.log().WriteLog(2, "Destination path save");
+                }
+
+                #endregion
+
+                #region 7ZIP
+
+                try
+                {
+                    new logic.cfg("7zip", textbox_7zip.Text.ToString()).WriteCFG();
+                    new logs.log().WriteLog(0, "Saved 7zip path: " + textbox_7zip.Text.ToString());
+                }
+                catch (Exception)
+                {
+                    new logs.log().WriteLog(2, "Saved 7zip path: " + textbox_7zip.Text.ToString());
+                }
+
+                #endregion
+
+                new logs.log().WriteLog(0, "All files saved, restarting Backcraft..");
 
                 RestartApp();
             }
@@ -638,28 +1328,46 @@ namespace backcraft
                 string a = err.ToString();
                 /// Change text value for btn
                 back_save.Text = "Error!";
+                new logs.log().WriteLog(3, "Error in saving");
             }
         }
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            /// BACKUP NOW BUTTON 
-
-            // TODO: check whether settings are valid first
-
+            /// BACKUP NOW BUTTON
             try
             {
-                var a = Backcraft();
+                new logs.log().WriteLog(0, "Manual backup");
+                //var a = Backcraft();
+                logic.backup.MakeBackup(states);
             }
             catch (Exception)
             {
+                new logs.log().WriteLog(3, "Manual backup");
             }
         }
 
         private void btn_deletesettings_Click(object sender, EventArgs e)
         {
-            Directory.Delete(@"config", true);
-            RestartApp();
+            try
+            {
+                new logs.log().WriteLog(0, "Delete config");
+                Directory.Delete(@"config", true);
+            }
+            catch (Exception)
+            {
+                new logs.log().WriteLog(2, "Delete config");
+            }
+
+            try
+            {
+                new logs.log().WriteLog(0, "Restarting Backcraft");
+                RestartApp();
+            }
+            catch (Exception)
+            {
+                new logs.log().WriteLog(3, "Restarting Backcraft");
+            }
         }
 
         #endregion
@@ -669,61 +1377,111 @@ namespace backcraft
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             /// Link to github repo
-            System.Diagnostics.Process.Start("https://github.com/emimontesdeoca/backcraft");
-        }
 
+        }
 
         #endregion
 
-        private void m_panel_Enter(object sender, EventArgs e)
+        #region CLOSING
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            new logs.log().WriteLog(5, "");
+        }
+
+        #endregion
+
+        #region FOOTER AND TOP
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/emimontesdeoca/backcraft");
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://twitter.com/emimontesdeocaa");
+        }
+
+        private void btn_report_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/emimontesdeoca/Backcraft/issues/new");
+
+        }
+
+        private void btn_info_Click(object sender, EventArgs e)
+        {
+            new info().ShowDialog();
+        }
+
+        #endregion
+
+        private void toolStripStatusLabel3_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://twitter.com/emimontesdeocaa");
+        }
+
+        private void toolStripStatusLabel4_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/emimontesdeoca/backcraft");
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void btnBrowseMC_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
-            folderBrowserDialog1.Description = "Minecraft folder";
-
-            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
-                txtMinecraftPath.Text = folderBrowserDialog1.SelectedPath;
+            new logic.cfg("minecraft", textbox_minecraftpath.Text.ToString()).WriteCFG();
+            _MinecraftPath = textBox1.Text;
         }
 
-        private void btnBrowse7Z_Click(object sender, EventArgs e)
+        private void label3_Click(object sender, EventArgs e)
         {
-            folderBrowserDialog1.Description = "7-Zip path";
 
-            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
-                txtPath7Zip.Text = folderBrowserDialog1.SelectedPath;
+
+            new ResPacksForm().Show();
+
+            try
+            {
+                loadGridviewResourcePacks();
+
+                label_text.Text = "Select the resource packs to save";
+
+                doStyleResizeForSettings(40 + gridview_resourcepacks.Height, 0);
+
+                btn_minecraftpathsave.Visible = false;
+
+                textbox_minecraftpath.Visible = false;
+                btn_minecraftfoldersearch.Visible = false;
+                btn_minecraftpathsave.Visible = false;
+                gridview_resourcepacks.Visible = true;
+                gridview_worlds.Visible = false;
+            }
+            catch (Exception)
+            {
+
+            }
         }
 
-        private void defaultMCPath_Click(object sender, EventArgs e)
+        private void b_panel_Enter(object sender, EventArgs e)
         {
-            txtMinecraftPath.Text =
-            Environment.GetFolderPath 
-            (Environment.SpecialFolder.ApplicationData) + @"\.minecraft";
+
         }
 
-        private void Default7ZPath_Click(object sender, EventArgs e)
-        {     
-           // TODO: 7-Zip may be located in either Program Files or Program Files (x86)
-           txtPath7Zip.Text =
-           Environment.GetFolderPath
-           (Environment.SpecialFolder.ProgramFiles) + @"\7-Zip\7z.exe";
+        private void label5_Click(object sender, EventArgs e)
+        {
+            new BackupPathsForm().Show();
         }
 
-        private void txtMinecraftPath_MouseLeave(object sender, EventArgs e)
+        private void label4_Click(object sender, EventArgs e)
         {
-            // TODO: there should be a better time to save these settings
-            new logic.minecraftpath(txtMinecraftPath.Text).WriteToFile();
-            Form1._MinecraftPath = txtMinecraftPath.Text;
-        }
-
-        private void txtPath7Zip_MouseLeave(object sender, EventArgs e)
-        {
-            // TODO: there should be a better time to save these settings
-            new logic._7zippath(txtPath7Zip.Text).WriteToFile();
-            Form1._Backcraft7ZipPath = txtPath7Zip.Text;
+            new BackupSavesForm().Show();
         }
 
     }
+
+        #endregion
 }
+
