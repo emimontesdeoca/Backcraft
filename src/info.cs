@@ -100,6 +100,54 @@ namespace backcraft
             }
 
             #endregion
+
+            #region PATHS
+
+            var col1_p = new DataGridViewTextBoxColumn();
+
+            col1_p.HeaderText = "Path";
+            col1_p.Name = "path";
+            col1_p.ReadOnly = true;
+
+            dataGridView_paths.Columns.AddRange(new DataGridViewColumn[] { col1_p });
+            dataGridView_paths.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView_paths.AutoSize = false;
+            dataGridView_paths.AllowUserToResizeRows = false;
+            dataGridView_paths.AllowUserToAddRows = false;
+            dataGridView_paths.RowHeadersVisible = false;
+
+            dataGridView_paths.Rows.Clear();
+
+            try
+            {
+                List<string> l = logic.paths.GetPaths();
+
+                foreach (string s in l)
+                {
+                    dataGridView_paths.Rows.Add(s);
+                }
+            }
+            catch (Exception)
+            {
+            }
+
+
+            try
+            {
+                List<logic.files> FilesToBackup = logic.files.GetFiles();
+
+                foreach (logic.files f in FilesToBackup)
+                {
+                    dataGridView_files.Rows.Add(f.name, f.path, f.MD5);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            #endregion
         }
 
         private void info_Load(object sender, EventArgs e)
