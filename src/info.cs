@@ -131,22 +131,6 @@ namespace backcraft
             {
             }
 
-
-            try
-            {
-                List<logic.files> FilesToBackup = logic.files.GetFiles();
-
-                foreach (logic.files f in FilesToBackup)
-                {
-                    dataGridView_files.Rows.Add(f.name, f.path, f.MD5);
-                }
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-
             #endregion
         }
 

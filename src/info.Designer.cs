@@ -214,7 +214,7 @@
             this.dataGridView_files.Location = new System.Drawing.Point(6, 6);
             this.dataGridView_files.Name = "dataGridView_files";
             this.dataGridView_files.ReadOnly = true;
-            this.dataGridView_files.Size = new System.Drawing.Size(390, 319);
+            this.dataGridView_files.Size = new System.Drawing.Size(390, 324);
             this.dataGridView_files.TabIndex = 0;
             // 
             // tabPage3
