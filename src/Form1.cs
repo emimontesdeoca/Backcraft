@@ -1198,6 +1198,27 @@ namespace backcraft
             }
         }
 
+        private void btnSearchMCPath_Click(object sender, EventArgs e)
+        {
+            using (var dlg = new FolderBrowserDialog())
+            {
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    textBox1.Text = dlg.SelectedPath;
+                }
+            }
+        }
+
+        private void btnSearch7zipPath_Click(object sender, EventArgs e)
+        {
+            using (var dlg = new FolderBrowserDialog())
+            {
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    textbox_7zip.Text = dlg.SelectedPath;
+                }
+            }
+        }
     }     
 }
 

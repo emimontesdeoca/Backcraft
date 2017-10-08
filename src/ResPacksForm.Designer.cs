@@ -28,7 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.Icon = Properties.Resources.icon;
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.gridview_resourcepacks = new System.Windows.Forms.DataGridView();
             this.ColName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -57,12 +60,22 @@
             this.ColName,
             this.ColPath,
             this.BackupCol});
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gridview_resourcepacks.DefaultCellStyle = dataGridViewCellStyle1;
             this.gridview_resourcepacks.GridColor = System.Drawing.Color.White;
             this.gridview_resourcepacks.Location = new System.Drawing.Point(14, 32);
             this.gridview_resourcepacks.Margin = new System.Windows.Forms.Padding(4);
             this.gridview_resourcepacks.MinimumSize = new System.Drawing.Size(595, 208);
             this.gridview_resourcepacks.Name = "gridview_resourcepacks";
             this.gridview_resourcepacks.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            this.gridview_resourcepacks.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.gridview_resourcepacks.ShowEditingIcon = false;
             this.gridview_resourcepacks.ShowRowErrors = false;
             this.gridview_resourcepacks.Size = new System.Drawing.Size(595, 208);

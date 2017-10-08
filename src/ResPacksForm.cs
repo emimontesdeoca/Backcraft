@@ -23,7 +23,6 @@ namespace backcraft
         {
             gridview_resourcepacks.Enabled = false;
 
-            gridview_resourcepacks.Rows.Clear();
             try
             {
                 List<string> d = Directory.GetDirectories(Form1._MinecraftPath + "resourcepacks").ToList();

@@ -135,7 +135,7 @@
             this.label5.AutoSize = true;
             this.label5.Cursor = System.Windows.Forms.Cursors.Hand;
             this.label5.Image = global::backcraft.Properties.Resources.settings;
-            this.label5.Location = new System.Drawing.Point(415, 294);
+            this.label5.Location = new System.Drawing.Point(352, 295);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(14, 19);
             this.label5.TabIndex = 51;
@@ -151,6 +151,7 @@
             this.btnSearch7zipPath.Size = new System.Drawing.Size(33, 31);
             this.btnSearch7zipPath.TabIndex = 49;
             this.btnSearch7zipPath.UseVisualStyleBackColor = true;
+            this.btnSearch7zipPath.Click += new System.EventHandler(this.btnSearch7zipPath_Click);
             // 
             // btnSave7ZipPath
             // 
@@ -239,12 +240,12 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(102, 294);
+            this.label2.Location = new System.Drawing.Point(126, 294);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(299, 19);
+            this.label2.Size = new System.Drawing.Size(220, 19);
             this.label2.TabIndex = 16;
-            this.label2.Text = "Your files will be backed up to 0 path(s).";
+            this.label2.Text = "Configure backup location(s)\r\n";
             this.toolTip1.SetToolTip(this.label2, "Paths in which backups are saved");
             // 
             // label1
@@ -623,6 +624,7 @@
             this.btnSearchMCPath.Size = new System.Drawing.Size(33, 31);
             this.btnSearchMCPath.TabIndex = 46;
             this.btnSearchMCPath.UseVisualStyleBackColor = true;
+            this.btnSearchMCPath.Click += new System.EventHandler(this.btnSearchMCPath_Click);
             // 
             // btnSaveMCPath
             // 
