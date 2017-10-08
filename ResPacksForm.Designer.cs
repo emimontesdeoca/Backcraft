@@ -30,13 +30,13 @@
         {
             this.components = new System.ComponentModel.Container();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.gridview_resourcepacks = new System.Windows.Forms.DataGridView();
             this.ColName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColPath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BackupCol = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridview_resourcepacks)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,27 +46,27 @@
             this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // dataGridView1
+            // gridview_resourcepacks
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.Control;
-            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.gridview_resourcepacks.AllowUserToAddRows = false;
+            this.gridview_resourcepacks.AllowUserToDeleteRows = false;
+            this.gridview_resourcepacks.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.gridview_resourcepacks.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.gridview_resourcepacks.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.gridview_resourcepacks.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColName,
             this.ColPath,
             this.BackupCol});
-            this.dataGridView1.GridColor = System.Drawing.Color.White;
-            this.dataGridView1.Location = new System.Drawing.Point(14, 32);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
-            this.dataGridView1.MinimumSize = new System.Drawing.Size(595, 208);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.dataGridView1.ShowEditingIcon = false;
-            this.dataGridView1.ShowRowErrors = false;
-            this.dataGridView1.Size = new System.Drawing.Size(595, 208);
-            this.dataGridView1.TabIndex = 43;
+            this.gridview_resourcepacks.GridColor = System.Drawing.Color.White;
+            this.gridview_resourcepacks.Location = new System.Drawing.Point(14, 32);
+            this.gridview_resourcepacks.Margin = new System.Windows.Forms.Padding(4);
+            this.gridview_resourcepacks.MinimumSize = new System.Drawing.Size(595, 208);
+            this.gridview_resourcepacks.Name = "gridview_resourcepacks";
+            this.gridview_resourcepacks.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.gridview_resourcepacks.ShowEditingIcon = false;
+            this.gridview_resourcepacks.ShowRowErrors = false;
+            this.gridview_resourcepacks.Size = new System.Drawing.Size(595, 208);
+            this.gridview_resourcepacks.TabIndex = 43;
             // 
             // ColName
             // 
@@ -98,7 +98,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.dataGridView1);
+            this.groupBox1.Controls.Add(this.gridview_resourcepacks);
             this.groupBox1.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.groupBox1.Location = new System.Drawing.Point(12, 13);
@@ -118,7 +118,7 @@
             this.Name = "ResPacksForm";
             this.Text = "Backup resource packs";
             this.Load += new System.EventHandler(this.GenericListInputForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridview_resourcepacks)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -127,7 +127,7 @@
         #endregion
 
         private System.Windows.Forms.ImageList imageList1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView gridview_resourcepacks;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColName;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColPath;
         private System.Windows.Forms.DataGridViewCheckBoxColumn BackupCol;

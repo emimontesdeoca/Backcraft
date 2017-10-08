@@ -75,7 +75,6 @@
             this.btnSearchMCPath = new System.Windows.Forms.Button();
             this.btnSaveMCPath = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.gridview_backups = new System.Windows.Forms.DataGridView();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripEmiliano = new System.Windows.Forms.ToolStripStatusLabel();
             this.separator1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -90,7 +89,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridview_resourcepacks)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridview_worlds)).BeginInit();
             this.m_panel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridview_backups)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -574,7 +572,6 @@
             this.m_panel.Controls.Add(this.btn_minecraftfoldersearch);
             this.m_panel.Controls.Add(this.label7);
             this.m_panel.Controls.Add(this.btn_minecraftpathsave);
-            this.m_panel.Controls.Add(this.gridview_backups);
             this.m_panel.Controls.Add(this.textbox_minecraftpath);
             this.m_panel.Controls.Add(this.label14);
             this.m_panel.Controls.Add(this.set_saves);
@@ -646,16 +643,6 @@
             this.textBox1.Size = new System.Drawing.Size(405, 27);
             this.textBox1.TabIndex = 43;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            // 
-            // gridview_backups
-            // 
-            this.gridview_backups.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridview_backups.Location = new System.Drawing.Point(497, 153);
-            this.gridview_backups.Name = "gridview_backups";
-            this.gridview_backups.RowTemplate.Height = 24;
-            this.gridview_backups.Size = new System.Drawing.Size(53, 45);
-            this.gridview_backups.TabIndex = 50;
-            this.gridview_backups.Visible = false;
             // 
             // statusStrip1
             // 
@@ -760,7 +747,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridview_worlds)).EndInit();
             this.m_panel.ResumeLayout(false);
             this.m_panel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridview_backups)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -822,7 +808,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnSearch7zipPath;
         private System.Windows.Forms.Button btnSave7ZipPath;
-        private System.Windows.Forms.DataGridView gridview_backups;
         private System.Windows.Forms.Label label5;
     }
 }

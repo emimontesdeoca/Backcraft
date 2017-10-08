@@ -21,9 +21,9 @@ namespace backcraft
 
         private void loadGridviewResourcePacks()
         {
-            dataGridView1.Enabled = false;
+            gridview_resourcepacks.Enabled = false;
 
-            dataGridView1.Rows.Clear();
+            gridview_resourcepacks.Rows.Clear();
             try
             {
                 List<string> d = Directory.GetDirectories(Form1._MinecraftPath + "resourcepacks").ToList();
@@ -47,7 +47,7 @@ namespace backcraft
                         catch (Exception)
                         {
                         }
-                        dataGridView1.Rows.Add(name, path, check);
+                        gridview_resourcepacks.Rows.Add(name, path, check);
                     }
                 }
                 catch (Exception)
@@ -58,17 +58,17 @@ namespace backcraft
                         string path = dir;
                         bool check = false;
 
-                        dataGridView1.Rows.Add(name, path, check);
+                        gridview_resourcepacks.Rows.Add(name, path, check);
                     }
                 }
 
 
-                int gridview_rp_height = dataGridView1.Rows.GetRowsHeight(DataGridViewElementStates.Visible);
+                int gridview_rp_height = gridview_resourcepacks.Rows.GetRowsHeight(DataGridViewElementStates.Visible);
 
-                dataGridView1.Enabled = true;
-                dataGridView1.Height = gridview_rp_height + 47;
+                gridview_resourcepacks.Enabled = true;
+                gridview_resourcepacks.Height = gridview_rp_height + 47;
 
-                dataGridView1.Enabled = true;
+                gridview_resourcepacks.Enabled = true;
             }
             catch
             {
@@ -79,32 +79,40 @@ namespace backcraft
         {         
             loadGridviewResourcePacks();
 
-            dataGridView1.Columns[0].Width = dataGridView1.Width * 2 / 7;
-            dataGridView1.Columns[1].Width = dataGridView1.Width * 4 / 7;
-            dataGridView1.Columns[2].Width = dataGridView1.Width * 1 / 7;    
+            gridview_resourcepacks.Columns[0].Width = gridview_resourcepacks.Width * 2 / 7;
+            gridview_resourcepacks.Columns[1].Width = gridview_resourcepacks.Width * 4 / 7;
+            gridview_resourcepacks.Columns[2].Width = gridview_resourcepacks.Width * 1 / 7;    
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            foreach (DataGridViewRow r in dataGridView1.Rows)
+            try
             {
-                string name = r.Cells[0].Value.ToString();
-                string path = r.Cells[1].Value.ToString();
-                string check = r.Cells[2].Value.ToString();
-                if (Convert.ToBoolean(check))
+                foreach (DataGridViewRow r in gridview_resourcepacks.Rows)
                 {
-                    new logic.files(name, path, "d").WriteCFG();
-                }
-                else
-                {
-                    try
+                    string name = r.Cells[0].Value.ToString();
+                    string path = r.Cells[1].Value.ToString();
+                    string check = r.Cells[2].Value.ToString();
+                    if (Convert.ToBoolean(check))
                     {
-                        new logic.files().DeleteFromFile(name, path);
+                        new logic.files(name, path, "d").WriteCFG();
                     }
-                    catch (Exception)
+                    else
                     {
+                        try
+                        {
+                            new logic.files().DeleteFromFile(name, path);
+                        }
+                        catch (Exception)
+                        {
+
+                        }
                     }
+
                 }
+            }
+            catch
+            {
 
             }
         }

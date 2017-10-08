@@ -32,12 +32,12 @@
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.gridview_backups = new System.Windows.Forms.ListView();
+            this.colPath = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.button2 = new System.Windows.Forms.Button();
-            this.listView1 = new System.Windows.Forms.ListView();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.colPath = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -56,10 +56,11 @@
             this.button1.Size = new System.Drawing.Size(38, 32);
             this.button1.TabIndex = 46;
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.listView1);
+            this.groupBox1.Controls.Add(this.gridview_backups);
             this.groupBox1.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.groupBox1.Location = new System.Drawing.Point(14, 12);
@@ -68,6 +69,22 @@
             this.groupBox1.TabIndex = 47;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Where to backup to?";
+            // 
+            // gridview_backups
+            // 
+            this.gridview_backups.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.colPath});
+            this.gridview_backups.Location = new System.Drawing.Point(16, 35);
+            this.gridview_backups.Name = "gridview_backups";
+            this.gridview_backups.Size = new System.Drawing.Size(593, 205);
+            this.gridview_backups.TabIndex = 0;
+            this.gridview_backups.UseCompatibleStateImageBehavior = false;
+            this.gridview_backups.View = System.Windows.Forms.View.Details;
+            // 
+            // colPath
+            // 
+            this.colPath.Text = "Path";
+            this.colPath.Width = 578;
             // 
             // button2
             // 
@@ -78,17 +95,6 @@
             this.button2.TabIndex = 48;
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // listView1
-            // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.colPath});
-            this.listView1.Location = new System.Drawing.Point(16, 35);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(593, 205);
-            this.listView1.TabIndex = 0;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
             // 
             // button3
             // 
@@ -118,11 +124,6 @@
             this.textBox1.Size = new System.Drawing.Size(392, 27);
             this.textBox1.TabIndex = 51;
             // 
-            // colPath
-            // 
-            this.colPath.Text = "Path";
-            this.colPath.Width = 578;
-            // 
             // BackupPathsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -149,7 +150,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView gridview_backups;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.TextBox textBox1;

@@ -13,7 +13,6 @@ namespace backcraft
 {
     public partial class Form1 : Form
     {
-
         #region VARS
 
         /// <summary>
@@ -486,9 +485,6 @@ namespace backcraft
 
             _MinecraftPath = textBox1.Text;
 
-            loadGridviewWStructure();
-            loadGridviewBStructure();
-
             int interval = _IntervalTime;
 
             CancellationToken cancel = new CancellationToken();
@@ -559,228 +555,6 @@ namespace backcraft
 
         #endregion
 
-        #region LOAD GRIDVIEW ITEMS
-
-        private void loadGridviewRPStructure()
-        {
-            var col1 = new DataGridViewTextBoxColumn();
-            var col2 = new DataGridViewTextBoxColumn();
-            var col3 = new DataGridViewCheckBoxColumn();
-
-            col1.HeaderText = "Name";
-            col1.Name = "name";
-            col1.ReadOnly = true;
-
-            col2.HeaderText = "Path";
-            col2.Name = "path";
-            col2.ReadOnly = true;
-
-            col3.HeaderText = "Backup";
-            col3.Name = "backup";
-
-            gridview_worlds.Columns.AddRange(new DataGridViewColumn[] { col1, col2, col3 });
-            gridview_worlds.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            gridview_worlds.AllowUserToAddRows = false;
-            gridview_worlds.RowHeadersVisible = false;
-            gridview_worlds.AllowUserToResizeRows = false;
-
-            col3.Width = 50;
-            col1.Width = 100;
-        }
-
-        private void loadGridviewWStructure()
-        {
-            var col1 = new DataGridViewTextBoxColumn();
-            var col2 = new DataGridViewTextBoxColumn();
-            var col3 = new DataGridViewCheckBoxColumn();
-
-            col1.HeaderText = "Name";
-            col1.Name = "name";
-            col1.ReadOnly = true;
-
-            col2.HeaderText = "Path";
-            col2.Name = "path";
-            col2.ReadOnly = true;
-
-            col3.HeaderText = "Backup";
-            col3.Name = "backup";
-
-            gridview_resourcepacks.Columns.AddRange(new DataGridViewColumn[] { col1, col2, col3 });
-            gridview_resourcepacks.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            gridview_resourcepacks.AllowUserToAddRows = false;
-            gridview_resourcepacks.AllowUserToResizeRows = false;
-
-            gridview_resourcepacks.RowHeadersVisible = false;
-            col3.Width = 30;
-        }
-
-        private void loadGridviewBStructure()
-        {
-            var col1 = new DataGridViewTextBoxColumn();
-            var col2 = new DataGridViewButtonColumn();
-
-            col1.HeaderText = "Path";
-            col1.Name = "path";
-            col1.ReadOnly = true;
-
-            col2.HeaderText = "Delete";
-            col2.Name = "delete";
-
-            gridview_backups.Columns.AddRange(new DataGridViewColumn[] { col1, col2 });
-            gridview_backups.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            gridview_backups.AllowUserToAddRows = false;
-            gridview_backups.AllowUserToResizeRows = false;
-
-            gridview_backups.RowHeadersVisible = false;
-            col2.Width = 50;
-        }
-
-        private void loadGridviewResourcePacks()
-        {
-            gridview_resourcepacks.Enabled = false;
-
-            gridview_resourcepacks.Rows.Clear();
-            try
-            {
-                List<string> d = Directory.GetDirectories(_MinecraftPath + @"\resourcepacks").ToList();
-
-                try
-                {
-                    List<logic.files> files = logic.files.GetFiles();
-
-                    foreach (string dir in d)
-                    {
-                        string name = dir.Split('\\').Last();
-                        string path = dir;
-                        bool check = false;
-                        try
-                        {
-                            if (files.Single(x => x.name == name && x.path == path) != null)
-                            {
-                                check = true;
-                            }
-                        }
-                        catch (Exception)
-                        {
-                        }
-                        gridview_resourcepacks.Rows.Add(name, path, check);
-                    }
-                }
-                catch (Exception)
-                {
-                    foreach (string dir in d)
-                    {
-                        string name = dir.Split('\\').Last();
-                        string path = dir;
-                        bool check = false;
-
-                        gridview_resourcepacks.Rows.Add(name, path, check);
-                    }
-                }
-
-
-                int gridview_rp_height = gridview_resourcepacks.Rows.GetRowsHeight(DataGridViewElementStates.Visible);
-
-                gridview_resourcepacks.Enabled = true;
-                gridview_resourcepacks.Height = gridview_rp_height + 47;
-
-                gridview_resourcepacks.Enabled = true;
-            }
-            catch (Exception)
-            {
-                throw new Exception();
-            }
-        }
-
-        private void loadGridviewWorlds()
-        {
-            gridview_worlds.Enabled = false;
-
-            gridview_worlds.Rows.Clear();
-
-            try
-            {
-                List<string> d = Directory.GetDirectories(_MinecraftPath + @"\saves").ToList();
-
-                try
-                {
-                    List<logic.files> files = logic.files.GetFiles();
-                    if (files.Count != 0)
-                    {
-                        foreach (string dir in d)
-                        {
-                            string name = dir.Split('\\').Last();
-                            string path = dir;
-                            bool check = false;
-                            try
-                            {
-                                if (files.Single(x => x.name == name && x.path == path) != null)
-                                {
-                                    check = true;
-                                }
-                            }
-                            catch (Exception)
-                            {
-                            }
-                            gridview_worlds.Rows.Add(name, path, check);
-                        }
-                    }
-                    else
-                    {
-
-                        foreach (string dir in d)
-                        {
-                            string name = dir.Split('\\').Last();
-                            string path = dir;
-                            bool check = false;
-                            gridview_worlds.Rows.Add(name, path, check);
-                        }
-                    }
-                }
-                catch (Exception)
-                {
-                }
-
-                int gridview_worlds_height = gridview_worlds.Rows.GetRowsHeight(DataGridViewElementStates.Visible);
-
-                gridview_worlds.Enabled = true;
-                gridview_worlds.Height = gridview_worlds_height + 47;
-            }
-            catch (Exception)
-            {
-                throw new Exception();
-            }
-        }
-
-        private void loadGridviewBackups()
-        {
-            gridview_backups.Rows.Clear();
-
-            try
-            {
-                List<string> l = logic.paths.GetPaths();
-
-                foreach (string s in l)
-                {
-                    gridview_backups.Rows.Add(s, "Delete");
-                }
-            }
-            catch (Exception)
-            {
-            }
-
-            int gridview_backups_height = gridview_backups.Rows.GetRowsHeight(DataGridViewElementStates.Visible);
-
-            gridview_backups.Enabled = true;
-            gridview_backups.Height = gridview_backups_height + 47;
-        }
-
-        #endregion
-
-        #endregion
-
-        #endregion
-
         #region BACKCRAFT
 
         #region ENABLING
@@ -842,8 +616,6 @@ namespace backcraft
         {
             try
             {
-                loadGridviewWorlds();
-
                 label_text.Text = "Select the worlds to save";
 
                 doStyleResizeForSettings(40 + gridview_worlds.Height, 0);
@@ -860,21 +632,6 @@ namespace backcraft
             catch (Exception)
             {
 
-            }
-        }
-
-        private void gridview_backups_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (gridview_backups.Columns[e.ColumnIndex].Name == "delete")
-            {
-                try
-                {
-                    new logic.paths().DeleteFromFile(gridview_backups.Rows[e.RowIndex].Cells[0].Value.ToString());
-                    gridview_backups.Rows.RemoveAt(e.RowIndex);
-                }
-                catch (Exception)
-                {
-                }
             }
         }
 
@@ -902,7 +659,7 @@ namespace backcraft
 
         private void doStyleResizeForSettings(int newLoc, int i)
         {
-           
+
         }
 
         private void btn_close_Click(object sender, EventArgs e)
@@ -1060,7 +817,7 @@ namespace backcraft
                     string name = r.Cells[0].Value.ToString();
                     string path = r.Cells[1].Value.ToString();
                     string check = r.Cells[2].Value.ToString();
-                    
+
                     if (Convert.ToBoolean(check))
                     {
                         new logic.files(name, path, "d").WriteCFG();
@@ -1076,43 +833,6 @@ namespace backcraft
                         }
                     }
                 }
-
-                #endregion
-                
-                #region WORLDS/SAVES STATE
-
-                try
-                {
-                    new logic.cfg("worlds", set_saves.Checked.ToString()).WriteCFG();
-                    new logs.log().WriteLog(0, "Saved worlds state: " + set_saves.Checked.ToString());
-                }
-                catch (Exception)
-                {
-                    new logs.log().WriteLog(2, "Saved worlds state: " + set_saves.Checked.ToString());
-                }
-
-                foreach (DataGridViewRow r in gridview_worlds.Rows)
-                {
-                    string name = r.Cells[0].Value.ToString();
-                    string path = r.Cells[1].Value.ToString();
-                    string check = r.Cells[2].Value.ToString();
-                    if (Convert.ToBoolean(check))
-                    {
-                        new logic.files(name, path, "d").WriteCFG();
-                    }
-                    else
-                    {
-                        try
-                        {
-                            new logic.files().DeleteFromFile(name, path);
-                        }
-                        catch (Exception)
-                        {
-                        }
-                    }
-
-                }
-
 
                 #endregion
 
@@ -1181,7 +901,6 @@ namespace backcraft
                 #endregion
 
                 #region SCREENSHOTS STATE
-
 
                 try
                 {
@@ -1277,30 +996,6 @@ namespace backcraft
                 catch (Exception)
                 {
                     new logs.log().WriteLog(2, "Saved interval value: " + scroll_interval.Value.ToString());
-                }
-
-                #endregion
-
-                #region BACKUPS
-
-                try
-                {
-                    foreach (DataGridViewRow r in gridview_backups.Rows)
-                    {
-                        try
-                        {
-                            new logic.paths(r.Cells[0].Value.ToString()).WriteCFg();
-                            new logs.log().WriteLog(0, "Saved destination path: " + r.Cells[0].Value.ToString());
-                        }
-                        catch (Exception)
-                        {
-                            new logs.log().WriteLog(2, "Saved destination path: " + r.Cells[0].Value.ToString());
-                        }
-                    }
-                }
-                catch (Exception)
-                {
-                    new logs.log().WriteLog(2, "Destination path save");
                 }
 
                 #endregion
@@ -1416,6 +1111,10 @@ namespace backcraft
 
         #endregion
 
+        #endregion
+
+        #endregion
+
         private void toolStripStatusLabel3_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("https://twitter.com/emimontesdeocaa");
@@ -1439,14 +1138,22 @@ namespace backcraft
 
         private void label3_Click(object sender, EventArgs e)
         {
-
-
-            new ResPacksForm().Show();
+            // TODO: repetitive, put in a separate method
+            if (Directory.Exists(textBox1.Text))
+            {
+                new ResPacksForm().Show();
+            }
+            else
+            {
+                MessageBox.Show
+                    ("The Minecraft folder you specified (\"" + textBox1.Text + "\") does not exist.",
+                     "Backcraft - invalid Minecraft folder",
+                     MessageBoxButtons.OK,
+                     MessageBoxIcon.Warning);
+            }
 
             try
             {
-                loadGridviewResourcePacks();
-
                 label_text.Text = "Select the resource packs to save";
 
                 doStyleResizeForSettings(40 + gridview_resourcepacks.Height, 0);
@@ -1477,11 +1184,22 @@ namespace backcraft
 
         private void label4_Click(object sender, EventArgs e)
         {
-            new BackupSavesForm().Show();
+            if (Directory.Exists(textBox1.Text))
+            {
+                new BackupSavesForm().Show();
+            }
+            else
+            {
+                MessageBox.Show
+                    ("The Minecraft folder you specified (\"" + textBox1.Text + "\") does not exist.",
+                     "Backcraft - invalid Minecraft folder",
+                     MessageBoxButtons.OK,
+                     MessageBoxIcon.Warning);
+            }
         }
 
-    }
-
-        #endregion
+    }     
 }
 
+//TODO: I don't know where's the beginning
+#endregion
